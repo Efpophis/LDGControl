@@ -8,7 +8,7 @@ namespace LDGControl
 {
     class AmpCtl
     {
-        public AmpCtl(string port) 
+        public AmpCtl(string port)
         {
             m_sio = new SerialIO(port, 9600, SerialIO.StopBits.One, SerialIO.Parity.None);
 
@@ -18,12 +18,7 @@ namespace LDGControl
             }
 
             ampOn();
-        }        
-
-        ~AmpCtl()
-        {
-            ampOff();
-        }
+        }       
         
         public void ampOn()
         {
@@ -36,7 +31,7 @@ namespace LDGControl
         }
 
         private SerialIO m_sio;
-        private static readonly byte[] onCmd  = new byte[] { 0xff, 0x01, 0x01 };
-        private static readonly byte[] offCmd = new byte[] { 0xff, 0x01, 0x00 };
+        private static readonly byte[] onCmd  = new byte[] { 0xff, 0x01, 0x00 };
+        private static readonly byte[] offCmd = new byte[] { 0xff, 0x01, 0x01 };
     }
 }

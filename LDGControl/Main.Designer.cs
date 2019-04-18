@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnExit = new System.Windows.Forms.Button();
             this.fwdMeter = new System.Windows.Forms.ProgressBar();
             this.refMeter = new System.Windows.Forms.ProgressBar();
@@ -65,11 +66,18 @@
             this.btnAmpInit = new System.Windows.Forms.Button();
             this.ampPortsBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblTuneStatus = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.btnFullTune = new System.Windows.Forms.Button();
+            this.btnMemTune = new System.Windows.Forms.Button();
+            this.btnBypass = new System.Windows.Forms.Button();
+            this.btnAntTog = new System.Windows.Forms.Button();
             this.btnTunerInit = new System.Windows.Forms.Button();
             this.cmbTunerPorts = new System.Windows.Forms.ComboBox();
             this.lblSwr = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.lblWtf = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -367,7 +375,7 @@
             this.ampStbyBtn.TabIndex = 28;
             this.ampStbyBtn.Text = "Standby";
             this.ampStbyBtn.UseVisualStyleBackColor = true;
-            this.ampStbyBtn.CheckedChanged += new System.EventHandler(this.on_AmpStbyCheckChanges);
+            this.ampStbyBtn.CheckedChanged += new System.EventHandler(this.on_AmpStbyCheckChanged);
             // 
             // ampResetBtn
             // 
@@ -414,6 +422,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblTuneStatus);
+            this.groupBox2.Controls.Add(this.label20);
+            this.groupBox2.Controls.Add(this.btnFullTune);
+            this.groupBox2.Controls.Add(this.btnMemTune);
+            this.groupBox2.Controls.Add(this.btnBypass);
+            this.groupBox2.Controls.Add(this.btnAntTog);
             this.groupBox2.Controls.Add(this.btnTunerInit);
             this.groupBox2.Controls.Add(this.cmbTunerPorts);
             this.groupBox2.Location = new System.Drawing.Point(19, 164);
@@ -422,6 +436,74 @@
             this.groupBox2.TabIndex = 32;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tuner";
+            // 
+            // lblTuneStatus
+            // 
+            this.lblTuneStatus.AutoSize = true;
+            this.lblTuneStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.lblTuneStatus.Location = new System.Drawing.Point(460, 30);
+            this.lblTuneStatus.Name = "lblTuneStatus";
+            this.lblTuneStatus.Size = new System.Drawing.Size(33, 13);
+            this.lblTuneStatus.TabIndex = 7;
+            this.lblTuneStatus.Text = "None";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(363, 30);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(91, 13);
+            this.label20.TabIndex = 6;
+            this.label20.Text = "Last Tune Result:";
+            // 
+            // btnFullTune
+            // 
+            this.btnFullTune.Enabled = false;
+            this.btnFullTune.Location = new System.Drawing.Point(282, 71);
+            this.btnFullTune.Name = "btnFullTune";
+            this.btnFullTune.Size = new System.Drawing.Size(75, 23);
+            this.btnFullTune.TabIndex = 5;
+            this.btnFullTune.Text = "Full";
+            this.toolTip1.SetToolTip(this.btnFullTune, "Forces a full tune");
+            this.btnFullTune.UseVisualStyleBackColor = true;
+            this.btnFullTune.Click += new System.EventHandler(this.btnFullTune_Click);
+            // 
+            // btnMemTune
+            // 
+            this.btnMemTune.Enabled = false;
+            this.btnMemTune.Location = new System.Drawing.Point(282, 20);
+            this.btnMemTune.Name = "btnMemTune";
+            this.btnMemTune.Size = new System.Drawing.Size(75, 23);
+            this.btnMemTune.TabIndex = 4;
+            this.btnMemTune.Text = "Memory";
+            this.toolTip1.SetToolTip(this.btnMemTune, "Forces a Memory Tune");
+            this.btnMemTune.UseVisualStyleBackColor = true;
+            this.btnMemTune.Click += new System.EventHandler(this.btnMemTune_Click);
+            // 
+            // btnBypass
+            // 
+            this.btnBypass.BackColor = System.Drawing.Color.Green;
+            this.btnBypass.Enabled = false;
+            this.btnBypass.Location = new System.Drawing.Point(161, 71);
+            this.btnBypass.Name = "btnBypass";
+            this.btnBypass.Size = new System.Drawing.Size(75, 23);
+            this.btnBypass.TabIndex = 3;
+            this.btnBypass.Text = "Bypass";
+            this.toolTip1.SetToolTip(this.btnBypass, "Toggles between Bypass or Auto Tune");
+            this.btnBypass.UseVisualStyleBackColor = false;
+            this.btnBypass.Click += new System.EventHandler(this.btnBypass_Click);
+            // 
+            // btnAntTog
+            // 
+            this.btnAntTog.Enabled = false;
+            this.btnAntTog.Location = new System.Drawing.Point(161, 19);
+            this.btnAntTog.Name = "btnAntTog";
+            this.btnAntTog.Size = new System.Drawing.Size(75, 23);
+            this.btnAntTog.TabIndex = 2;
+            this.btnAntTog.Text = "Antenna 1";
+            this.toolTip1.SetToolTip(this.btnAntTog, "Toggle selected antenna");
+            this.btnAntTog.UseVisualStyleBackColor = true;
+            this.btnAntTog.Click += new System.EventHandler(this.btnAntTog_Click);
             // 
             // btnTunerInit
             // 
@@ -512,6 +594,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -561,6 +644,13 @@
         private System.Windows.Forms.Label lblSwr;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label lblWtf;
+        private System.Windows.Forms.Button btnAntTog;
+        private System.Windows.Forms.Button btnBypass;
+        private System.Windows.Forms.Label lblTuneStatus;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button btnFullTune;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnMemTune;
     }
 }
 

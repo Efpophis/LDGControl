@@ -199,10 +199,10 @@ namespace LDGControl
             return -1;
         }
 
-        public int ReadFully( byte[] data)
+        public int ReadFully( byte[] data, int startidx = 0)
         {
             byte[] chunk = new byte[1];
-            int bytesRead = 0;
+            int bytesRead = startidx;
             int chunkLen = 0;
 
             while ( bytesRead < data.Length )

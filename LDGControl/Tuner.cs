@@ -98,6 +98,20 @@ namespace LDGControl
             return result;
         }
         
+        public byte[] MemoryTune()
+        {
+            byte[] result = null;
+
+            CtlMode();
+
+            if (SendCommand(memTuneCmd) == true)
+                result = GetResponse();
+
+            MeterMode();
+
+            return result;
+        }
+
         public byte[] Bypass()
         {
             byte[] result = null;
@@ -145,13 +159,15 @@ namespace LDGControl
             // set read thread pause event
             m_thread_suspend.Reset();
 
+            m_sio.SetBlocking(true);
+
             // shut off the meter
             SendCommand(ctlCmd);
 
             // flush the leftove junk if any
             m_sio.Flush();
 
-            m_sio.SetBlocking(true);
+            
         }
 
         private void MeterMode()
@@ -171,12 +187,12 @@ namespace LDGControl
 
             if (m_sio.Write(wakeCmd) == wakeCmd.Length)
             {
-                System.Threading.Thread.Sleep(1);
+                Thread.Sleep(1);
                 if (m_sio.Write(cmd) == cmd.Length)
                 {
                     // doc says wait 200ms minimum before next command,
                     // so we enforce that here.
-                    System.Threading.Thread.Sleep(200);
+                    Thread.Sleep(200);
 
                     result = true;
                 }
@@ -217,69 +233,73 @@ namespace LDGControl
             
             while (m_running)
             {
-                Int16 fwd = 0, refl = 0, wtf = 0, eom = 0;
+                UInt16 fwd = 0, refl = 0, wtf = 0, eom = 0;
 
                 // check the paused event
                 m_thread_suspend.WaitOne();
+                            
+                
+                byte[] blob = new byte[8];
 
-                // read fwd
-                byte[] chunk = new byte[1];
-                byte[] data = new byte[2];
+                int ret = m_sio.Read(blob);
 
-                int ret = m_sio.Read(chunk);
-
-                if (ret == chunk.Length)
+                if ( ret > 0 && ret <= blob.Length)
                 {
-                    // we got one! Read the rest...
-                    data[0] = chunk[0];
+                    if (ret < blob.Length)
+                    {
+                        m_sio.ReadFully(blob, ret);
+                    }
 
-                    m_sio.ReadFully(chunk);
+                    if (BitConverter.IsLittleEndian)
+                    {
+                        // need to fix the blob first ...
+                        for (int i = 0; i < blob.Length; i += 2)
+                        {
+                            byte tmp = blob[i];
+                            blob[i] = blob[i + 1];
+                            blob[i + 1] = tmp;
+                        }
 
-                    data[1] = chunk[0];
+                        fwd = BitConverter.ToUInt16(blob, 0);
 
-                    fwd = BitConverter.ToInt16(data, 0);
+                        refl = BitConverter.ToUInt16(blob, 2);
 
-                    m_sio.ReadFully(data);
+                        wtf = BitConverter.ToUInt16(blob, 4);
 
-                    refl = BitConverter.ToInt16(data, 0);
-
-                    m_sio.ReadFully(data);
-
-                    wtf = BitConverter.ToInt16(data, 0);
-
-                    m_sio.ReadFully(data);
-
-                    eom = BitConverter.ToInt16(data, 0);
+                        eom = BitConverter.ToUInt16(blob, 6);
+                    }
 
                     if (eom == 0x3b3b)
                     {
-                        fwd = System.Net.IPAddress.NetworkToHostOrder(fwd);
-                        refl = System.Net.IPAddress.NetworkToHostOrder(refl);
-                        wtf = System.Net.IPAddress.NetworkToHostOrder(wtf);
+                        //fwd = (UInt16)System.Net.IPAddress.NetworkToHostOrder(fwd);
+                        //refl = (UInt16)System.Net.IPAddress.NetworkToHostOrder(refl);
+                        //wtf = (UInt16)System.Net.IPAddress.NetworkToHostOrder(wtf);
 
                         MeterCallback?.Invoke(fwd, refl, wtf);
+                        //Console.WriteLine("***PING***");
                     }
                 }
                 else if (ret == -1)
                 {
-                    System.Console.WriteLine("Read Thread error on read. Stopping thread.");
-                    m_running = false;
+                    Console.WriteLine("Read Thread error on read. Stopping thread.");
+                    //m_running = false;
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(100);
+                    Thread.Sleep(10);
+                    //Console.WriteLine("***PING***");
                 }
             }            
         }
 
-        public delegate void PostMeterDataCallback(Int16 fwd, Int16 refl, Int16 wtf);
+        public delegate void PostMeterDataCallback(UInt16 fwd, UInt16 refl, UInt16 wtf);
 
         private PostMeterDataCallback MeterCallback = null;
 
         private SerialIO m_sio;
 
         private static readonly byte[] toggleAntCmd = { (byte)'A'};
-        private static readonly byte[] memTuneCmd = { (byte)'M'};
+        private static readonly byte[] memTuneCmd = { (byte)'T'};
         private static readonly byte[] fullTuneCmd = { (byte)'F' };
         private static readonly byte[] bypassCmd = { (byte)'P' };
         private static readonly byte[] autoCmd = { (byte)'C' };
