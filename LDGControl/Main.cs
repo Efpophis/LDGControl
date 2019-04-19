@@ -151,8 +151,7 @@ namespace LDGControl
                     fwdMeter.Value = pwrMeterLEDS(p_fwd);
                     
                     lblRef.Text = p_refl.ToString();
-                    refMeter.Value = pwrMeterLEDS(p_refl);
-                    
+                    refMeter.Value = pwrMeterLEDS(p_refl);                    
 
                     lblSwr.Text = vswr.ToString() + " : 1";
                     swrMeter.Value = swrMeterLEDS(vswr);
@@ -216,6 +215,7 @@ namespace LDGControl
         {
             double result;
             const UInt16 w100 = 272;
+            const UInt16 w1000 = 1024;
 
             if ( raw < w100 )
             {
@@ -224,7 +224,7 @@ namespace LDGControl
             else
             {
                 raw -= w100;
-                result = 100.0f + (900.0f * ((double)(raw) / (1024-w100)));
+                result = 100.0f + (900.0f * ((double)(raw) / (w1000-w100)));
             }            
 
             return result;

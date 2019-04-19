@@ -191,8 +191,8 @@ namespace LDGControl
                 if (m_sio.Write(cmd) == cmd.Length)
                 {
                     // doc says wait 200ms minimum before next command,
-                    // so we enforce that here.
-                    Thread.Sleep(200);
+                    // so we enforce that here, with a little extra.
+                    Thread.Sleep(250);
 
                     result = true;
                 }
@@ -236,10 +236,10 @@ namespace LDGControl
                 UInt16 fwd = 0, refl = 0, wtf = 0, eom = 0;
 
                 // check the paused event
-                m_thread_suspend.WaitOne();
-                            
+                m_thread_suspend.WaitOne();                            
                 
                 byte[] blob = new byte[8];
+                blob.Initialize();
 
                 int ret = m_sio.Read(blob);
 
@@ -271,22 +271,42 @@ namespace LDGControl
 
                     if (eom == 0x3b3b)
                     {
-                        //fwd = (UInt16)System.Net.IPAddress.NetworkToHostOrder(fwd);
-                        //refl = (UInt16)System.Net.IPAddress.NetworkToHostOrder(refl);
-                        //wtf = (UInt16)System.Net.IPAddress.NetworkToHostOrder(wtf);
-
                         MeterCallback?.Invoke(fwd, refl, wtf);
                         //Console.WriteLine("***PING***");
+                    }
+                    else
+                    {
+                        // this should never happen, but if it does, it means we've gotten
+                        // out of sync. Keep discarding whatever is there until we get
+                        // a good packet again.
+                        while ( eom != 0x3b3b )
+                        {
+                            byte[] data = new byte[2];
+                            data.Initialize();
+
+                            int len = m_sio.Read(data);
+                            if( len > 0 && len < data.Length )
+                            {
+                                m_sio.ReadFully(data, len);
+                                eom = BitConverter.ToUInt16(data, 0);
+                            }
+                            else if ( len == -1 )
+                            {
+                                Console.WriteLine("Re-sync read error");
+                            }
+                                
+                            Thread.Sleep(1);
+                        }                       
                     }
                 }
                 else if (ret == -1)
                 {
-                    Console.WriteLine("Read Thread error on read. Stopping thread.");
+                    Console.WriteLine("Read Thread error on read.");
                     //m_running = false;
                 }
                 else
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(1);
                     //Console.WriteLine("***PING***");
                 }
             }            
