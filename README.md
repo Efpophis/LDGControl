@@ -33,10 +33,12 @@ The data that comes from the LDG Tuner as intended for the M-1000 meter follows 
 2 byte End Of Message marker, always 0x3b3b or ";;"
 ```
 
-Note that all values come across in Network Byte Order, so if you're on a little-endian machine like me, you have to use htons() to convert them before doing any additional math.
-
-The forward and reflected power can be approximately converted to watts using the formula found in tuner.cpp. VSWR is then calculated based on the values of forward and reflected power.
+Note that all values come across in Network Byte Order, so if you're on a little-endian machine like me, you have to do something to convert each 2 byte value. The htons() function works fine for this on Linux, but the .NET equivalent screws things up royally. I ended up reversing the bytes by hand. Thanks for nothing, Micro$cheize.
 
 ## Command Protocol
 
 To send any command and have the tuner parse it properly, I found that you need to send a wake command first, followed by a 1ms delay before sending the actual desired command. Additionally, if the tuner is in meter mode, it is a good idea to send a  "control mode" command first before sending the desired command.  Examples of this can be found in the source code.
+
+## Linux version
+
+I made a linux version of this code that's very stripped down and only runs on the command line. It's up here on Github somewhere...
