@@ -42,3 +42,7 @@ To send any command and have the tuner parse it properly, I found that you need 
 ## Linux version
 
 I made a linux version of this code that's very stripped down and only runs on the command line. It's up here on Github somewhere...
+
+## Code Signing
+
+This program is signed with a certificate issued from my own certification authority. If you know what you're doing, understand the risks, and want to trust code, websites, etc, with certificates issued by me, you can install my root CA certificate found in this repository.
