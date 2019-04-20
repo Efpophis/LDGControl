@@ -55,10 +55,10 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>FA9223DD613ACF0F705977C78CD98C9E7DAA3B8D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>25F158D872B12738880A30D8DF83FBA041E28E6B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>codeSignCert2.pfx</ManifestKeyFile>
+    <ManifestKeyFile>codeSignCert3.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestTimestampUrl>http://timestamp.digicert.com</ManifestTimestampUrl>
@@ -116,7 +116,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="asykey.pfx" />
-    <None Include="codeSignCert2.pfx" />
+    <None Include="codeSignCert3.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
