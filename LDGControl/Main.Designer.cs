@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.btnExit = new System.Windows.Forms.Button();
             this.fwdMeter = new System.Windows.Forms.ProgressBar();
             this.refMeter = new System.Windows.Forms.ProgressBar();
@@ -586,6 +587,7 @@
             this.Controls.Add(this.fwdMeter);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
             this.Text = "LDG Tuner Control";

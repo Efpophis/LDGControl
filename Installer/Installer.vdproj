@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B7EDE37846894DBA89DF35C94A08E8D1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F3A8C3B5F3E3191FD44BDF79D8420AA2"
         "OwnerKey" = "8:_A99A18C295F74C75A965511528E3F87A"
         "MsmSig" = "8:_UNDEFINED"
@@ -132,6 +138,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B7EDE37846894DBA89DF35C94A08E8D1"
+            {
+            "SourcePath" = "8:..\\LDGControl\\ldgctl.ico"
+            "TargetName" = "8:ldgctl.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_D410E3C2CA1C4AF3BE55868B07EEF057"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F3A8C3B5F3E3191FD44BDF79D8420AA2"
             {
             "AssemblyRegister" = "3:1"
@@ -139,6 +165,11 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
+                    "_F3A8C3B5F3E3191FD44BDF79D8420AA2"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -225,15 +256,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LDGControl"
-        "ProductCode" = "8:{A9EB8EA5-E8FF-4C86-9684-F027FCCDD50E}"
-        "PackageCode" = "8:{28C807A6-4B52-45D2-8734-181E9F950526}"
+        "ProductCode" = "8:{D0D95DFC-33E6-4197-BB61-421CEA1E10E2}"
+        "PackageCode" = "8:{D69991DD-7AC0-4F5D-9E17-5CD5E7F84591}"
         "UpgradeCode" = "8:{B8359A8E-AADC-4D34-97B3-33E766B84FF0}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.7"
+        "ProductVersion" = "8:1.0.8000"
         "Manufacturer" = "8:Efpophis Networks"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -357,7 +388,7 @@
             "Target" = "8:_A99A18C295F74C75A965511528E3F87A"
             "Folder" = "8:_E1EC0C34324B4624A972CD9CEE8DDA73"
             "WorkingFolder" = "8:_D410E3C2CA1C4AF3BE55868B07EEF057"
-            "Icon" = "8:"
+            "Icon" = "8:_B7EDE37846894DBA89DF35C94A08E8D1"
             "Feature" = "8:"
             }
         }

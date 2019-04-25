@@ -61,7 +61,7 @@ namespace LDGControl
 
         private void mnuAbout_onClick(object sender, EventArgs e)
         {
-            using (AboutBox1 box = new AboutBox1())
+            using (AboutBox box = new AboutBox())
             {
                 box.ShowDialog(this);
             }
