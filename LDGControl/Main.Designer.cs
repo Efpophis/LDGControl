@@ -79,6 +79,10 @@
             this.label19 = new System.Windows.Forms.Label();
             this.lblWtf = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkPeak = new System.Windows.Forms.CheckBox();
+            this.tmrFwdPeak = new System.Windows.Forms.Timer(this.components);
+            this.tmrRefPeak = new System.Windows.Forms.Timer(this.components);
+            this.tmrSwrPeak = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -527,7 +531,7 @@
             // lblSwr
             // 
             this.lblSwr.AutoSize = true;
-            this.lblSwr.Location = new System.Drawing.Point(537, 95);
+            this.lblSwr.Location = new System.Drawing.Point(534, 96);
             this.lblSwr.Name = "lblSwr";
             this.lblSwr.Size = new System.Drawing.Size(22, 13);
             this.lblSwr.TabIndex = 33;
@@ -551,11 +555,39 @@
             this.lblWtf.TabIndex = 35;
             this.lblWtf.Text = "???";
             // 
+            // chkPeak
+            // 
+            this.chkPeak.AutoSize = true;
+            this.chkPeak.Checked = true;
+            this.chkPeak.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPeak.Location = new System.Drawing.Point(469, 141);
+            this.chkPeak.Name = "chkPeak";
+            this.chkPeak.Size = new System.Drawing.Size(51, 17);
+            this.chkPeak.TabIndex = 36;
+            this.chkPeak.Text = "Peak";
+            this.chkPeak.UseVisualStyleBackColor = true;
+            // 
+            // tmrFwdPeak
+            // 
+            this.tmrFwdPeak.Interval = 250;
+            this.tmrFwdPeak.Tick += new System.EventHandler(this.FwdTick);
+            // 
+            // tmrRefPeak
+            // 
+            this.tmrRefPeak.Interval = 250;
+            this.tmrRefPeak.Tick += new System.EventHandler(this.ReflTick);
+            // 
+            // tmrSwrPeak
+            // 
+            this.tmrSwrPeak.Interval = 750;
+            this.tmrSwrPeak.Tick += new System.EventHandler(this.swrTick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(605, 404);
+            this.Controls.Add(this.chkPeak);
             this.Controls.Add(this.lblWtf);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.lblSwr);
@@ -653,6 +685,10 @@
         private System.Windows.Forms.Button btnFullTune;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnMemTune;
+        private System.Windows.Forms.CheckBox chkPeak;
+        private System.Windows.Forms.Timer tmrFwdPeak;
+        private System.Windows.Forms.Timer tmrRefPeak;
+        private System.Windows.Forms.Timer tmrSwrPeak;
     }
 }
 

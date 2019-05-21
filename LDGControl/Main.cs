@@ -132,33 +132,81 @@ namespace LDGControl
             double vswr = 0.0f;
             double sqr;
 
-            double p_refl = meterScale(refl);
-            double p_fwd = meterScale(fwd);
+            double p_refl = Math.Round(meterScale(refl), 1);
+            double p_fwd = Math.Round(meterScale(fwd), 1);
 
             if (refl > 0.0f)
             {
                 sqr = Math.Sqrt(p_fwd / p_refl);
 
-                vswr = Math.Abs((1.0f + sqr) / (1.0f - sqr));
+                vswr = Math.Round(Math.Abs((1.0f + sqr) / (1.0f - sqr)), 1);
             }
             else
                 vswr = 1.0f;
 
-            lblFwd.Invoke ((MethodInvoker)delegate 
-                {
-                    // do all UI updates in here...
-                    lblFwd.Text = p_fwd.ToString();
-                    fwdMeter.Value = pwrMeterLEDS(p_fwd);
-                    
-                    lblRef.Text = p_refl.ToString();
-                    refMeter.Value = pwrMeterLEDS(p_refl);                    
+            lblFwd.Invoke((MethodInvoker)delegate
+               {
+                   // do all UI updates in here...
+                   if (chkPeak.Checked == false)
+                   {
+                       lblFwd.Text = p_fwd.ToString();
+                       fwdMeter.Value = pwrMeterLEDS(p_fwd);
 
-                    lblSwr.Text = vswr.ToString() + " : 1";
-                    swrMeter.Value = swrMeterLEDS(vswr);
+                       lblRef.Text = p_refl.ToString();
+                       refMeter.Value = pwrMeterLEDS(p_refl);
 
-                    lblWtf.Text = wtf.ToString();
+                       lblSwr.Text = vswr.ToString() + " : 1";
+                       swrMeter.Value = swrMeterLEDS(vswr);
+                   }
+                   else
+                   {
+                       int pwrLEDs = pwrMeterLEDS(p_fwd);
+                       int refLEDs = pwrMeterLEDS(p_refl);
+                       int swrLEDs = swrMeterLEDS(vswr);
 
-                }
+                       if (fwdMeter.Value < pwrLEDs)
+                       {
+                           tmrFwdPeak.Stop();
+                           tmrFwdPeak.Enabled = false;
+                           lblFwd.Text = p_fwd.ToString() + "W";
+                           fwdMeter.Value = pwrLEDs;
+                       }
+                       else if (pwrLEDs == 0)
+                       {
+                           tmrFwdPeak.Enabled = true;
+                           tmrFwdPeak.Start();
+                       }
+
+
+                       if (refMeter.Value < refLEDs)
+                       {
+                           tmrRefPeak.Enabled = false;
+                           tmrRefPeak.Stop();
+                           lblRef.Text = p_refl.ToString() + "W";
+                           refMeter.Value = refLEDs;
+                       }
+                       else if (refLEDs == 0)
+                       {
+                           tmrRefPeak.Enabled = true;
+                           tmrRefPeak.Start();                           
+                       }
+
+                       if ( swrMeter.Value < swrLEDs )
+                       {
+                           tmrSwrPeak.Enabled = false;
+                           tmrSwrPeak.Stop();
+                           lblSwr.Text = vswr.ToString() + " : 1";
+                           swrMeter.Value = swrLEDs;
+                       }
+                       else if ( swrLEDs == 0)
+                       {
+                           tmrSwrPeak.Enabled = true;
+                           tmrSwrPeak.Start();
+                       }
+
+                       lblWtf.Text = wtf.ToString();
+                   }
+               }
             );
 
         }
@@ -246,6 +294,36 @@ namespace LDGControl
             btnBypass.Enabled = true;
             btnMemTune.Enabled = true;
             btnFullTune.Enabled = true;
+        }
+
+        void FwdTick( Object o, EventArgs arg )
+        {
+            if (fwdMeter.Value > 0)
+            {
+                fwdMeter.Value--;
+            }
+            else
+                lblFwd.Text = "0 W";
+        }
+
+        void ReflTick( Object o, EventArgs arg )
+        {
+            if (refMeter.Value > 0)
+            {
+                refMeter.Value--;
+            }
+            else
+                lblRef.Text = "0 W";
+        }
+
+        void swrTick( Object o, EventArgs arg)
+        {
+            if (swrMeter.Value > 0)
+            {
+                swrMeter.Value--;
+            }
+            else
+                lblSwr.Text = "0";
         }
 
         private void btnAntTog_Click(object sender, EventArgs e)
@@ -350,6 +428,6 @@ namespace LDGControl
             });
 
             worker.RunWorkerAsync();
-        }        
+        }
     }
 }
