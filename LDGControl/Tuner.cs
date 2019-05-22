@@ -253,21 +253,26 @@ namespace LDGControl
                     if (BitConverter.IsLittleEndian)
                     {
                         // need to fix the blob first ...
+                        // this reverses each unsigned short
+                        // in the data payload, and is specific
+                        // to this tuner. Don't try this on your own
+                        // data unless you know what you're doing.
                         for (int i = 0; i < blob.Length; i += 2)
                         {
                             byte tmp = blob[i];
                             blob[i] = blob[i + 1];
                             blob[i + 1] = tmp;
                         }
-
-                        fwd = BitConverter.ToUInt16(blob, 0);
-
-                        refl = BitConverter.ToUInt16(blob, 2);
-
-                        wtf = BitConverter.ToUInt16(blob, 4);
-
-                        eom = BitConverter.ToUInt16(blob, 6);
                     }
+
+                    fwd = BitConverter.ToUInt16(blob, 0);
+
+                    refl = BitConverter.ToUInt16(blob, 2);
+
+                    wtf = BitConverter.ToUInt16(blob, 4);
+
+                    eom = BitConverter.ToUInt16(blob, 6);
+                    
 
                     if (eom == 0x3b3b)
                     {
