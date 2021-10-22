@@ -332,7 +332,7 @@ namespace LDGControl
         private static readonly byte[] syncCmd = { (byte)'Z' };
         private static readonly byte[] meterCmd = { (byte)'S' };
         private static readonly byte[] ctlCmd = { (byte)'X' };
-        private static readonly byte[] wakeCmd = { (byte)' ' };
+        private static readonly byte[] wakeCmd = { (byte)' ', (byte)' ' };
 
         private Thread meterThread;
     }

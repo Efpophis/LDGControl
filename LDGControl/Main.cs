@@ -12,9 +12,12 @@ namespace LDGControl
 {
     public partial class Main : Form
     {
+        private int m_fwdTicks, m_swrTicks, m_refTicks;
         public Main()
         {
             InitializeComponent();
+            m_fwdTicks = m_swrTicks = m_refTicks = 0;
+
             string[] ampPorts = System.IO.Ports.SerialPort.GetPortNames();
             string[] tunerPorts = System.IO.Ports.SerialPort.GetPortNames();
 
@@ -164,48 +167,49 @@ namespace LDGControl
                        int refLEDs = pwrMeterLEDS(p_refl);
                        int swrLEDs = swrMeterLEDS(vswr);
 
-                       if (fwdMeter.Value < pwrLEDs)
+                       if (fwdMeter.Value < pwrLEDs || m_fwdTicks >= 4 )
                        {
                            tmrFwdPeak.Stop();
                            tmrFwdPeak.Enabled = false;
+                           
                            lblFwd.Text = p_fwd.ToString() + "W";
                            fwdMeter.Value = pwrLEDs;
-                       }
-                       else if (pwrLEDs == 0)
-                       {
+
+                           m_fwdTicks = 0;
                            tmrFwdPeak.Enabled = true;
                            tmrFwdPeak.Start();
                        }
+                       
 
 
-                       if (refMeter.Value < refLEDs)
+                       if (refMeter.Value < refLEDs || m_refTicks >= 4)
                        {
                            tmrRefPeak.Enabled = false;
                            tmrRefPeak.Stop();
+
                            lblRef.Text = p_refl.ToString() + "W";
                            refMeter.Value = refLEDs;
-                       }
-                       else if (refLEDs == 0)
-                       {
-                           tmrRefPeak.Enabled = true;
-                           tmrRefPeak.Start();                           
-                       }
 
-                       if ( swrMeter.Value < swrLEDs )
+                           m_refTicks = 0;
+                           tmrRefPeak.Enabled = true;
+                           tmrRefPeak.Start();
+                       }
+                       
+
+                       if ( swrMeter.Value < swrLEDs || m_swrTicks >= 4 )
                        {
                            tmrSwrPeak.Enabled = false;
                            tmrSwrPeak.Stop();
+
                            lblSwr.Text = vswr.ToString() + " : 1";
                            swrMeter.Value = swrLEDs;
-                       }
-                       else if ( swrLEDs == 0)
-                       {
+
+                           m_swrTicks = 0;
                            tmrSwrPeak.Enabled = true;
                            tmrSwrPeak.Start();
-                       }
-
-                       lblWtf.Text = wtf.ToString();
+                       }                      
                    }
+                   lblWtf.Text = wtf.ToString();
                }
             );
 
@@ -240,21 +244,23 @@ namespace LDGControl
         {
             int result = 0;
 
-            if (pwr > 0.0f) ++result;
+            //if (pwr > 0.0f) ++result;
 
-            if (pwr > 10.0f) ++result;
+            if (pwr > 5.0f) ++result; // 10w
 
-            if (pwr > 25.0f) ++result;
+            if (pwr > 17.5f) ++result; // 25w
 
-            if (pwr > 50.0f) ++result;
+            if (pwr > 37.5f) ++result; // 50w 
 
-            if (pwr > 150.0f) ++result;
+            if (pwr > 75.0f) ++result; // 100w
 
-            if (pwr > 275.0f) ++result;
+            if (pwr > 175.0f) ++result; // 250w
 
-            if (pwr > 550.0f) ++result;
+            if (pwr > 375.0f) ++result; // 500 w
 
-            if (pwr > 800.0f) ++result; 
+            if (pwr > 625.0f) ++result; // 750
+
+            if (pwr > 875.0f) ++result; // 1000
 
             return result;
         }
@@ -262,18 +268,32 @@ namespace LDGControl
         private double meterScale( UInt16 raw )
         {
             double result;
-            const UInt16 w100 = 272;
-            const UInt16 w1000 = 1024;
+            double tosquare;
+            double voltage;
 
-            if ( raw < w100 )
-            {
-                result = ((double)(raw) / (double)w100) * 100.0f;
-            }
-            else
-            {
-                raw -= w100;
-                result = 100.0f + (900.0f * ((double)(raw) / (w1000-w100)));
-            }            
+            // This is derived from a pretty crazy A/D conversion formula that
+            // assumes, among other things, a 13.8V reference voltage
+            //
+            // raw = (2^16 * (( sqrt( watts * 50 ) * .707 ) / 1000)) / Vref
+            //
+            // solve for watts in terms of raw and Vref == 13.8, and you
+            // boil it down to this.
+
+            //result = 0.001718294 * raw * raw * 0.6f;
+
+            tosquare = (1000.0f * 13.8f * raw) / (65536.0f * 1.414f); //0.707);
+
+            result = (tosquare * tosquare) / 50.0f;
+
+            // un-do ADC assuming 13.8v reference voltage
+
+            // raw = (65536.0f * voltage) / 13.8f;
+            // raw * 13.8f = 65536.0f * voltage;
+            // (raw * 13.8f) / 65536.0f = voltage;
+            // voltage = (raw * 13.8f) / 65536.0f;
+
+
+            
 
             return result;
 
@@ -298,32 +318,17 @@ namespace LDGControl
 
         void FwdTick( Object o, EventArgs arg )
         {
-            if (fwdMeter.Value > 0)
-            {
-                fwdMeter.Value--;
-            }
-            else
-                lblFwd.Text = "0 W";
+            ++m_fwdTicks;
         }
 
         void ReflTick( Object o, EventArgs arg )
         {
-            if (refMeter.Value > 0)
-            {
-                refMeter.Value--;
-            }
-            else
-                lblRef.Text = "0 W";
+            ++m_refTicks;
         }
 
         void swrTick( Object o, EventArgs arg)
         {
-            if (swrMeter.Value > 0)
-            {
-                swrMeter.Value--;
-            }
-            else
-                lblSwr.Text = "0";
+            ++m_swrTicks;
         }
 
         private void btnAntTog_Click(object sender, EventArgs e)
