@@ -281,7 +281,7 @@ namespace LDGControl
 
             //result = 0.001718294 * raw * raw * 0.6f;
 
-            tosquare = (1000.0f * 13.8f * raw) / (65536.0f * 1.414f); //0.707);
+            tosquare = (1000.0f * 13.8f * raw) / (65536.0f * 0.707);
 
             result = (tosquare * tosquare) / 50.0f;
 
