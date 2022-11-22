@@ -73,6 +73,8 @@ namespace LDGControl
         private AmpCtl m_amp;
         private Tuner m_tuner;
 
+        public Color Green { get; private set; }
+
         private void on_ampOpCheckedChanged(object sender, EventArgs e)
         {
             if ( ampOperateBtn.Checked == true )
@@ -128,6 +130,7 @@ namespace LDGControl
             ampStbyBtn.Enabled = true;
             ampResetBtn.Enabled = true;
             btnAmpInit.Enabled = false;
+            btnAmpInit.Text = "Connected";
         }
 
         protected void updateMeter(UInt16 fwd, UInt16 refl, UInt16 wtf)
@@ -209,7 +212,178 @@ namespace LDGControl
                            tmrSwrPeak.Start();
                        }                      
                    }
-                   lblWtf.Text = wtf.ToString();
+                   WTF.Text = wtf.ToString();
+
+                   if ((wtf >= 8230) && (wtf <= 9145))
+                   {
+                       lblBand.Text = "160m";
+                       b160.BackColor = Color.Lime;
+                       b80.BackColor=Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   else if ((wtf >= 4110) && (wtf <= 4710))
+                   {
+                       lblBand.Text = "80m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Lime;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   //placeholder for 60mnby
+                   else if ((wtf >= 3060) && (wtf <= 3080))
+                   {
+                       lblBand.Text = "60m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Lime;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   else if ((wtf >= 2250) && (wtf <= 2355))
+                   {
+                       lblBand.Text = "40m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Lime;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   else if ((wtf >= 1620) && (wtf <= 1630))
+                   {
+                       lblBand.Text = "30m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Lime;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   else if ((wtf >= 1140) && (wtf <= 1180))
+                   {
+                       lblBand.Text = "20m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Lime;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   else if ((wtf >= 900) && (wtf <= 915))
+                   {
+                       lblBand.Text = "17m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Lime;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   else if ((wtf >= 766) && (wtf <= 782))
+                   {
+                       lblBand.Text = "15m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Lime;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   else if ((wtf >= 655) && (wtf <= 662))
+                   {
+                       lblBand.Text = "12m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Lime;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   else if ((wtf >= 550) && (wtf <= 590))
+                   {
+                       lblBand.Text = "10m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Lime;
+                       b6.BackColor = Color.Transparent;
+                   }
+                   //placeholder for 6m
+                   else if ((wtf >= 320) && (wtf <= 360))
+                   {
+                       lblBand.Text = "6m";
+                       b160.BackColor = Color.Transparent;
+                       b80.BackColor = Color.Transparent;
+                       b60.BackColor = Color.Transparent;
+                       b40.BackColor = Color.Transparent;
+                       b30.BackColor = Color.Transparent;
+                       b20.BackColor = Color.Transparent;
+                       b17.BackColor = Color.Transparent;
+                       b15.BackColor = Color.Transparent;
+                       b12.BackColor = Color.Transparent;
+                       b10.BackColor = Color.Transparent;
+                       b6.BackColor = Color.Lime;
+                   }
+                   else
+                       lblBand.Text = "Unknown"; 
+
                }
             );
 
@@ -281,7 +455,7 @@ namespace LDGControl
 
             //result = 0.001718294 * raw * raw * 0.6f;
 
-            tosquare = (1000.0f * 13.8f * raw) / (65536.0f * 0.707);
+            tosquare = (1000.0f * 13.5f * raw) / (65536.0f * 0.707);
 
             result = (tosquare * tosquare) / 50.0f;
 
@@ -310,6 +484,8 @@ namespace LDGControl
             Properties.Settings.Default.Save();
 
             btnTunerInit.Enabled = false;
+            btnTunerInit.Text = "Connected";
+            btnTunerInit.BackColor = Color.LimeGreen; 
             btnAntTog.Enabled = true;
             btnBypass.Enabled = true;
             btnMemTune.Enabled = true;
@@ -375,7 +551,7 @@ namespace LDGControl
                         btnBypass.Invoke((MethodInvoker)delegate 
                         { 
                             btnBypass.Text = "Bypass";
-                            btnBypass.BackColor = Color.Green;
+                            btnBypass.BackColor = Color.LimeGreen;
                         });
                     }
                 });
@@ -398,6 +574,31 @@ namespace LDGControl
             worker.RunWorkerAsync();            
         }
 
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblBand_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void TuneResult( byte[] result )
         {
             if (result != null)
@@ -405,17 +606,17 @@ namespace LDGControl
                 char status = (char)result[0];
                 if (status == 'T')
                 {
-                    lblTuneStatus.Text = "GOOD";
-                    lblTuneStatus.BackColor = Color.Green;
+                    lblTuneStatus.Text = " GOOD ";
+                    lblTuneStatus.BackColor = Color.Lime;
                 }
                 else if (status == 'M')
                 {
-                    lblTuneStatus.Text = "OKAY";
+                    lblTuneStatus.Text = " OKAY ";
                     lblTuneStatus.BackColor = Color.Yellow;
                 }
                 else if (status == 'F')
                 {
-                    lblTuneStatus.Text = "FAIL";
+                    lblTuneStatus.Text = " FAIL ";
                     lblTuneStatus.BackColor = Color.Red;
                 }
             }
