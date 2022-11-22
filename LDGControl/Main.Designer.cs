@@ -57,6 +57,12 @@
             this.label18 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.voltageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.v138 = new System.Windows.Forms.ToolStripMenuItem();
+            this.v135 = new System.Windows.Forms.ToolStripMenuItem();
+            this.v130 = new System.Windows.Forms.ToolStripMenuItem();
+            this.v125 = new System.Windows.Forms.ToolStripMenuItem();
+            this.v120 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -372,16 +378,66 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.voltageToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("LCD5x8H", 8F, System.Drawing.FontStyle.Bold);
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // voltageToolStripMenuItem
+            // 
+            this.voltageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.v138,
+            this.v135,
+            this.v130,
+            this.v125,
+            this.v120});
+            this.voltageToolStripMenuItem.Name = "voltageToolStripMenuItem";
+            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.voltageToolStripMenuItem.Text = "Tuner PS Voltage";
+            // 
+            // v138
+            // 
+            this.v138.Checked = true;
+            this.v138.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.v138.Name = "v138";
+            this.v138.Size = new System.Drawing.Size(180, 22);
+            this.v138.Text = "13.8";
+            this.v138.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // v135
+            // 
+            this.v135.Name = "v135";
+            this.v135.Size = new System.Drawing.Size(180, 22);
+            this.v135.Text = "13.5";
+            this.v135.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // v130
+            // 
+            this.v130.Name = "v130";
+            this.v130.Size = new System.Drawing.Size(180, 22);
+            this.v130.Text = "13.0";
+            this.v130.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // v125
+            // 
+            this.v125.Name = "v125";
+            this.v125.Size = new System.Drawing.Size(180, 22);
+            this.v125.Text = "12.5";
+            this.v125.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // v120
+            // 
+            this.v120.Name = "v120";
+            this.v120.Size = new System.Drawing.Size(180, 22);
+            this.v120.Text = "12.0";
+            this.v120.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -523,7 +579,6 @@
             this.lblBand.Size = new System.Drawing.Size(61, 10);
             this.lblBand.TabIndex = 26;
             this.lblBand.Text = "Unknown";
-            this.lblBand.Click += new System.EventHandler(this.lblBand_Click);
             // 
             // lblWtf
             // 
@@ -1033,6 +1088,12 @@
         private System.Windows.Forms.Label lblBand;
         private System.Windows.Forms.Label lblSwr;
         private System.Windows.Forms.Label lblWtf;
+        private System.Windows.Forms.ToolStripMenuItem voltageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem v130;
+        private System.Windows.Forms.ToolStripMenuItem v125;
+        private System.Windows.Forms.ToolStripMenuItem v120;
+        private System.Windows.Forms.ToolStripMenuItem v138;
+        private System.Windows.Forms.ToolStripMenuItem v135;
     }
 }
 

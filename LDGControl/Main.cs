@@ -72,6 +72,7 @@ namespace LDGControl
 
         private AmpCtl m_amp;
         private Tuner m_tuner;
+        private double voltPS =13.8;
 
         public Color Green { get; private set; }
 
@@ -444,6 +445,8 @@ namespace LDGControl
             double result;
             double tosquare;
             double voltage;
+            
+
 
             // This is derived from a pretty crazy A/D conversion formula that
             // assumes, among other things, a 13.8V reference voltage
@@ -455,7 +458,7 @@ namespace LDGControl
 
             //result = 0.001718294 * raw * raw * 0.6f;
 
-            tosquare = (1000.0f * 13.5f * raw) / (65536.0f * 0.707);
+            tosquare = (1000.0f * voltPS * raw) / (65536.0f * 0.707);
 
             result = (tosquare * tosquare) / 50.0f;
 
@@ -592,12 +595,61 @@ namespace LDGControl
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-        }
+        }       
 
-        private void lblBand_Click(object sender, EventArgs e)
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            voltPS =13.8;
+            v138.Checked=true;
+            v135.Checked = false;          
+            v125.Checked = false;
+            v120.Checked = false;
+            v130.Checked = false;
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            voltPS =13.0;
+            v135.Checked = false;
+            v138.Checked = false;
+            v125.Checked = false;
+            v120.Checked = false;
+            v130.Checked = true;
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            voltPS = 13.5;
+            v135.Checked= true;
+            v138.Checked = false;
+            v125.Checked = false;
+            v120.Checked = false;
+            v130.Checked = false;
+
 
         }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            voltPS = 12.5;
+            v135.Checked = false;
+            v138.Checked = false;
+            v125.Checked = true;
+            v120.Checked = false;
+            v130.Checked = false;
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            voltPS = 12.0;
+            v135.Checked = false;
+            v138.Checked = false;
+            v125.Checked = false;
+            v120.Checked = true;
+            v130.Checked = false;
+
+        }
+
 
         private void TuneResult( byte[] result )
         {
