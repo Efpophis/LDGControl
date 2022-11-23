@@ -402,35 +402,35 @@
             this.v138.Checked = true;
             this.v138.CheckState = System.Windows.Forms.CheckState.Checked;
             this.v138.Name = "v138";
-            this.v138.Size = new System.Drawing.Size(180, 22);
+            this.v138.Size = new System.Drawing.Size(115, 22);
             this.v138.Text = "13.8";
             this.v138.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // v135
             // 
             this.v135.Name = "v135";
-            this.v135.Size = new System.Drawing.Size(180, 22);
+            this.v135.Size = new System.Drawing.Size(115, 22);
             this.v135.Text = "13.5";
             this.v135.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // v130
             // 
             this.v130.Name = "v130";
-            this.v130.Size = new System.Drawing.Size(180, 22);
+            this.v130.Size = new System.Drawing.Size(115, 22);
             this.v130.Text = "13.0";
             this.v130.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // v125
             // 
             this.v125.Name = "v125";
-            this.v125.Size = new System.Drawing.Size(180, 22);
+            this.v125.Size = new System.Drawing.Size(115, 22);
             this.v125.Text = "12.5";
             this.v125.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // v120
             // 
             this.v120.Name = "v120";
-            this.v120.Size = new System.Drawing.Size(180, 22);
+            this.v120.Size = new System.Drawing.Size(115, 22);
             this.v120.Text = "12.0";
             this.v120.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
@@ -996,8 +996,10 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "Main";
             this.Text = "LDG Tuner Control";
             this.Load += new System.EventHandler(this.Main_Load);
