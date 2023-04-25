@@ -444,33 +444,13 @@ namespace LDGControl
         {
             double result;
             double tosquare;
-            double voltage;
-            
-
-
-            // This is derived from a pretty crazy A/D conversion formula that
-            // assumes, among other things, a 13.8V reference voltage
-            //
-            // raw = (2^16 * (( sqrt( watts * 50 ) * .707 ) / 1000)) / Vref
-            //
-            // solve for watts in terms of raw and Vref == 13.8, and you
-            // boil it down to this.
-
-            //result = 0.001718294 * raw * raw * 0.6f;
+           
+            // LOTS of people contributed to this formula, and it
+            // seems to be pretty accurate. PLEASE don't mess with it.
 
             tosquare = (1000.0f * voltPS * raw) / (65536.0f * 0.707);
 
             result = (tosquare * tosquare) / 50.0f;
-
-            // un-do ADC assuming 13.8v reference voltage
-
-            // raw = (65536.0f * voltage) / 13.8f;
-            // raw * 13.8f = 65536.0f * voltage;
-            // (raw * 13.8f) / 65536.0f = voltage;
-            // voltage = (raw * 13.8f) / 65536.0f;
-
-
-            
 
             return result;
 
@@ -528,7 +508,7 @@ namespace LDGControl
         private void btnBypass_Click(object sender, EventArgs e)
         {
             BackgroundWorker worker = new BackgroundWorker();
-            if (btnBypass.BackColor == Color.Green)
+            if (btnBypass.BackColor == Color.LimeGreen)
             {
                 worker.DoWork += new DoWorkEventHandler(delegate 
                 {
