@@ -23,6 +23,9 @@ namespace LDGControl
             lblDesc.Text = "Application to contorl LDG-AT1000ProII and ALS-600";
             lblCpRight.Text = "Released to Public Domain 2019 by WK2X";
             lblVersion.Text = Application.ProductVersion;
+            lblNotes.Text = "Notes:  Modified to read active " +
+                "band by NJ9R Nov 2022";
+
         }
     }
 }
