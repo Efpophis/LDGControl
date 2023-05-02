@@ -745,7 +745,7 @@
             this.b160.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.b160.ForeColor = System.Drawing.Color.Black;
             this.b160.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.b160.Location = new System.Drawing.Point(9, 19);
+            this.b160.Location = new System.Drawing.Point(9, 17);
             this.b160.Name = "b160";
             this.b160.Size = new System.Drawing.Size(43, 19);
             this.b160.TabIndex = 42;
