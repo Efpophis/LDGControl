@@ -276,7 +276,7 @@ namespace LDGControl
                        b10.BackColor = Color.Transparent;
                        b6.BackColor = Color.Transparent;
                    }
-                   else if ((wtf >= 1620) && (wtf <= 1630))
+                   else if ((wtf >= 1600) && (wtf <= 1630))
                    {
                        lblBand.Text = "30m";
                        b160.BackColor = Color.Transparent;

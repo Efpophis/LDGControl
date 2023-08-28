@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LDGControl", "LDGControl\LD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6D8C37D1-0E75-4CC5-9B36-F2C227C73813}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{4C595A13-5596-476E-B0E7-E4CD3BF10B24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,16 @@ Global
 		{3F93509C-2A39-4A70-AF47-AA94D647D555}.Release|x64.Build.0 = Release|Any CPU
 		{3F93509C-2A39-4A70-AF47-AA94D647D555}.Release|x86.ActiveCfg = Release|Any CPU
 		{3F93509C-2A39-4A70-AF47-AA94D647D555}.Release|x86.Build.0 = Release|Any CPU
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Debug|Any CPU.ActiveCfg = Debug
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Debug|ARM.ActiveCfg = Debug
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Debug|ARM64.ActiveCfg = Debug
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Debug|x64.ActiveCfg = Debug
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Debug|x86.ActiveCfg = Debug
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Release|Any CPU.ActiveCfg = Release
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Release|ARM.ActiveCfg = Release
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Release|ARM64.ActiveCfg = Release
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Release|x64.ActiveCfg = Release
+		{4C595A13-5596-476E-B0E7-E4CD3BF10B24}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
