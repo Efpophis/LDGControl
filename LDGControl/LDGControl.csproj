@@ -96,6 +96,7 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="AmpCtl.cs" />
+    <Compile Include="SmartSDR.cs" />
     <Compile Include="SerialIO.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

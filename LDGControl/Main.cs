@@ -569,13 +569,9 @@ namespace LDGControl
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
-
+        
         }
-
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }       
+   
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -630,6 +626,19 @@ namespace LDGControl
 
         }
 
+        private void onFlexHostChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.flex_host = txtFlexHost.Text;
+            Properties.Settings.Default.Save();
+            m_tuner.FlexHost = txtFlexHost.Text;
+        }
+
+        private void onFlexPortChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.flex_port = txtFlexPort.Text;
+            Properties.Settings.Default.Save();
+            m_tuner.FlexPort = Int32.Parse(txtFlexPort.Text);
+        }
 
         private void TuneResult( byte[] result )
         {

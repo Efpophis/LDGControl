@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Runtime.Remoting.Messaging;
 
 namespace LDGControl
 {
@@ -13,6 +14,7 @@ namespace LDGControl
         {
             m_sio = new SerialIO(port, 38400, SerialIO.StopBits.One, SerialIO.Parity.None);
             MeterCallback = callback;
+            
         }
 
         ~Tuner()
@@ -29,6 +31,16 @@ namespace LDGControl
 
             if (m_sio.Open())
             {
+                m_flexPort = Int32.Parse(Properties.Settings.Default.flex_port);
+                m_flexHost = Properties.Settings.Default.flex_host;
+
+                if ( m_flexHost.Length > 0 && m_flexPort > 1024 && m_flexPort < 65535 )
+                {
+                    // attempt to initiate a flex connectin here
+                    m_flex = new SmartSDR();
+                    m_flex.Init(m_flexHost, m_flexPort);
+                }
+
                 MeterMode();
 
                 meterThread = new Thread(MeterTelemetry);                
@@ -37,7 +49,7 @@ namespace LDGControl
 
                 m_running = true;
 
-                meterThread.Start();
+                meterThread.Start();                
             }
 
             return result;
@@ -91,7 +103,15 @@ namespace LDGControl
             CtlMode();
 
             if (SendCommand(fullTuneCmd) == true)
+            {
+                if (m_flex != null)
+                    m_flex.startTune();
+
                 result = GetResponse();
+
+                if (m_flex != null)
+                    m_flex.stopTune();
+            }
 
             MeterMode();
 
@@ -105,7 +125,15 @@ namespace LDGControl
             CtlMode();
 
             if (SendCommand(memTuneCmd) == true)
+            {
+                if (m_flex != null)
+                    m_flex.startTune();
+
                 result = GetResponse();
+
+                if (m_flex != null)
+                    m_flex.stopTune();
+            }
 
             MeterMode();
 
@@ -319,9 +347,25 @@ namespace LDGControl
 
         public delegate void PostMeterDataCallback(UInt16 fwd, UInt16 refl, UInt16 wtf);
 
+        public string FlexHost
+        {   
+            get { return m_flexHost; } 
+            set { m_flexHost = value; }
+        }
+
+        public int FlexPort
+        {
+            get { return m_flexPort; }
+            set { m_flexPort = value; }
+        }
+
         private PostMeterDataCallback MeterCallback = null;
 
         private SerialIO m_sio;
+        private SmartSDR m_flex = null;
+
+        private string m_flexHost;
+        private int m_flexPort;
 
         private static readonly byte[] toggleAntCmd = { (byte)'A'};
         private static readonly byte[] memTuneCmd = { (byte)'T'};

@@ -46,5 +46,29 @@ namespace LDGControl.Properties {
                 this["tuner_port"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("flex6300")]
+        public string flex_host {
+            get {
+                return ((string)(this["flex_host"]));
+            }
+            set {
+                this["flex_host"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4992")]
+        public string flex_port {
+            get {
+                return ((string)(this["flex_port"]));
+            }
+            set {
+                this["flex_port"] = value;
+            }
+        }
     }
 }

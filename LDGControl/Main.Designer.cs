@@ -66,6 +66,11 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtFlexHost = new System.Windows.Forms.ToolStripTextBox();
+            this.portToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtFlexPort = new System.Windows.Forms.ToolStripTextBox();
             this.ampOperateBtn = new System.Windows.Forms.RadioButton();
             this.ampStbyBtn = new System.Windows.Forms.RadioButton();
             this.ampResetBtn = new System.Windows.Forms.Button();
@@ -368,7 +373,8 @@
             this.menuStrip1.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.flexToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(591, 24);
@@ -394,7 +400,7 @@
             this.v125,
             this.v120});
             this.voltageToolStripMenuItem.Name = "voltageToolStripMenuItem";
-            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.voltageToolStripMenuItem.Text = "Tuner PS Voltage";
             // 
             // v138
@@ -402,42 +408,42 @@
             this.v138.Checked = true;
             this.v138.CheckState = System.Windows.Forms.CheckState.Checked;
             this.v138.Name = "v138";
-            this.v138.Size = new System.Drawing.Size(99, 22);
+            this.v138.Size = new System.Drawing.Size(180, 22);
             this.v138.Text = "13.8";
             this.v138.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // v135
             // 
             this.v135.Name = "v135";
-            this.v135.Size = new System.Drawing.Size(99, 22);
+            this.v135.Size = new System.Drawing.Size(180, 22);
             this.v135.Text = "13.5";
             this.v135.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // v130
             // 
             this.v130.Name = "v130";
-            this.v130.Size = new System.Drawing.Size(99, 22);
+            this.v130.Size = new System.Drawing.Size(180, 22);
             this.v130.Text = "13.0";
             this.v130.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // v125
             // 
             this.v125.Name = "v125";
-            this.v125.Size = new System.Drawing.Size(99, 22);
+            this.v125.Size = new System.Drawing.Size(180, 22);
             this.v125.Text = "12.5";
             this.v125.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // v120
             // 
             this.v120.Name = "v120";
-            this.v120.Size = new System.Drawing.Size(99, 22);
+            this.v120.Size = new System.Drawing.Size(180, 22);
             this.v120.Text = "12.0";
             this.v120.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -449,14 +455,53 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.helpToolStripMenuItem.Text = "&Help";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.mnuAbout_onClick);
+            // 
+            // flexToolStripMenuItem
+            // 
+            this.flexToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
+            this.portToolStripMenuItem});
+            this.flexToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flexToolStripMenuItem.Name = "flexToolStripMenuItem";
+            this.flexToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.flexToolStripMenuItem.Text = "Fle&x";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txtFlexHost});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Text = "Host";
+            // 
+            // txtFlexHost
+            // 
+            this.txtFlexHost.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtFlexHost.Name = "txtFlexHost";
+            this.txtFlexHost.Size = new System.Drawing.Size(100, 23);
+            this.txtFlexHost.TextChanged += new System.EventHandler(this.onFlexHostChanged);
+            // 
+            // portToolStripMenuItem
+            // 
+            this.portToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txtFlexPort});
+            this.portToolStripMenuItem.Name = "portToolStripMenuItem";
+            this.portToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.portToolStripMenuItem.Text = "Port";
+            // 
+            // txtFlexPort
+            // 
+            this.txtFlexPort.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtFlexPort.Name = "txtFlexPort";
+            this.txtFlexPort.Size = new System.Drawing.Size(100, 23);
+            this.txtFlexPort.TextChanged += new System.EventHandler(this.onFlexPortChanged);
             // 
             // ampOperateBtn
             // 
@@ -1096,6 +1141,11 @@
         private System.Windows.Forms.ToolStripMenuItem v120;
         private System.Windows.Forms.ToolStripMenuItem v138;
         private System.Windows.Forms.ToolStripMenuItem v135;
+        private System.Windows.Forms.ToolStripMenuItem flexToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox txtFlexHost;
+        private System.Windows.Forms.ToolStripMenuItem portToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox txtFlexPort;
     }
 }
 

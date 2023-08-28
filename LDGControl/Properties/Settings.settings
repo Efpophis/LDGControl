@@ -8,5 +8,11 @@
     <Setting Name="tuner_port" Type="System.String" Scope="User">
       <Value Profile="(Default)">"COM5"</Value>
     </Setting>
+    <Setting Name="flex_host" Type="System.String" Scope="User">
+      <Value Profile="(Default)">flex6300</Value>
+    </Setting>
+    <Setting Name="flex_port" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4992</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
