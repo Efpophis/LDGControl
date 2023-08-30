@@ -400,7 +400,7 @@
             this.v125,
             this.v120});
             this.voltageToolStripMenuItem.Name = "voltageToolStripMenuItem";
-            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.voltageToolStripMenuItem.Text = "Tuner PS Voltage";
             // 
             // v138
@@ -408,42 +408,42 @@
             this.v138.Checked = true;
             this.v138.CheckState = System.Windows.Forms.CheckState.Checked;
             this.v138.Name = "v138";
-            this.v138.Size = new System.Drawing.Size(180, 22);
+            this.v138.Size = new System.Drawing.Size(99, 22);
             this.v138.Text = "13.8";
             this.v138.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // v135
             // 
             this.v135.Name = "v135";
-            this.v135.Size = new System.Drawing.Size(180, 22);
+            this.v135.Size = new System.Drawing.Size(99, 22);
             this.v135.Text = "13.5";
             this.v135.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // v130
             // 
             this.v130.Name = "v130";
-            this.v130.Size = new System.Drawing.Size(180, 22);
+            this.v130.Size = new System.Drawing.Size(99, 22);
             this.v130.Text = "13.0";
             this.v130.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // v125
             // 
             this.v125.Name = "v125";
-            this.v125.Size = new System.Drawing.Size(180, 22);
+            this.v125.Size = new System.Drawing.Size(99, 22);
             this.v125.Text = "12.5";
             this.v125.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // v120
             // 
             this.v120.Name = "v120";
-            this.v120.Size = new System.Drawing.Size(180, 22);
+            this.v120.Size = new System.Drawing.Size(99, 22);
             this.v120.Text = "12.0";
             this.v120.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -459,7 +459,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.mnuAbout_onClick);
             // 
@@ -501,6 +501,7 @@
             this.txtFlexPort.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtFlexPort.Name = "txtFlexPort";
             this.txtFlexPort.Size = new System.Drawing.Size(100, 23);
+            this.txtFlexPort.ModifiedChanged += new System.EventHandler(this.onFlexPortChanged);
             this.txtFlexPort.TextChanged += new System.EventHandler(this.onFlexPortChanged);
             // 
             // ampOperateBtn

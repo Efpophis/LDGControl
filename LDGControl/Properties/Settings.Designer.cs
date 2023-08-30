@@ -62,9 +62,9 @@ namespace LDGControl.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("4992")]
-        public string flex_port {
+        public int flex_port {
             get {
-                return ((string)(this["flex_port"]));
+                return ((int)(this["flex_port"]));
             }
             set {
                 this["flex_port"] = value;

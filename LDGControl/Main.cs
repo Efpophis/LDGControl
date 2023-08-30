@@ -54,7 +54,16 @@ namespace LDGControl
             catch (Exception)
             { 
                 // don't care 
-            }            
+            }
+            try
+            {
+                txtFlexHost.Text = Properties.Settings.Default["flex_host"].ToString();
+                txtFlexPort.Text = Properties.Settings.Default["flex_port"].ToString();
+            }
+            catch (Exception)
+            {
+                // dont care
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -459,12 +468,13 @@ namespace LDGControl
         private void btnTunerInit_Click(object sender, EventArgs e)
         {
             string tunerPort = cmbTunerPorts.SelectedItem.ToString();
+            Properties.Settings.Default["tuner_port"] = tunerPort;
+            Properties.Settings.Default.flex_host = txtFlexHost.Text;
+            Properties.Settings.Default.flex_port = Int32.Parse(txtFlexPort.Text);
+            Properties.Settings.Default.Save();
 
             m_tuner = new Tuner(tunerPort, updateMeter);
-            m_tuner.Init();
-
-            Properties.Settings.Default["tuner_port"] = tunerPort;
-            Properties.Settings.Default.Save();
+            m_tuner.Init();            
 
             btnTunerInit.Enabled = false;
             btnTunerInit.Text = "Connected";
@@ -628,16 +638,36 @@ namespace LDGControl
 
         private void onFlexHostChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.flex_host = txtFlexHost.Text;
-            Properties.Settings.Default.Save();
-            m_tuner.FlexHost = txtFlexHost.Text;
+            //MessageBox.Show("Host modified!");
+            if (m_tuner != null)
+            {
+                m_tuner.Shutdown();
+                btnTunerInit.Enabled = true;
+                btnTunerInit.Text = "Initialize";
+                btnTunerInit.BackColor = SystemColors.InactiveCaption;
+                btnAntTog.Enabled = false;
+                btnBypass.Enabled = false;
+                btnMemTune.Enabled = false;
+                btnFullTune.Enabled = false;
+            }
+            
         }
 
         private void onFlexPortChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.flex_port = txtFlexPort.Text;
-            Properties.Settings.Default.Save();
-            m_tuner.FlexPort = Int32.Parse(txtFlexPort.Text);
+            //MessageBox.Show("Port modified!");
+
+            if (m_tuner != null)
+            {
+                m_tuner.Shutdown();
+                btnTunerInit.Enabled = true;
+                btnTunerInit.Text = "Initialize";
+                btnTunerInit.BackColor = SystemColors.InactiveCaption;
+                btnAntTog.Enabled = false;
+                btnBypass.Enabled = false;
+                btnMemTune.Enabled = false;
+                btnFullTune.Enabled = false;
+            }
         }
 
         private void TuneResult( byte[] result )

@@ -31,7 +31,7 @@ namespace LDGControl
 
             if (m_sio.Open())
             {
-                m_flexPort = Int32.Parse(Properties.Settings.Default.flex_port);
+                m_flexPort = Properties.Settings.Default.flex_port;
                 m_flexHost = Properties.Settings.Default.flex_host;
 
                 if ( m_flexHost.Length > 0 && m_flexPort > 1024 && m_flexPort < 65535 )
@@ -63,6 +63,8 @@ namespace LDGControl
             m_thread_suspend.Set();
 
             meterThread.Join();
+            if (m_flex != null) m_flex.Close();
+            m_sio.Dispose();
         }
 
         public byte[] Sync()
