@@ -5,10 +5,100 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Net;
+using System.Net.Sockets;
+using System.Windows.Forms;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace LDGControl
 {
-    public class SerialIO : IDisposable
+    public interface iSIO : IDisposable
+    {
+        int Write(byte[] data);
+        int Read(byte[] data);
+        bool Open();
+
+        bool Flush();
+        bool SetBlocking(bool blocking);
+
+        int ReadFully(byte[] data, int startidx = 0);
+    }
+
+    public class NetIO : IDisposable, iSIO
+    {
+        public NetIO(string host, int port)
+        {
+            m_host = host;
+            m_port = port;
+        }
+
+        public bool Open()
+        {
+            IPHostEntry ipHostInfo = Dns.GetHostEntry(m_host);
+            IPAddress iPAddress = ipHostInfo.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(iPAddress, m_port);
+            m_client = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+            m_client.Connect(ipEndPoint);
+
+            return true;
+        }
+
+        public int Write(byte[] data)
+        {
+            return m_client.Send(data);
+        }
+
+        public int Read(byte[] data)
+        {
+            return m_client.Receive(data);
+        }
+
+        public void Dispose()
+        {
+            m_client.Close();
+        }
+
+        public bool Flush()
+        {
+            // no-op for TCP
+            return true;
+        }
+
+        public bool SetBlocking(bool blocking)
+        {
+            // doesn't like non-blocking stuff when nothing is there...
+            return blocking;
+        }
+
+        public int ReadFully(byte[] data, int startidx=0)
+        {
+            byte[] chunk = new byte[1];
+            int bytesRead = startidx;
+            int chunkLen = 0;
+
+            while (bytesRead < data.Length)
+            {
+                chunkLen = Read(chunk);
+                if (chunkLen == chunk.Length)
+                {
+                    data[bytesRead] = chunk[0];
+                    ++bytesRead;
+                }
+                else if (chunkLen == -1)
+                {
+                    return -1;
+                }
+            }
+            return bytesRead;
+        }
+
+        private string m_host;
+        private int m_port;
+        private Socket m_client;
+    }
+
+    public class SerialIO : IDisposable, iSIO
     {
         #region Enum
         public enum StopBits

@@ -49,25 +49,85 @@ namespace LDGControl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("flex6300")]
-        public string flex_host {
+        [global::System.Configuration.DefaultSettingValueAttribute("kronos")]
+        public string amp_host {
             get {
-                return ((string)(this["flex_host"]));
+                return ((string)(this["amp_host"]));
             }
             set {
-                this["flex_host"] = value;
+                this["amp_host"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4992")]
-        public int flex_port {
+        [global::System.Configuration.DefaultSettingValueAttribute("51000")]
+        public int amp_tcp_port {
             get {
-                return ((int)(this["flex_port"]));
+                return ((int)(this["amp_tcp_port"]));
             }
             set {
-                this["flex_port"] = value;
+                this["amp_tcp_port"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("kronos")]
+        public string tuner_host {
+            get {
+                return ((string)(this["tuner_host"]));
+            }
+            set {
+                this["tuner_host"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50000")]
+        public int tuner_tcp_port {
+            get {
+                return ((int)(this["tuner_tcp_port"]));
+            }
+            set {
+                this["tuner_tcp_port"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("remote")]
+        public string amp_tab {
+            get {
+                return ((string)(this["amp_tab"]));
+            }
+            set {
+                this["amp_tab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("remote")]
+        public string tuner_tab {
+            get {
+                return ((string)(this["tuner_tab"]));
+            }
+            set {
+                this["tuner_tab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool flex_enabled {
+            get {
+                return ((bool)(this["flex_enabled"]));
+            }
+            set {
+                this["flex_enabled"] = value;
             }
         }
     }

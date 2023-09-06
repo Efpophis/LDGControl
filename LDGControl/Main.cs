@@ -55,10 +55,39 @@ namespace LDGControl
             { 
                 // don't care 
             }
+
             try
             {
-                txtFlexHost.Text = Properties.Settings.Default["flex_host"].ToString();
-                txtFlexPort.Text = Properties.Settings.Default["flex_port"].ToString();
+                //txtFlexHost.Text = Properties.Settings.Default["flex_host"].ToString();
+                //txtFlexPort.Text = Properties.Settings.Default["flex_port"].ToString();
+                tsFlexEnabled.Checked = Properties.Settings.Default.flex_enabled;
+                txtAmpHost.Text = Properties.Settings.Default["amp_host"].ToString();
+                numAmpPort.Value = Properties.Settings.Default.amp_tcp_port;
+                txtTunerHost.Text = Properties.Settings.Default.tuner_host;
+                numTunerPort.Value = Properties.Settings.Default.tuner_tcp_port;
+                
+                string whichTab = Properties.Settings.Default.tuner_tab;
+
+                if ( whichTab == "remote" )
+                {
+                    tabTuner.SelectedTab = tabTunerRemote;
+                }
+                else
+                {
+                    tabTuner.SelectedTab = tabTunerLocal;
+                }
+
+                whichTab = Properties.Settings.Default.amp_tab;
+
+                if (whichTab == "remote")
+                {
+                    tabAmp.SelectedTab = tabAmpRemote;
+                }
+                else
+                {
+                    tabAmp.SelectedTab = tabAmpLocal;
+                }
+
             }
             catch (Exception)
             {
@@ -129,18 +158,34 @@ namespace LDGControl
 
         private void btnAmpInit_Click(object sender, EventArgs e)
         {
-            string ampPort = ampPortsBox.SelectedItem.ToString();
+            if (ampPortsBox.Visible == false)
+            {
+                string host = txtAmpHost.Text;
+                int port = (int)numAmpPort.Value;
 
-            m_amp = new AmpCtl(ampPort);
+                m_amp = new AmpCtl(host, port);
+                Properties.Settings.Default["amp_host"] = host;
+                Properties.Settings.Default["amp_tcp_port"] = port;
+                Properties.Settings.Default.amp_tab = "remote";
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                string ampPort = ampPortsBox.SelectedItem.ToString();
 
-            Properties.Settings.Default["amp_port"] = ampPort;
-            Properties.Settings.Default.Save();
+                m_amp = new AmpCtl(ampPort);
+
+                Properties.Settings.Default["amp_port"] = ampPort;
+                Properties.Settings.Default.amp_tab = "local";
+                Properties.Settings.Default.Save();
+            }
 
             ampOperateBtn.Enabled = true;
             ampStbyBtn.Enabled = true;
             ampResetBtn.Enabled = true;
             btnAmpInit.Enabled = false;
             btnAmpInit.Text = "Connected";
+            
         }
 
         protected void updateMeter(UInt16 fwd, UInt16 refl, UInt16 wtf)
@@ -467,22 +512,37 @@ namespace LDGControl
 
         private void btnTunerInit_Click(object sender, EventArgs e)
         {
-            string tunerPort = cmbTunerPorts.SelectedItem.ToString();
-            Properties.Settings.Default["tuner_port"] = tunerPort;
-            Properties.Settings.Default.flex_host = txtFlexHost.Text;
-            Properties.Settings.Default.flex_port = Int32.Parse(txtFlexPort.Text);
+            if (cmbTunerPorts.Visible == false)
+            {
+                string tunerHost = txtTunerHost.Text;
+                int tunerTcpPort = (int)numTunerPort.Value;
+                Properties.Settings.Default.tuner_host = tunerHost;
+                Properties.Settings.Default.tuner_tcp_port = tunerTcpPort;
+                Properties.Settings.Default.tuner_tab = "remote";
+                m_tuner = new Tuner(tunerHost, tunerTcpPort, updateMeter);
+            }
+            else
+            {
+                string tunerPort = cmbTunerPorts.SelectedItem.ToString();
+                Properties.Settings.Default["tuner_port"] = tunerPort;
+                //Properties.Settings.Default.flex_host = txtFlexHost.Text;
+                //Properties.Settings.Default.flex_port = Int32.Parse(txtFlexPort.Text);
+                Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+                Properties.Settings.Default.tuner_tab = "local";
+                m_tuner = new Tuner(tunerPort, updateMeter);
+            }
             Properties.Settings.Default.Save();
 
-            m_tuner = new Tuner(tunerPort, updateMeter);
-            m_tuner.Init();            
+            m_tuner.Init();
 
             btnTunerInit.Enabled = false;
             btnTunerInit.Text = "Connected";
-            btnTunerInit.BackColor = Color.LimeGreen; 
+            btnTunerInit.BackColor = Color.LimeGreen;
             btnAntTog.Enabled = true;
             btnBypass.Enabled = true;
             btnMemTune.Enabled = true;
             btnFullTune.Enabled = true;
+            
         }
 
         void FwdTick( Object o, EventArgs arg )
@@ -668,6 +728,17 @@ namespace LDGControl
                 btnMemTune.Enabled = false;
                 btnFullTune.Enabled = false;
             }
+        }
+
+        private void onFlexEnableChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void onFlexEnableClick(object sender, EventArgs e)
+        {
+            tsFlexEnabled.Checked = !tsFlexEnabled.Checked;
         }
 
         private void TuneResult( byte[] result )

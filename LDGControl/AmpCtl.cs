@@ -18,7 +18,18 @@ namespace LDGControl
             }
 
             ampOn();
-        }       
+        }
+        
+        public AmpCtl(string host, int port)
+        {
+            m_sio = new NetIO(host, port);
+
+            if ( m_sio.Open() == false)
+            {
+                throw new Exception("Failed to open TCP connection to " + host + ":" + port);
+            }
+            ampOn();
+        }
         
         public void ampOn()
         {
@@ -30,7 +41,7 @@ namespace LDGControl
             m_sio.Write(offCmd);
         }
 
-        private SerialIO m_sio;
+        private iSIO m_sio;
         private static readonly byte[] onCmd  = new byte[] { 0xff, 0x01, 0x00 };
         private static readonly byte[] offCmd = new byte[] { 0xff, 0x01, 0x01 };
     }

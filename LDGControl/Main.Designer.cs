@@ -67,10 +67,6 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtFlexHost = new System.Windows.Forms.ToolStripTextBox();
-            this.portToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtFlexPort = new System.Windows.Forms.ToolStripTextBox();
             this.ampOperateBtn = new System.Windows.Forms.RadioButton();
             this.ampStbyBtn = new System.Windows.Forms.RadioButton();
             this.ampResetBtn = new System.Windows.Forms.Button();
@@ -80,7 +76,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.nameBand = new System.Windows.Forms.Label();
             this.lblBand = new System.Windows.Forms.Label();
-            this.lblWtf = new System.Windows.Forms.Label();
             this.lblTuneStatus = new System.Windows.Forms.Label();
             this.WTF = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -112,17 +107,42 @@
             this.lblSwr = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.tabTuner = new System.Windows.Forms.TabControl();
+            this.tabTunerLocal = new System.Windows.Forms.TabPage();
+            this.tabTunerRemote = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtTunerHost = new System.Windows.Forms.TextBox();
+            this.tabAmp = new System.Windows.Forms.TabControl();
+            this.tabAmpLocal = new System.Windows.Forms.TabPage();
+            this.tabAmpRemote = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtAmpHost = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.numAmpPort = new System.Windows.Forms.NumericUpDown();
+            this.numTunerPort = new System.Windows.Forms.NumericUpDown();
+            this.tsFlexEnabled = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.tabTuner.SuspendLayout();
+            this.tabTunerLocal.SuspendLayout();
+            this.tabTunerRemote.SuspendLayout();
+            this.tabAmp.SuspendLayout();
+            this.tabAmpLocal.SuspendLayout();
+            this.tabAmpRemote.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numAmpPort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTunerPort)).BeginInit();
             this.SuspendLayout();
             // 
             // btnExit
             // 
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnExit.Location = new System.Drawing.Point(454, 308);
+            this.btnExit.Location = new System.Drawing.Point(454, 390);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(128, 34);
             this.btnExit.TabIndex = 0;
@@ -377,7 +397,7 @@
             this.flexToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(591, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(590, 24);
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -400,7 +420,7 @@
             this.v125,
             this.v120});
             this.voltageToolStripMenuItem.Name = "voltageToolStripMenuItem";
-            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.voltageToolStripMenuItem.Text = "Tuner PS Voltage";
             // 
             // v138
@@ -408,42 +428,42 @@
             this.v138.Checked = true;
             this.v138.CheckState = System.Windows.Forms.CheckState.Checked;
             this.v138.Name = "v138";
-            this.v138.Size = new System.Drawing.Size(99, 22);
+            this.v138.Size = new System.Drawing.Size(180, 22);
             this.v138.Text = "13.8";
             this.v138.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // v135
             // 
             this.v135.Name = "v135";
-            this.v135.Size = new System.Drawing.Size(99, 22);
+            this.v135.Size = new System.Drawing.Size(180, 22);
             this.v135.Text = "13.5";
             this.v135.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // v130
             // 
             this.v130.Name = "v130";
-            this.v130.Size = new System.Drawing.Size(99, 22);
+            this.v130.Size = new System.Drawing.Size(180, 22);
             this.v130.Text = "13.0";
             this.v130.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // v125
             // 
             this.v125.Name = "v125";
-            this.v125.Size = new System.Drawing.Size(99, 22);
+            this.v125.Size = new System.Drawing.Size(180, 22);
             this.v125.Text = "12.5";
             this.v125.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // v120
             // 
             this.v120.Name = "v120";
-            this.v120.Size = new System.Drawing.Size(99, 22);
+            this.v120.Size = new System.Drawing.Size(180, 22);
             this.v120.Text = "12.0";
             this.v120.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -459,50 +479,18 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.mnuAbout_onClick);
             // 
             // flexToolStripMenuItem
             // 
             this.flexToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem,
-            this.portToolStripMenuItem});
+            this.tsFlexEnabled});
             this.flexToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flexToolStripMenuItem.Name = "flexToolStripMenuItem";
             this.flexToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.flexToolStripMenuItem.Text = "Fle&x";
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.txtFlexHost});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.settingsToolStripMenuItem.Text = "Host";
-            // 
-            // txtFlexHost
-            // 
-            this.txtFlexHost.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtFlexHost.Name = "txtFlexHost";
-            this.txtFlexHost.Size = new System.Drawing.Size(100, 23);
-            this.txtFlexHost.TextChanged += new System.EventHandler(this.onFlexHostChanged);
-            // 
-            // portToolStripMenuItem
-            // 
-            this.portToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.txtFlexPort});
-            this.portToolStripMenuItem.Name = "portToolStripMenuItem";
-            this.portToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.portToolStripMenuItem.Text = "Port";
-            // 
-            // txtFlexPort
-            // 
-            this.txtFlexPort.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtFlexPort.Name = "txtFlexPort";
-            this.txtFlexPort.Size = new System.Drawing.Size(100, 23);
-            this.txtFlexPort.ModifiedChanged += new System.EventHandler(this.onFlexPortChanged);
-            this.txtFlexPort.TextChanged += new System.EventHandler(this.onFlexPortChanged);
             // 
             // ampOperateBtn
             // 
@@ -510,7 +498,7 @@
             this.ampOperateBtn.Checked = true;
             this.ampOperateBtn.Enabled = false;
             this.ampOperateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ampOperateBtn.Location = new System.Drawing.Point(240, 32);
+            this.ampOperateBtn.Location = new System.Drawing.Point(335, 61);
             this.ampOperateBtn.Name = "ampOperateBtn";
             this.ampOperateBtn.Size = new System.Drawing.Size(63, 17);
             this.ampOperateBtn.TabIndex = 27;
@@ -524,7 +512,7 @@
             this.ampStbyBtn.AutoSize = true;
             this.ampStbyBtn.Enabled = false;
             this.ampStbyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ampStbyBtn.Location = new System.Drawing.Point(240, 12);
+            this.ampStbyBtn.Location = new System.Drawing.Point(334, 19);
             this.ampStbyBtn.Name = "ampStbyBtn";
             this.ampStbyBtn.Size = new System.Drawing.Size(64, 17);
             this.ampStbyBtn.TabIndex = 28;
@@ -536,7 +524,7 @@
             // 
             this.ampResetBtn.Enabled = false;
             this.ampResetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ampResetBtn.Location = new System.Drawing.Point(345, 19);
+            this.ampResetBtn.Location = new System.Drawing.Point(328, 81);
             this.ampResetBtn.Name = "ampResetBtn";
             this.ampResetBtn.Size = new System.Drawing.Size(75, 22);
             this.ampResetBtn.TabIndex = 29;
@@ -546,15 +534,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tabAmp);
             this.groupBox1.Controls.Add(this.btnAmpInit);
-            this.groupBox1.Controls.Add(this.ampPortsBox);
             this.groupBox1.Controls.Add(this.ampOperateBtn);
             this.groupBox1.Controls.Add(this.ampResetBtn);
             this.groupBox1.Controls.Add(this.ampStbyBtn);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 296);
+            this.groupBox1.Location = new System.Drawing.Point(12, 314);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(429, 58);
+            this.groupBox1.Size = new System.Drawing.Size(414, 110);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Amplifier";
@@ -563,7 +551,7 @@
             // btnAmpInit
             // 
             this.btnAmpInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnAmpInit.Location = new System.Drawing.Point(115, 19);
+            this.btnAmpInit.Location = new System.Drawing.Point(227, 81);
             this.btnAmpInit.Name = "btnAmpInit";
             this.btnAmpInit.Padding = new System.Windows.Forms.Padding(1);
             this.btnAmpInit.Size = new System.Drawing.Size(95, 22);
@@ -576,7 +564,7 @@
             // 
             this.ampPortsBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.ampPortsBox.FormattingEnabled = true;
-            this.ampPortsBox.Location = new System.Drawing.Point(7, 19);
+            this.ampPortsBox.Location = new System.Drawing.Point(94, 5);
             this.ampPortsBox.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
             this.ampPortsBox.Name = "ampPortsBox";
             this.ampPortsBox.Size = new System.Drawing.Size(99, 21);
@@ -584,24 +572,23 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tabTuner);
             this.groupBox2.Controls.Add(this.nameBand);
             this.groupBox2.Controls.Add(this.lblBand);
-            this.groupBox2.Controls.Add(this.lblWtf);
             this.groupBox2.Controls.Add(this.lblTuneStatus);
             this.groupBox2.Controls.Add(this.WTF);
             this.groupBox2.Controls.Add(this.label20);
             this.groupBox2.Controls.Add(this.btnFullTune);
-            this.groupBox2.Controls.Add(this.btnMemTune);
-            this.groupBox2.Controls.Add(this.btnBypass);
             this.groupBox2.Controls.Add(this.btnAntTog);
+            this.groupBox2.Controls.Add(this.btnBypass);
             this.groupBox2.Controls.Add(this.btnTunerInit);
-            this.groupBox2.Controls.Add(this.cmbTunerPorts);
+            this.groupBox2.Controls.Add(this.btnMemTune);
             this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox2.Location = new System.Drawing.Point(12, 187);
+            this.groupBox2.Location = new System.Drawing.Point(12, 191);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(570, 106);
+            this.groupBox2.Size = new System.Drawing.Size(570, 117);
             this.groupBox2.TabIndex = 32;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tuner";
@@ -610,7 +597,7 @@
             // 
             this.nameBand.AutoSize = true;
             this.nameBand.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.nameBand.Location = new System.Drawing.Point(120, 54);
+            this.nameBand.Location = new System.Drawing.Point(440, 95);
             this.nameBand.Name = "nameBand";
             this.nameBand.Size = new System.Drawing.Size(35, 13);
             this.nameBand.TabIndex = 38;
@@ -620,21 +607,11 @@
             // 
             this.lblBand.AutoSize = true;
             this.lblBand.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblBand.Location = new System.Drawing.Point(178, 54);
+            this.lblBand.Location = new System.Drawing.Point(478, 95);
             this.lblBand.Name = "lblBand";
             this.lblBand.Size = new System.Drawing.Size(53, 13);
             this.lblBand.TabIndex = 26;
             this.lblBand.Text = "Unknown";
-            // 
-            // lblWtf
-            // 
-            this.lblWtf.AutoSize = true;
-            this.lblWtf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblWtf.Location = new System.Drawing.Point(120, 79);
-            this.lblWtf.Name = "lblWtf";
-            this.lblWtf.Size = new System.Drawing.Size(34, 13);
-            this.lblWtf.TabIndex = 28;
-            this.lblWtf.Text = "WTF:";
             // 
             // lblTuneStatus
             // 
@@ -642,7 +619,7 @@
             this.lblTuneStatus.BackColor = System.Drawing.SystemColors.Control;
             this.lblTuneStatus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lblTuneStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblTuneStatus.Location = new System.Drawing.Point(484, 22);
+            this.lblTuneStatus.Location = new System.Drawing.Point(497, 47);
             this.lblTuneStatus.Name = "lblTuneStatus";
             this.lblTuneStatus.Padding = new System.Windows.Forms.Padding(2);
             this.lblTuneStatus.Size = new System.Drawing.Size(37, 17);
@@ -653,7 +630,7 @@
             // 
             this.WTF.AutoSize = true;
             this.WTF.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.WTF.Location = new System.Drawing.Point(181, 79);
+            this.WTF.Location = new System.Drawing.Point(537, 95);
             this.WTF.Name = "WTF";
             this.WTF.Size = new System.Drawing.Size(25, 13);
             this.WTF.TabIndex = 27;
@@ -663,17 +640,17 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label20.Location = new System.Drawing.Point(343, 26);
+            this.label20.Location = new System.Drawing.Point(440, 51);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(91, 13);
+            this.label20.Size = new System.Drawing.Size(40, 13);
             this.label20.TabIndex = 6;
-            this.label20.Text = "Last Tune Result:";
+            this.label20.Text = "Match:";
             // 
             // btnFullTune
             // 
             this.btnFullTune.Enabled = false;
             this.btnFullTune.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFullTune.Location = new System.Drawing.Point(345, 57);
+            this.btnFullTune.Location = new System.Drawing.Point(345, 16);
             this.btnFullTune.Name = "btnFullTune";
             this.btnFullTune.Size = new System.Drawing.Size(84, 39);
             this.btnFullTune.TabIndex = 5;
@@ -686,7 +663,7 @@
             // 
             this.btnMemTune.Enabled = false;
             this.btnMemTune.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMemTune.Location = new System.Drawing.Point(463, 57);
+            this.btnMemTune.Location = new System.Drawing.Point(345, 69);
             this.btnMemTune.Name = "btnMemTune";
             this.btnMemTune.Size = new System.Drawing.Size(84, 39);
             this.btnMemTune.TabIndex = 4;
@@ -700,10 +677,10 @@
             this.btnBypass.BackColor = System.Drawing.Color.LimeGreen;
             this.btnBypass.Enabled = false;
             this.btnBypass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnBypass.Location = new System.Drawing.Point(9, 73);
+            this.btnBypass.Location = new System.Drawing.Point(230, 79);
             this.btnBypass.Name = "btnBypass";
             this.btnBypass.Padding = new System.Windows.Forms.Padding(1);
-            this.btnBypass.Size = new System.Drawing.Size(97, 22);
+            this.btnBypass.Size = new System.Drawing.Size(95, 29);
             this.btnBypass.TabIndex = 3;
             this.btnBypass.Text = "Bypass";
             this.toolTip1.SetToolTip(this.btnBypass, "Toggles between Bypass or Auto Tune");
@@ -714,9 +691,9 @@
             // 
             this.btnAntTog.Enabled = false;
             this.btnAntTog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnAntTog.Location = new System.Drawing.Point(8, 44);
+            this.btnAntTog.Location = new System.Drawing.Point(230, 47);
             this.btnAntTog.Name = "btnAntTog";
-            this.btnAntTog.Size = new System.Drawing.Size(98, 22);
+            this.btnAntTog.Size = new System.Drawing.Size(95, 26);
             this.btnAntTog.TabIndex = 2;
             this.btnAntTog.Text = "Antenna 1";
             this.toolTip1.SetToolTip(this.btnAntTog, "Toggle selected antenna");
@@ -726,10 +703,10 @@
             // btnTunerInit
             // 
             this.btnTunerInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTunerInit.Location = new System.Drawing.Point(115, 20);
+            this.btnTunerInit.Location = new System.Drawing.Point(230, 14);
             this.btnTunerInit.Name = "btnTunerInit";
             this.btnTunerInit.Padding = new System.Windows.Forms.Padding(1);
-            this.btnTunerInit.Size = new System.Drawing.Size(95, 22);
+            this.btnTunerInit.Size = new System.Drawing.Size(95, 27);
             this.btnTunerInit.TabIndex = 1;
             this.btnTunerInit.Text = "Initialize";
             this.btnTunerInit.UseVisualStyleBackColor = true;
@@ -739,7 +716,7 @@
             // 
             this.cmbTunerPorts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.cmbTunerPorts.FormattingEnabled = true;
-            this.cmbTunerPorts.Location = new System.Drawing.Point(7, 20);
+            this.cmbTunerPorts.Location = new System.Drawing.Point(95, 8);
             this.cmbTunerPorts.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
             this.cmbTunerPorts.Name = "cmbTunerPorts";
             this.cmbTunerPorts.Size = new System.Drawing.Size(99, 21);
@@ -1030,12 +1007,208 @@
             this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // tabTuner
+            // 
+            this.tabTuner.Controls.Add(this.tabTunerLocal);
+            this.tabTuner.Controls.Add(this.tabTunerRemote);
+            this.tabTuner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabTuner.Location = new System.Drawing.Point(5, 19);
+            this.tabTuner.Name = "tabTuner";
+            this.tabTuner.SelectedIndex = 0;
+            this.tabTuner.Size = new System.Drawing.Size(212, 89);
+            this.tabTuner.TabIndex = 55;
+            // 
+            // tabTunerLocal
+            // 
+            this.tabTunerLocal.BackColor = System.Drawing.Color.Gainsboro;
+            this.tabTunerLocal.Controls.Add(this.label19);
+            this.tabTunerLocal.Controls.Add(this.cmbTunerPorts);
+            this.tabTunerLocal.Location = new System.Drawing.Point(4, 22);
+            this.tabTunerLocal.Name = "tabTunerLocal";
+            this.tabTunerLocal.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTunerLocal.Size = new System.Drawing.Size(204, 63);
+            this.tabTunerLocal.TabIndex = 0;
+            this.tabTunerLocal.Text = "Local";
+            // 
+            // tabTunerRemote
+            // 
+            this.tabTunerRemote.BackColor = System.Drawing.Color.Gainsboro;
+            this.tabTunerRemote.Controls.Add(this.numTunerPort);
+            this.tabTunerRemote.Controls.Add(this.txtTunerHost);
+            this.tabTunerRemote.Controls.Add(this.label22);
+            this.tabTunerRemote.Controls.Add(this.label21);
+            this.tabTunerRemote.Location = new System.Drawing.Point(4, 22);
+            this.tabTunerRemote.Name = "tabTunerRemote";
+            this.tabTunerRemote.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTunerRemote.Size = new System.Drawing.Size(204, 63);
+            this.tabTunerRemote.TabIndex = 1;
+            this.tabTunerRemote.Text = "Remote";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(7, 15);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(73, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Serial Device:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(7, 10);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(32, 13);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Host:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 41);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(29, 13);
+            this.label22.TabIndex = 1;
+            this.label22.Text = "Port:";
+            // 
+            // txtTunerHost
+            // 
+            this.txtTunerHost.Location = new System.Drawing.Point(45, 6);
+            this.txtTunerHost.Name = "txtTunerHost";
+            this.txtTunerHost.Size = new System.Drawing.Size(153, 20);
+            this.txtTunerHost.TabIndex = 2;
+            // 
+            // tabAmp
+            // 
+            this.tabAmp.Controls.Add(this.tabAmpLocal);
+            this.tabAmp.Controls.Add(this.tabAmpRemote);
+            this.tabAmp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabAmp.Location = new System.Drawing.Point(5, 19);
+            this.tabAmp.Name = "tabAmp";
+            this.tabAmp.SelectedIndex = 0;
+            this.tabAmp.Size = new System.Drawing.Size(212, 84);
+            this.tabAmp.TabIndex = 56;
+            // 
+            // tabAmpLocal
+            // 
+            this.tabAmpLocal.BackColor = System.Drawing.Color.Gainsboro;
+            this.tabAmpLocal.Controls.Add(this.label23);
+            this.tabAmpLocal.Controls.Add(this.ampPortsBox);
+            this.tabAmpLocal.Location = new System.Drawing.Point(4, 22);
+            this.tabAmpLocal.Name = "tabAmpLocal";
+            this.tabAmpLocal.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAmpLocal.Size = new System.Drawing.Size(204, 58);
+            this.tabAmpLocal.TabIndex = 0;
+            this.tabAmpLocal.Text = "Local";
+            // 
+            // tabAmpRemote
+            // 
+            this.tabAmpRemote.BackColor = System.Drawing.Color.Gainsboro;
+            this.tabAmpRemote.Controls.Add(this.numAmpPort);
+            this.tabAmpRemote.Controls.Add(this.label25);
+            this.tabAmpRemote.Controls.Add(this.txtAmpHost);
+            this.tabAmpRemote.Controls.Add(this.label24);
+            this.tabAmpRemote.Location = new System.Drawing.Point(4, 22);
+            this.tabAmpRemote.Name = "tabAmpRemote";
+            this.tabAmpRemote.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAmpRemote.Size = new System.Drawing.Size(204, 58);
+            this.tabAmpRemote.TabIndex = 1;
+            this.tabAmpRemote.Text = "Remote";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 11);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(73, 13);
+            this.label23.TabIndex = 31;
+            this.label23.Text = "Serial Device:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(3, 11);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(32, 13);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "Host:";
+            // 
+            // txtAmpHost
+            // 
+            this.txtAmpHost.Location = new System.Drawing.Point(41, 4);
+            this.txtAmpHost.Name = "txtAmpHost";
+            this.txtAmpHost.Size = new System.Drawing.Size(152, 20);
+            this.txtAmpHost.TabIndex = 1;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(2, 36);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(29, 13);
+            this.label25.TabIndex = 2;
+            this.label25.Text = "Port:";
+            // 
+            // numAmpPort
+            // 
+            this.numAmpPort.Location = new System.Drawing.Point(41, 32);
+            this.numAmpPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numAmpPort.Minimum = new decimal(new int[] {
+            49152,
+            0,
+            0,
+            0});
+            this.numAmpPort.Name = "numAmpPort";
+            this.numAmpPort.Size = new System.Drawing.Size(67, 20);
+            this.numAmpPort.TabIndex = 57;
+            this.numAmpPort.Value = new decimal(new int[] {
+            51000,
+            0,
+            0,
+            0});
+            // 
+            // numTunerPort
+            // 
+            this.numTunerPort.Location = new System.Drawing.Point(45, 37);
+            this.numTunerPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numTunerPort.Minimum = new decimal(new int[] {
+            49152,
+            0,
+            0,
+            0});
+            this.numTunerPort.Name = "numTunerPort";
+            this.numTunerPort.Size = new System.Drawing.Size(63, 20);
+            this.numTunerPort.TabIndex = 3;
+            this.numTunerPort.Value = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            // 
+            // tsFlexEnabled
+            // 
+            this.tsFlexEnabled.Checked = true;
+            this.tsFlexEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsFlexEnabled.Name = "tsFlexEnabled";
+            this.tsFlexEnabled.Size = new System.Drawing.Size(184, 22);
+            this.tsFlexEnabled.Text = "Enable Discovery";
+            this.tsFlexEnabled.CheckedChanged += new System.EventHandler(this.onFlexEnableChanged);
+            this.tsFlexEnabled.Click += new System.EventHandler(this.onFlexEnableClick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(591, 362);
+            this.ClientSize = new System.Drawing.Size(590, 430);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -1058,6 +1231,18 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.tabTuner.ResumeLayout(false);
+            this.tabTunerLocal.ResumeLayout(false);
+            this.tabTunerLocal.PerformLayout();
+            this.tabTunerRemote.ResumeLayout(false);
+            this.tabTunerRemote.PerformLayout();
+            this.tabAmp.ResumeLayout(false);
+            this.tabAmpLocal.ResumeLayout(false);
+            this.tabAmpLocal.PerformLayout();
+            this.tabAmpRemote.ResumeLayout(false);
+            this.tabAmpRemote.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numAmpPort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTunerPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1135,7 +1320,6 @@
         private System.Windows.Forms.Label WTF;
         private System.Windows.Forms.Label lblBand;
         private System.Windows.Forms.Label lblSwr;
-        private System.Windows.Forms.Label lblWtf;
         private System.Windows.Forms.ToolStripMenuItem voltageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem v130;
         private System.Windows.Forms.ToolStripMenuItem v125;
@@ -1143,10 +1327,23 @@
         private System.Windows.Forms.ToolStripMenuItem v138;
         private System.Windows.Forms.ToolStripMenuItem v135;
         private System.Windows.Forms.ToolStripMenuItem flexToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripTextBox txtFlexHost;
-        private System.Windows.Forms.ToolStripMenuItem portToolStripMenuItem;
-        private System.Windows.Forms.ToolStripTextBox txtFlexPort;
+        private System.Windows.Forms.TabControl tabAmp;
+        private System.Windows.Forms.TabPage tabAmpLocal;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TabPage tabAmpRemote;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox txtAmpHost;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TabControl tabTuner;
+        private System.Windows.Forms.TabPage tabTunerLocal;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TabPage tabTunerRemote;
+        private System.Windows.Forms.TextBox txtTunerHost;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.NumericUpDown numAmpPort;
+        private System.Windows.Forms.NumericUpDown numTunerPort;
+        private System.Windows.Forms.ToolStripMenuItem tsFlexEnabled;
     }
 }
 

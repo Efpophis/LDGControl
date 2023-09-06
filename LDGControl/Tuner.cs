@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Runtime.Remoting.Messaging;
+using LDGControl.Properties;
 
 namespace LDGControl
 {
@@ -15,6 +16,12 @@ namespace LDGControl
             m_sio = new SerialIO(port, 38400, SerialIO.StopBits.One, SerialIO.Parity.None);
             MeterCallback = callback;
             
+        }
+
+        public Tuner(string host, int port, PostMeterDataCallback callback)
+        {
+            m_sio = new NetIO(host, port);
+            MeterCallback = callback;
         }
 
         ~Tuner()
@@ -31,14 +38,11 @@ namespace LDGControl
 
             if (m_sio.Open())
             {
-                m_flexPort = Properties.Settings.Default.flex_port;
-                m_flexHost = Properties.Settings.Default.flex_host;
-
-                if ( m_flexHost.Length > 0 && m_flexPort > 1024 && m_flexPort < 65535 )
+                if ( Settings.Default.flex_enabled == true ) 
                 {
                     // attempt to initiate a flex connectin here
                     m_flex = new SmartSDR();
-                    m_flex.Init(m_flexHost, m_flexPort);
+                    m_flex.Init();
                 }
 
                 MeterMode();
@@ -363,7 +367,7 @@ namespace LDGControl
 
         private PostMeterDataCallback MeterCallback = null;
 
-        private SerialIO m_sio;
+        private iSIO m_sio;
         private SmartSDR m_flex = null;
 
         private string m_flexHost;

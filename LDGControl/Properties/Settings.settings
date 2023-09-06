@@ -8,11 +8,26 @@
     <Setting Name="tuner_port" Type="System.String" Scope="User">
       <Value Profile="(Default)">"COM5"</Value>
     </Setting>
-    <Setting Name="flex_host" Type="System.String" Scope="User">
-      <Value Profile="(Default)">flex6300</Value>
+    <Setting Name="amp_host" Type="System.String" Scope="User">
+      <Value Profile="(Default)">kronos</Value>
     </Setting>
-    <Setting Name="flex_port" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">4992</Value>
+    <Setting Name="amp_tcp_port" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">51000</Value>
+    </Setting>
+    <Setting Name="tuner_host" Type="System.String" Scope="User">
+      <Value Profile="(Default)">kronos</Value>
+    </Setting>
+    <Setting Name="tuner_tcp_port" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">50000</Value>
+    </Setting>
+    <Setting Name="amp_tab" Type="System.String" Scope="User">
+      <Value Profile="(Default)">remote</Value>
+    </Setting>
+    <Setting Name="tuner_tab" Type="System.String" Scope="User">
+      <Value Profile="(Default)">remote</Value>
+    </Setting>
+    <Setting Name="flex_enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
