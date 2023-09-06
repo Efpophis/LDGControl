@@ -43,9 +43,14 @@ To send any command and have the tuner parse it properly, I found that you need 
 
 I made a linux version of this code that's very stripped down and only runs on the command line. It's up here on Github somewhere...
 
-## Code Signing
+## NEW - Remote Operation
 
-This program is signed with a certificate issued from my own certification authority. If you know what you're doing, understand the risks, and want to trust code, websites, etc, with certificates issued by me, you can install my root CA certificate found in this repository.
+You can now connect to a socat server running on a remote machine to control each device over tcp/ip. I will soon publish a separate repo containing instructions on how to set this up on a linux machine.
+
+## NEW - Flex 6000 series integration
+
+The program now has a rudimentary capability to discover a Flex 6000 series radio on your network and trigger the flex's "transmit tune" functionality when you use Memory Tune or Full Tune. One-stop tuning for flex users, yay!
+
 
 ## Ardugnome edit (November 2022)
 - add band display based on the 2 WTF bytes previously unknown
@@ -55,13 +60,7 @@ This program is signed with a certificate issued from my own certification autho
 - added modification note to the About page
 - amplifier connection functionality not tested, assumed working in previous version.
 
-##Known Issues
+## Known Issues
 - when using peak mode, sometimes meter reading does not revert to zero after rf power is removed (i.e. transmission stopped). This can give the impression that there is still power being transmitted, when in fact it is not. No issues found when not using peak reading.
 - you may have to press the button twice for a function to take effect. It happens occasionally and is not repeatable.
 
-## Code Signing removed
-
-Ardugnome version has the code signining removed which means you don't have to install any certificates. If you don't trust the application, don't run it.
-That being said there is no warranty that the code won't cause harm to your computer. Please always download your code from GitHub and not any other sites. 
-
---- End of Ardugnome edit.---
