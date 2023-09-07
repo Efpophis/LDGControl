@@ -195,6 +195,28 @@
         }
         "Folder"
         {
+            "{1525181F-901A-416C-8A58-119130FE478E}:_A355E6CC758E4830B37D3878DAEBFCF1"
+            {
+            "Name" = "8:#1921"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:StartMenuFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_7D2316B8BFA34A5BBD2749D8F18CA2F6"
+                    {
+                    "Name" = "8:Efpophis Networks"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_A7A4330A997949B597D4EB1B95BEBEEC"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_D2222D61051644BBA11D1203DF732332"
             {
             "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
@@ -221,7 +243,7 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_F4D83C58194E4FFDB306E4B0EBBCBA23"
             {
             "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:ProgramMenuFolder"
@@ -245,15 +267,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LDGControl"
-        "ProductCode" = "8:{ECDA3B1C-FA71-4A65-9900-9E5A331699AB}"
-        "PackageCode" = "8:{83616809-B4C0-4C5C-AC6D-9A481FE17556}"
+        "ProductCode" = "8:{945A48EB-5238-4EEC-ADE3-1C40BA55E966}"
+        "PackageCode" = "8:{8F593E8E-768E-4921-9299-5E670FBFC55C}"
         "UpgradeCode" = "8:{6EE9AD3D-2E20-4F79-AF74-D0393EC05723}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.5.0007"
+        "ProductVersion" = "8:1.5.0011"
         "Manufacturer" = "8:Efpophis Networks"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -366,9 +388,23 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_29DA2FB4A8144BE5A55422D5AE030A44"
+            {
+            "Name" = "8:LDG Control"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_CAEAE1F74D824EDDAFB4D4020E94EA21"
+            "Folder" = "8:_7D2316B8BFA34A5BBD2749D8F18CA2F6"
+            "WorkingFolder" = "8:_D2222D61051644BBA11D1203DF732332"
+            "Icon" = "8:_5B33C6CCF0EF4354A37942DAE36DDE7C"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_72432CCC4BA14501961EC054821A365D"
             {
-            "Name" = "8:Shortcut to Primary output from LDGControl (Active)"
+            "Name" = "8:LDG Control"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -377,12 +413,12 @@
             "Target" = "8:_CAEAE1F74D824EDDAFB4D4020E94EA21"
             "Folder" = "8:_F4D83C58194E4FFDB306E4B0EBBCBA23"
             "WorkingFolder" = "8:_D2222D61051644BBA11D1203DF732332"
-            "Icon" = "8:"
+            "Icon" = "8:_5B33C6CCF0EF4354A37942DAE36DDE7C"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_881E98E9846040A997D6600BFBA70E26"
             {
-            "Name" = "8:Shortcut to Primary output from LDGControl (Active)"
+            "Name" = "8:LDGControl"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -391,7 +427,7 @@
             "Target" = "8:_CAEAE1F74D824EDDAFB4D4020E94EA21"
             "Folder" = "8:_F44E94F92A534FCEBAE2233FD718A43D"
             "WorkingFolder" = "8:_D2222D61051644BBA11D1203DF732332"
-            "Icon" = "8:"
+            "Icon" = "8:_5B33C6CCF0EF4354A37942DAE36DDE7C"
             "Feature" = "8:"
             }
         }

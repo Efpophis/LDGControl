@@ -58,6 +58,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voltageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.v143 = new System.Windows.Forms.ToolStripMenuItem();
             this.v138 = new System.Windows.Forms.ToolStripMenuItem();
             this.v135 = new System.Windows.Forms.ToolStripMenuItem();
             this.v130 = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,7 +125,6 @@
             this.lblSwr = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.v143 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabAmp.SuspendLayout();
@@ -425,40 +425,47 @@
             this.voltageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.voltageToolStripMenuItem.Text = "&Tuner PS Voltage";
             // 
+            // v143
+            // 
+            this.v143.Name = "v143";
+            this.v143.Size = new System.Drawing.Size(99, 22);
+            this.v143.Text = "14.3";
+            this.v143.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // v138
             // 
             this.v138.Checked = true;
             this.v138.CheckState = System.Windows.Forms.CheckState.Checked;
             this.v138.Name = "v138";
-            this.v138.Size = new System.Drawing.Size(180, 22);
+            this.v138.Size = new System.Drawing.Size(99, 22);
             this.v138.Text = "13.8";
             this.v138.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // v135
             // 
             this.v135.Name = "v135";
-            this.v135.Size = new System.Drawing.Size(180, 22);
+            this.v135.Size = new System.Drawing.Size(99, 22);
             this.v135.Text = "13.5";
             this.v135.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // v130
             // 
             this.v130.Name = "v130";
-            this.v130.Size = new System.Drawing.Size(180, 22);
+            this.v130.Size = new System.Drawing.Size(99, 22);
             this.v130.Text = "13.0";
             this.v130.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // v125
             // 
             this.v125.Name = "v125";
-            this.v125.Size = new System.Drawing.Size(180, 22);
+            this.v125.Size = new System.Drawing.Size(99, 22);
             this.v125.Text = "12.5";
             this.v125.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // v120
             // 
             this.v120.Name = "v120";
-            this.v120.Size = new System.Drawing.Size(180, 22);
+            this.v120.Size = new System.Drawing.Size(99, 22);
             this.v120.Text = "12.0";
             this.v120.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
@@ -486,6 +493,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -499,7 +507,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.mnuAbout_onClick);
             // 
@@ -1203,13 +1211,6 @@
             this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // v143
-            // 
-            this.v143.Name = "v143";
-            this.v143.Size = new System.Drawing.Size(180, 22);
-            this.v143.Text = "14.3";
-            this.v143.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // Main
             // 
