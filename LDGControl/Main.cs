@@ -87,6 +87,30 @@ namespace LDGControl
                 {
                     tabAmp.SelectedTab = tabAmpLocal;
                 }
+                int psudVolts = Properties.Settings.Default.psu_dvolts;
+
+                switch ( psudVolts )
+                {
+                    case 120:
+                        toolStripMenuItem6_Click(null, null);
+                        break;
+                    case 125:
+                        toolStripMenuItem5_Click(null, null);
+                        break;
+                    case 130:
+                        toolStripMenuItem4_Click(null, null);
+                        break;
+                    case 135:
+                        toolStripMenuItem3_Click(null, null);
+                        break;
+                    case 138:
+                    default:
+                        toolStripMenuItem2_Click(null, null);
+                        break;
+                    case 143:
+                        toolStripMenuItem1_Click(null, null);
+                        break;
+                }
 
             }
             catch (Exception)
@@ -652,6 +676,8 @@ namespace LDGControl
             v120.Checked = false;
             v130.Checked = false;
             v143.Checked = false;
+            Properties.Settings.Default.psu_dvolts = 138;
+            Properties.Settings.Default.Save();
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
@@ -663,6 +689,8 @@ namespace LDGControl
             v120.Checked = false;
             v130.Checked = true;
             v143.Checked = false;
+            Properties.Settings.Default.psu_dvolts = 130;
+            Properties.Settings.Default.Save();
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -674,6 +702,8 @@ namespace LDGControl
             v120.Checked = false;
             v130.Checked = false;
             v143.Checked = false;
+            Properties.Settings.Default.psu_dvolts = 135;
+            Properties.Settings.Default.Save();
         }
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
@@ -685,6 +715,8 @@ namespace LDGControl
             v120.Checked = false;
             v130.Checked = false;
             v143.Checked = false;
+            Properties.Settings.Default.psu_dvolts = 125;
+            Properties.Settings.Default.Save();
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -696,51 +728,8 @@ namespace LDGControl
             v120.Checked = true;
             v130.Checked = false;
             v143.Checked = false;
-        }
-
-        private void onFlexHostChanged(object sender, EventArgs e)
-        {
-            //MessageBox.Show("Host modified!");
-            if (m_tuner != null)
-            {
-                m_tuner.Shutdown();
-                btnTunerInit.Enabled = true;
-                btnTunerInit.Text = "Initialize";
-                btnTunerInit.BackColor = SystemColors.InactiveCaption;
-                btnAntTog.Enabled = false;
-                btnBypass.Enabled = false;
-                btnMemTune.Enabled = false;
-                btnFullTune.Enabled = false;
-            }
-            
-        }
-
-        private void onFlexPortChanged(object sender, EventArgs e)
-        {
-            //MessageBox.Show("Port modified!");
-
-            if (m_tuner != null)
-            {
-                m_tuner.Shutdown();
-                btnTunerInit.Enabled = true;
-                btnTunerInit.Text = "Initialize";
-                btnTunerInit.BackColor = SystemColors.InactiveCaption;
-                btnAntTog.Enabled = false;
-                btnBypass.Enabled = false;
-                btnMemTune.Enabled = false;
-                btnFullTune.Enabled = false;
-            }
-        }
-
-        private void onFlexEnableChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+            Properties.Settings.Default.psu_dvolts = 120;
             Properties.Settings.Default.Save();
-        }
-
-        private void onFlexEnableClick(object sender, EventArgs e)
-        {
-            tsFlexEnabled.Checked = !tsFlexEnabled.Checked;
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -752,7 +741,21 @@ namespace LDGControl
             v120.Checked = false;
             v130.Checked = false;
             v143.Checked = true;
+            Properties.Settings.Default.psu_dvolts = 143;
+            Properties.Settings.Default.Save();
+        }
+        
+        private void onFlexEnableChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+            Properties.Settings.Default.Save();
+        }
 
+        private void onFlexEnableClick(object sender, EventArgs e)
+        {
+            tsFlexEnabled.Checked = !tsFlexEnabled.Checked;
+            Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private void TuneResult( byte[] result )

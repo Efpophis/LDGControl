@@ -67,7 +67,7 @@ namespace LDGControl
                     MessageBox.Show("Discovery got gobbledegook");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("No radios found");
             }

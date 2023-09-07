@@ -29,5 +29,8 @@
     <Setting Name="flex_enabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="psu_dvolts" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">138</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

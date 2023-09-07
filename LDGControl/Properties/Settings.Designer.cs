@@ -130,5 +130,17 @@ namespace LDGControl.Properties {
                 this["flex_enabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("138")]
+        public int psu_dvolts {
+            get {
+                return ((int)(this["psu_dvolts"]));
+            }
+            set {
+                this["psu_dvolts"] = value;
+            }
+        }
     }
 }
