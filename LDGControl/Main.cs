@@ -651,6 +651,7 @@ namespace LDGControl
             v125.Checked = false;
             v120.Checked = false;
             v130.Checked = false;
+            v143.Checked = false;
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
@@ -661,6 +662,7 @@ namespace LDGControl
             v125.Checked = false;
             v120.Checked = false;
             v130.Checked = true;
+            v143.Checked = false;
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -671,8 +673,7 @@ namespace LDGControl
             v125.Checked = false;
             v120.Checked = false;
             v130.Checked = false;
-
-
+            v143.Checked = false;
         }
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
@@ -683,6 +684,7 @@ namespace LDGControl
             v125.Checked = true;
             v120.Checked = false;
             v130.Checked = false;
+            v143.Checked = false;
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -693,7 +695,7 @@ namespace LDGControl
             v125.Checked = false;
             v120.Checked = true;
             v130.Checked = false;
-
+            v143.Checked = false;
         }
 
         private void onFlexHostChanged(object sender, EventArgs e)
@@ -739,6 +741,18 @@ namespace LDGControl
         private void onFlexEnableClick(object sender, EventArgs e)
         {
             tsFlexEnabled.Checked = !tsFlexEnabled.Checked;
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            voltPS = 14.3;
+            v135.Checked = false;
+            v138.Checked = false;
+            v125.Checked = false;
+            v120.Checked = false;
+            v130.Checked = false;
+            v143.Checked = true;
+
         }
 
         private void TuneResult( byte[] result )
