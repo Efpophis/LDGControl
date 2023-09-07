@@ -45,7 +45,7 @@ I made a linux version of this code that's very stripped down and only runs on t
 
 ## NEW - Remote Operation
 
-You can now connect to a socat server running on a remote machine to control each device over tcp/ip. I will soon publish a separate repo containing instructions on how to set this up on a linux machine.
+You can now connect to a socat server running on a remote machine to control each device over tcp/ip. Check out my [socat_server](https://github.com/efpophis/socat_server) repo for further info.
 
 ## NEW - Flex 6000 series integration
 
