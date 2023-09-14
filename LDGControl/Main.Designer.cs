@@ -422,7 +422,7 @@
             this.v125,
             this.v120});
             this.voltageToolStripMenuItem.Name = "voltageToolStripMenuItem";
-            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.voltageToolStripMenuItem.Text = "&Tuner PS Voltage";
             // 
             // v143
@@ -475,7 +475,7 @@
             this.tsFlexEnabled});
             this.flexToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flexToolStripMenuItem.Name = "flexToolStripMenuItem";
-            this.flexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.flexToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.flexToolStripMenuItem.Text = "F&lex";
             // 
             // tsFlexEnabled
@@ -491,7 +491,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -948,6 +948,7 @@
             this.chkPeak.TabIndex = 36;
             this.chkPeak.Text = "Peak Hold";
             this.chkPeak.UseVisualStyleBackColor = false;
+            this.chkPeak.CheckedChanged += new System.EventHandler(this.chkPeak_CheckedChanged);
             // 
             // tmrFwdPeak
             // 

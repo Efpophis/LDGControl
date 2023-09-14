@@ -142,5 +142,17 @@ namespace LDGControl.Properties {
                 this["psu_dvolts"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool peak_hold {
+            get {
+                return ((bool)(this["peak_hold"]));
+            }
+            set {
+                this["peak_hold"] = value;
+            }
+        }
     }
 }

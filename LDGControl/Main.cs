@@ -58,8 +58,7 @@ namespace LDGControl
 
             try
             {
-                //txtFlexHost.Text = Properties.Settings.Default["flex_host"].ToString();
-                //txtFlexPort.Text = Properties.Settings.Default["flex_port"].ToString();
+                chkPeak.Checked = Properties.Settings.Default.peak_hold;
                 tsFlexEnabled.Checked = Properties.Settings.Default.flex_enabled;
                 txtAmpHost.Text = Properties.Settings.Default["amp_host"].ToString();
                 numAmpPort.Value = Properties.Settings.Default.amp_tcp_port;
@@ -755,6 +754,12 @@ namespace LDGControl
         {
             tsFlexEnabled.Checked = !tsFlexEnabled.Checked;
             Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkPeak_CheckedChanged(object sender, EventArgs e)
+        {            
+            Properties.Settings.Default.peak_hold = chkPeak.Checked;
             Properties.Settings.Default.Save();
         }
 
