@@ -207,6 +207,7 @@ namespace LDGControl
             ampStbyBtn.Enabled = true;
             ampResetBtn.Enabled = true;
             btnAmpInit.Enabled = false;
+            btnAmpInit.BackColor = Color.LimeGreen;
             btnAmpInit.Text = "Connected";
             
         }

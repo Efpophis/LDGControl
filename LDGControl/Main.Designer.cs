@@ -517,7 +517,7 @@
             this.ampOperateBtn.Checked = true;
             this.ampOperateBtn.Enabled = false;
             this.ampOperateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ampOperateBtn.Location = new System.Drawing.Point(335, 61);
+            this.ampOperateBtn.Location = new System.Drawing.Point(335, 50);
             this.ampOperateBtn.Name = "ampOperateBtn";
             this.ampOperateBtn.Size = new System.Drawing.Size(63, 17);
             this.ampOperateBtn.TabIndex = 27;
@@ -543,9 +543,9 @@
             // 
             this.ampResetBtn.Enabled = false;
             this.ampResetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ampResetBtn.Location = new System.Drawing.Point(328, 81);
+            this.ampResetBtn.Location = new System.Drawing.Point(328, 76);
             this.ampResetBtn.Name = "ampResetBtn";
-            this.ampResetBtn.Size = new System.Drawing.Size(75, 22);
+            this.ampResetBtn.Size = new System.Drawing.Size(75, 27);
             this.ampResetBtn.TabIndex = 29;
             this.ampResetBtn.Text = "Reset";
             this.ampResetBtn.UseVisualStyleBackColor = true;
@@ -673,10 +673,10 @@
             // btnAmpInit
             // 
             this.btnAmpInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnAmpInit.Location = new System.Drawing.Point(227, 81);
+            this.btnAmpInit.Location = new System.Drawing.Point(227, 76);
             this.btnAmpInit.Name = "btnAmpInit";
             this.btnAmpInit.Padding = new System.Windows.Forms.Padding(1);
-            this.btnAmpInit.Size = new System.Drawing.Size(95, 22);
+            this.btnAmpInit.Size = new System.Drawing.Size(95, 27);
             this.btnAmpInit.TabIndex = 31;
             this.btnAmpInit.Text = "Initialize";
             this.btnAmpInit.UseVisualStyleBackColor = true;
