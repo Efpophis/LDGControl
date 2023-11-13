@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Runtime.Remoting.Messaging;
 using LDGControl.Properties;
+using System.Diagnostics;
 
 namespace LDGControl
 {
@@ -38,6 +39,8 @@ namespace LDGControl
 
             if (m_sio.Open())
             {
+                m_sio.SetBlocking(true);
+
                 if ( Settings.Default.flex_enabled == true ) 
                 {
                     // attempt to initiate a flex connectin here
@@ -45,9 +48,12 @@ namespace LDGControl
                     m_flex.Init();
                 }
 
+                m_respSem = new Semaphore(1,1);
+                m_response = 0;
+
                 MeterMode();
 
-                meterThread = new Thread(MeterTelemetry);                
+                meterThread = new Thread(ReadThread);                
 
                 meterThread.IsBackground = true;
 
@@ -62,10 +68,7 @@ namespace LDGControl
         public void Shutdown()
         {
             m_running = false;
-
-            // set thread un-pause event
-            m_thread_suspend.Set();
-
+                        
             meterThread.Join();
             if (m_flex != null) m_flex.Close();
             m_sio.Dispose();
@@ -98,8 +101,7 @@ namespace LDGControl
 
             MeterMode();
 
-            return result;
-            
+            return result;            
         }
 
         public byte[] ForceFullTune()
@@ -190,26 +192,24 @@ namespace LDGControl
 
         private void CtlMode()
         {
-            // set read thread pause event
-            m_thread_suspend.Reset();
-
-            m_sio.SetBlocking(true);
-
             // shut off the meter
             SendCommand(ctlCmd);
 
-            // flush the leftove junk if any
-            m_sio.Flush();
+            // we set the thread state AFTER sending the command
+            // because the command itself can cause another meter
+            // message to be sent back before the tuner actually
+            // makes the switch. This lets our thread handle it and
+            // avoids wonky errors.
 
-            
+            m_threadState = ThreadState.RESP;
         }
 
         private void MeterMode()
         {
-            // set the read un-pause event
-            m_thread_suspend.Set();
-
-            m_sio.SetBlocking(false);
+            // setting METER state before sending the command ensures
+            // that the thread is ready to process the meter telemetry
+            // that will be sent immediately.
+            m_threadState = ThreadState.METER;
 
             // restart meter telemetry
             SendCommand(meterCmd);
@@ -236,134 +236,171 @@ namespace LDGControl
 
         private byte[] GetResponse()
         {
-            byte[] readbuf = new byte[19];
-            int bytesRead = 0;
+            byte[] ret = new byte[1];
+            bool done = false;
 
-            readbuf.Initialize();
-
-            bytesRead = m_sio.Read(readbuf);
-
-            if ( bytesRead == 1 )
+            while (!done)
             {
-                byte[] ret = { readbuf[0] };
-                return ret;
+                m_respSem.WaitOne();
+                if ( m_response != 0 )
+                {
+                    ret[0] = m_response;
+                    m_response = 0;
+                    done = true;
+                }
+                m_respSem.Release();
+                Thread.Sleep(1);
             }
-            else if ( bytesRead == -1 )
-            {
-                return null;
-            }
-            else
-            {
-                return readbuf;
-            }            
+            return ret;
         }
 
         private bool m_running = false;
 
-        private ManualResetEvent m_thread_suspend = new ManualResetEvent(true);
+        //private ManualResetEvent m_thread_suspend = new ManualResetEvent(true);
 
-        protected void MeterTelemetry()
+        protected void ReadThread()
         {
             
+            byte[] readBuf = new byte[1];
+            int idx = 0;
+            int eomcnt = 0;
+            byte[] meterBlob = new byte[8];
+            Debug.WriteLine("Read Thread started ..");
+
             while (m_running)
             {
-                UInt16 fwd = 0, refl = 0, wtf = 0, eom = 0;
+                int ret = m_sio.Read(readBuf);
 
-                // check the paused event
-                m_thread_suspend.WaitOne();                            
-                
-                byte[] blob = new byte[8];
-                blob.Initialize();
-
-                int ret = m_sio.Read(blob);
-
-                if ( ret > 0 && ret <= blob.Length)
+                if ( ret == 1 )
                 {
-                    if (ret < blob.Length)
+                    byte b = readBuf[0];
+
+                    Debug.WriteLine("0x{0:x}", b);
+
+                    switch(m_threadState)
                     {
-                        m_sio.ReadFully(blob, ret);
-                    }
+                        case ThreadState.RESP:
+                            { 
+                                if ( b >= 0x30 )
+                                {
+                                    // sem take
+                                    m_respSem.WaitOne();
 
-                    if (BitConverter.IsLittleEndian)
-                    {
-                        // need to fix the blob first ...
-                        // this reverses each unsigned short
-                        // in the data payload, and is specific
-                        // to this tuner. Don't try this on your own
-                        // data unless you know what you're doing.
-                        for (int i = 0; i < blob.Length; i += 2)
-                        {
-                            byte tmp = blob[i];
-                            blob[i] = blob[i + 1];
-                            blob[i + 1] = tmp;
-                        }
-                    }
-
-                    fwd = BitConverter.ToUInt16(blob, 0);
-
-                    refl = BitConverter.ToUInt16(blob, 2);
-
-                    wtf = BitConverter.ToUInt16(blob, 4);
-
-                    eom = BitConverter.ToUInt16(blob, 6);
-                    
-
-                    if (eom == 0x3b3b)
-                    {
-                        MeterCallback?.Invoke(fwd, refl, wtf);
-                        //Console.WriteLine("***PING***");
-                    }
-                    else
-                    {
-                        // this should never happen, but if it does, it means we've gotten
-                        // out of sync. Keep discarding whatever is there until we get
-                        // a good packet again.
-                        while ( eom != 0x3b3b )
-                        {
-                            byte[] data = new byte[2];
-                            data.Initialize();
-
-                            int len = m_sio.Read(data);
-                            if( len > 0 && len < data.Length )
-                            {
-                                m_sio.ReadFully(data, len);
-                                eom = BitConverter.ToUInt16(data, 0);
+                                    Debug.WriteLine("published response {0}", b);
+                                    m_response = b;
+                                    
+                                    //sem give
+                                    m_respSem.Release();                                    
+                                }
+                                else
+                                {
+                                    Debug.WriteLine("WARN: bad response {0:x}", b);
+                                    m_respSem.WaitOne();
+                                    m_response = (byte)'E';
+                                    m_respSem.Release();
+                                }
                             }
-                            else if ( len == -1 )
+                            break;
+
+                        case ThreadState.METER:
                             {
-                                Console.WriteLine("Re-sync read error");
+                                try
+                                {
+                                    if (idx < 6)
+                                    {
+                                        meterBlob[idx++] = b;
+                                    }
+                                    else if ((int)b == 0x3b)
+                                    {                                        
+                                        ++eomcnt;
+                                        if (eomcnt == 2)
+                                        {
+                                            // publish blob
+                                            if (idx == 6)
+                                            {
+                                                Debug.WriteLine("updated meter");
+                                                publishMeterBlob(meterBlob);                                            
+                                            }
+
+                                            idx = 0;
+                                            eomcnt = 0;                                            
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.WriteLine("ERROR: byte read == {0:x}, Protocl error, no eom found!!", b);
+                                        idx = 0;
+                                        eomcnt = 0;
+                                        m_threadState = ThreadState.ERROR;
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.WriteLine("Exception caught: {0}", e.Message);
+                                    Debug.WriteLine("idx == {0}", idx);
+                                    Debug.WriteLine("eomcnt == {0}", eomcnt);
+                                    Debug.WriteLine("meterblob == {0}", meterBlob);
+                                    Debug.WriteLine("byte read == {0:x}", b);
+                                    idx = 0;
+                                    eomcnt = 0;
+                                    m_threadState = ThreadState.ERROR;
+                                }                                
                             }
-                                
-                            Thread.Sleep(1);
-                        }                       
+                            break;
+
+                            case ThreadState.ERROR:
+                            {
+                                if ( (int)b == 0x3b )
+                                {
+                                    ++eomcnt;
+                                }
+                                if ( eomcnt >= 2 )
+                                {
+                                    m_threadState = ThreadState.METER;
+                                    eomcnt = 0;
+                                    idx = 0;
+                                    Debug.WriteLine("Recovered from error state");
+                                }
+                            }
+                            break;
                     }
-                }
-                else if (ret == -1)
-                {
-                    Console.WriteLine("Read Thread error on read.");
-                    //m_running = false;
                 }
                 else
                 {
-                    Thread.Sleep(1);
-                    //Console.WriteLine("***PING***");
+                    Debug.WriteLine("read failed??");
                 }
-            }            
+            }
         }
+
+        protected void publishMeterBlob(byte[] blob)
+        {
+            if (BitConverter.IsLittleEndian)
+            {
+                // need to fix the blob first ...
+                // this reverses each unsigned short
+                // in the data payload, and is specific
+                // to this tuner. Don't try this on your own
+                // data unless you know what you're doing.
+                for (int i = 0; i < blob.Length; i += 2)
+                {
+                    byte tmp = blob[i];
+                    blob[i] = blob[i + 1];
+                    blob[i + 1] = tmp;
+                }
+            }
+
+            UInt16 fwd = BitConverter.ToUInt16(blob, 0);
+
+            UInt16 refl = BitConverter.ToUInt16(blob, 2);
+
+            UInt16 wtf = BitConverter.ToUInt16(blob, 4);
+
+            MeterCallback?.Invoke(fwd, refl, wtf);
+        }
+
+        
 
         public delegate void PostMeterDataCallback(UInt16 fwd, UInt16 refl, UInt16 wtf);
-
-        public string FlexHost
-        {   
-            get { return m_flexHost; } 
-            set { m_flexHost = value; }
-        }
-
-        public int FlexPort
-        {
-            get { return m_flexPort; }
-            set { m_flexPort = value; }
-        }
 
         private PostMeterDataCallback MeterCallback = null;
 
@@ -372,6 +409,19 @@ namespace LDGControl
 
         private string m_flexHost;
         private int m_flexPort;
+        private byte m_response;
+
+        private static Semaphore m_respSem;
+
+        private enum ThreadState
+        {
+            RESP,
+            METER,
+            ERROR
+        };
+
+        private static ThreadState m_threadState = ThreadState.RESP;
+        
 
         private static readonly byte[] toggleAntCmd = { (byte)'A'};
         private static readonly byte[] memTuneCmd = { (byte)'T'};
@@ -382,7 +432,7 @@ namespace LDGControl
         private static readonly byte[] syncCmd = { (byte)'Z' };
         private static readonly byte[] meterCmd = { (byte)'S' };
         private static readonly byte[] ctlCmd = { (byte)'X' };
-        private static readonly byte[] wakeCmd = { (byte)' ', (byte)' ' };
+        private static readonly byte[] wakeCmd = { (byte)' '};
 
         private Thread meterThread;
     }

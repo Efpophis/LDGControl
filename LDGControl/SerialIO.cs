@@ -41,6 +41,8 @@ namespace LDGControl
 
             m_client.Connect(ipEndPoint);
 
+            SetBlocking(true);
+
             return true;
         }
 
@@ -68,7 +70,7 @@ namespace LDGControl
         public bool SetBlocking(bool blocking)
         {
             // doesn't like non-blocking stuff when nothing is there...
-            return blocking;
+            return m_client.Blocking = blocking;
         }
 
         public int ReadFully(byte[] data, int startidx=0)

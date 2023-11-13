@@ -135,7 +135,7 @@ namespace LDGControl
         private Tuner m_tuner;
         private double voltPS =13.8;
 
-        public Color Green { get; private set; }
+        //public Color Green { get; private set; }
 
         private void on_ampOpCheckedChanged(object sender, EventArgs e)
         {
@@ -590,9 +590,13 @@ namespace LDGControl
             worker.DoWork += new DoWorkEventHandler(delegate {
                 byte[] result = m_tuner.Toggle();
 
-                if (result != null)
+                if (result != null && result[0] != 'E')
                     btnAntTog.Invoke((MethodInvoker)delegate { 
                         btnAntTog.Text = "Antenna " + ((char)result[0]).ToString();
+                    });
+                else
+                    btnAntTog.Invoke((MethodInvoker)delegate {
+                        btnAntTog.Text = "Antenna ERROR";
                     });
             });
 
@@ -608,7 +612,7 @@ namespace LDGControl
                 {
                     byte[] result = m_tuner.Bypass();
 
-                    if (result != null)
+                    if (result != null && result[0] == 'P')
                     {
                         btnBypass.Invoke((MethodInvoker)delegate { 
                             btnBypass.Text = "Tune";
@@ -623,7 +627,7 @@ namespace LDGControl
                 {
                     byte[] result = m_tuner.AutoTuneMode();
 
-                    if (result != null)
+                    if (result != null && result[0] == 'A')
                     {
                         btnBypass.Invoke((MethodInvoker)delegate 
                         { 
@@ -784,6 +788,11 @@ namespace LDGControl
                     lblTuneStatus.Text = " FAIL ";
                     lblTuneStatus.BackColor = Color.Red;
                 }
+                else if (status == 'E')
+                {
+                    lblTuneStatus.Text = " ERROR ";
+                    lblTuneStatus.BackColor = Color.MediumVioletRed;
+                }    
             }
         }
 
