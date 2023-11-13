@@ -220,7 +220,7 @@ namespace LDGControl
             double p_refl = Math.Round(meterScale(refl), 1);
             double p_fwd = Math.Round(meterScale(fwd), 1);
 
-            if (refl > 0.0f)
+            if (p_refl > 0.0f)
             {
                 sqr = Math.Sqrt(p_fwd / p_refl);
 
