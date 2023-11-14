@@ -962,7 +962,7 @@
             // 
             // tmrSwrPeak
             // 
-            this.tmrSwrPeak.Interval = 750;
+            this.tmrSwrPeak.Interval = 250;
             this.tmrSwrPeak.Tick += new System.EventHandler(this.swrTick);
             // 
             // b160
