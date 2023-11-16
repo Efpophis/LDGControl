@@ -6,7 +6,7 @@ To communicate with the tuner, I needed a USB to TTL virtual serial adapter. The
 
 The other thing you need is a 4 PIN mini-DIN connector. These are terribly hard to find, but mouser has one [here](https://www.mouser.com/ProductDetail/Kycon/KMDLAX-4P?qs=sGAEpiMZZMsPDM5321osT7ZY%252bEpo2V%252bd). Note that S-Video cables, while having the same connector, cannot be used because they bridge some of the pins together. In fact, you should NEVER use an S-Video cable with your tuner, becasue one of the pins on the tuner is +12V and you don't want that getting fed back into someplace it doesn't belong. Also, do NOT get the 4-pin connector from Amazon - they tend to melt.
 
-LDG published a document called "meter protocol" for the LDG M-1000, which, due to it seeming to suddenly want to vanish from online, I have included in my repository. Much of my information for this project came from there.
+LDG published a document called "meter protocol" for the LDG M-1000, which, due to it seeming to suddenly want to vanish, I have included in my repository. Much of my information for this project came from there.
 
 ## Undocumented Commands
 
@@ -33,7 +33,7 @@ The data that comes from the LDG Tuner as intended for the M-1000 meter follows 
 2 byte End Of Message marker, always 0x3b3b or ";;"
 ```
 
-Note that all values come across in Network Byte Order, so if you're on a little-endian machine like me, you have to do something to convert each 2 byte value. The htons() function works fine for this on Linux, but the .NET equivalent screws things up royally. I ended up reversing the bytes by hand. Thanks for nothing, Micro$cheize.
+Note that all values come across in Network Byte Order, so if you're on a little-endian machine like me, you have to do something to convert each 2-byte value. The htons() function works fine for this on Linux, but the .NET equivalent screws things up royally. I ended up reversing the bytes by hand. Thanks for nothing, Micro$cheize.
 
 ## Command Protocol
 
@@ -41,15 +41,15 @@ To send any command and have the tuner parse it properly, I found that you need 
 
 ## Linux version
 
-I made a linux version of this code that's very stripped down and only runs on the command line. It's up here on Github somewhere...
+I made a linux version of this code that's very stripped down and only runs on the command line. It's up here on GitHub somewhere...
 
 ## NEW - Remote Operation
 
-You can now connect to a socat server running on a remote machine to control each device over tcp/ip. Check out my [socat_server](https://github.com/efpophis/socat_server) repo for further info.
+You can now connect to a socat server running on a remote machine to control each device over TCP/IP. Check out my [socat_server](https://github.com/efpophis/socat_server) repo for further info.
 
 ## NEW - Flex 6000 series integration
 
-The program now has a rudimentary capability to discover a Flex 6000 series radio on your network and trigger the flex's "transmit tune" functionality when you use Memory Tune or Full Tune. One-stop tuning for flex users, yay!
+The program now has a rudimentary capability to discover a Flex 6000 series radio on your network and trigger the Flex's "transmit tune" functionality when you use Memory Tune or Full Tune. One-stop tuning for flex users, yay!
 
 
 ## Ardugnome edit (November 2022)
@@ -58,9 +58,10 @@ The program now has a rudimentary capability to discover a Flex 6000 series radi
 - added PS supply voltage selection under the File menu. This is used to accurately calculate power output based on your input voltage to the LDG tuner.
 - removed code signing
 - added modification note to the About page
-- amplifier connection functionality not tested, assumed working in previous version.
+- amplifier connection functionality not tested, assumed working in the previous version.
 
 ## Known Issues
-- when using peak mode, sometimes meter reading does not revert to zero after rf power is removed (i.e. transmission stopped). This can give the impression that there is still power being transmitted, when in fact it is not. No issues found when not using peak reading.
-- you may have to press the button twice for a function to take effect. It happens occasionally and is not repeatable.
+- These should all be resolved now. Let me know if you see them in the latest release.
+- ~~when using peak mode, sometimes meter reading does not revert to zero after rf power is removed (i.e. transmission stopped). This can give the impression that there is still power being transmitted, when in fact it is not. No issues found when not using peak reading~~.
+- ~~you may have to press the button twice for a function to take effect. It happens occasionally and is not repeatable~~.
 
