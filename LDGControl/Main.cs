@@ -250,7 +250,7 @@ namespace LDGControl
                        int refLEDs = pwrMeterLEDS(p_refl);
                        int swrLEDs = swrMeterLEDS(vswr);
 
-                       if (fwdMeter.Value < pwrLEDs || m_fwdTicks >= 4 )
+                       if (fwdMeter.Value < pwrLEDs || m_fwdTicks >= 4 || pwrLEDs == 0)
                        {
                            tmrFwdPeak.Stop();
                            tmrFwdPeak.Enabled = false;
@@ -265,7 +265,7 @@ namespace LDGControl
                        
 
 
-                       if (refMeter.Value < refLEDs || m_refTicks >= 4)
+                       if (refMeter.Value < refLEDs || m_refTicks >= 4 || refLEDs == 0)
                        {
                            tmrRefPeak.Enabled = false;
                            tmrRefPeak.Stop();
@@ -279,7 +279,7 @@ namespace LDGControl
                        }
                        
 
-                       if ( swrMeter.Value < swrLEDs || m_swrTicks >= 4 )
+                       if ( swrMeter.Value < swrLEDs || m_swrTicks >= 4 || swrLEDs == 0)
                        {
                            tmrSwrPeak.Enabled = false;
                            tmrSwrPeak.Stop();
