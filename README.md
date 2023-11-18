@@ -64,4 +64,5 @@ The program now has a rudimentary capability to discover a Flex 6000 series radi
 - These should all be resolved now. Let me know if you see them in the latest release.
 - ~~when using peak mode, sometimes meter reading does not revert to zero after rf power is removed (i.e. transmission stopped). This can give the impression that there is still power being transmitted, when in fact it is not. No issues found when not using peak reading~~.
 - ~~you may have to press the button twice for a function to take effect. It happens occasionally and is not repeatable~~.
+- Issues will now be tracked on the [Issues](https://github.com/Efpophis/LDGControl/issues) tab.
 
