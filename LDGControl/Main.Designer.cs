@@ -142,13 +142,14 @@
             // 
             // btnExit
             // 
+            this.btnExit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnExit.Location = new System.Drawing.Point(454, 390);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(128, 34);
             this.btnExit.TabIndex = 0;
             this.btnExit.Text = "E&xit";
-            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // fwdMeter
@@ -548,6 +549,7 @@
             // 
             // ampResetBtn
             // 
+            this.ampResetBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ampResetBtn.Enabled = false;
             this.ampResetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.ampResetBtn.Location = new System.Drawing.Point(328, 76);
@@ -555,7 +557,7 @@
             this.ampResetBtn.Size = new System.Drawing.Size(75, 27);
             this.ampResetBtn.TabIndex = 29;
             this.ampResetBtn.Text = "Reset";
-            this.ampResetBtn.UseVisualStyleBackColor = true;
+            this.ampResetBtn.UseVisualStyleBackColor = false;
             this.ampResetBtn.Click += new System.EventHandler(this.on_AmpResetClick);
             // 
             // groupBox1
@@ -679,6 +681,7 @@
             // 
             // btnAmpInit
             // 
+            this.btnAmpInit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnAmpInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnAmpInit.Location = new System.Drawing.Point(227, 76);
             this.btnAmpInit.Name = "btnAmpInit";
@@ -686,7 +689,7 @@
             this.btnAmpInit.Size = new System.Drawing.Size(95, 27);
             this.btnAmpInit.TabIndex = 31;
             this.btnAmpInit.Text = "Initialize";
-            this.btnAmpInit.UseVisualStyleBackColor = true;
+            this.btnAmpInit.UseVisualStyleBackColor = false;
             this.btnAmpInit.Click += new System.EventHandler(this.btnAmpInit_Click);
             // 
             // groupBox2
@@ -857,6 +860,7 @@
             this.WTF.Size = new System.Drawing.Size(25, 13);
             this.WTF.TabIndex = 27;
             this.WTF.Text = "???";
+            this.WTF.Visible = false;
             // 
             // label20
             // 
@@ -870,6 +874,7 @@
             // 
             // btnFullTune
             // 
+            this.btnFullTune.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnFullTune.Enabled = false;
             this.btnFullTune.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFullTune.Location = new System.Drawing.Point(345, 16);
@@ -878,11 +883,12 @@
             this.btnFullTune.TabIndex = 5;
             this.btnFullTune.Text = "Full Tune";
             this.toolTip1.SetToolTip(this.btnFullTune, "Forces a full tune");
-            this.btnFullTune.UseVisualStyleBackColor = true;
+            this.btnFullTune.UseVisualStyleBackColor = false;
             this.btnFullTune.Click += new System.EventHandler(this.btnFullTune_Click);
             // 
             // btnAntTog
             // 
+            this.btnAntTog.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnAntTog.Enabled = false;
             this.btnAntTog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnAntTog.Location = new System.Drawing.Point(230, 47);
@@ -891,7 +897,7 @@
             this.btnAntTog.TabIndex = 2;
             this.btnAntTog.Text = "Antenna 1";
             this.toolTip1.SetToolTip(this.btnAntTog, "Toggle selected antenna");
-            this.btnAntTog.UseVisualStyleBackColor = true;
+            this.btnAntTog.UseVisualStyleBackColor = false;
             this.btnAntTog.Click += new System.EventHandler(this.btnAntTog_Click);
             // 
             // btnBypass
@@ -911,6 +917,7 @@
             // 
             // btnTunerInit
             // 
+            this.btnTunerInit.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnTunerInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTunerInit.Location = new System.Drawing.Point(230, 14);
             this.btnTunerInit.Name = "btnTunerInit";
@@ -918,11 +925,12 @@
             this.btnTunerInit.Size = new System.Drawing.Size(95, 27);
             this.btnTunerInit.TabIndex = 1;
             this.btnTunerInit.Text = "Initialize";
-            this.btnTunerInit.UseVisualStyleBackColor = true;
+            this.btnTunerInit.UseVisualStyleBackColor = false;
             this.btnTunerInit.Click += new System.EventHandler(this.btnTunerInit_Click);
             // 
             // btnMemTune
             // 
+            this.btnMemTune.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnMemTune.Enabled = false;
             this.btnMemTune.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMemTune.Location = new System.Drawing.Point(345, 69);
@@ -931,7 +939,7 @@
             this.btnMemTune.TabIndex = 4;
             this.btnMemTune.Text = "Memory Tune";
             this.toolTip1.SetToolTip(this.btnMemTune, "Forces a Memory Tune");
-            this.btnMemTune.UseVisualStyleBackColor = true;
+            this.btnMemTune.UseVisualStyleBackColor = false;
             this.btnMemTune.Click += new System.EventHandler(this.btnMemTune_Click);
             // 
             // groupBox4

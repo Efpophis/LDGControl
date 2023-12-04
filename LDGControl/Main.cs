@@ -266,7 +266,7 @@ namespace LDGControl
                        
 
 
-                       if (refMeter.Value < refLEDs || m_refTicks >= 4 || refLEDs == 0)
+                       if (refMeter.Value < refLEDs || m_refTicks >= 4 || (pwrLEDs == 0 && refLEDs == 0))
                        {
                            tmrRefPeak.Enabled = false;
                            tmrRefPeak.Stop();
@@ -280,7 +280,7 @@ namespace LDGControl
                        }
                        
 
-                       if ( swrMeter.Value < swrLEDs || m_swrTicks >= 4 || swrLEDs == 0)
+                       if ( swrMeter.Value < swrLEDs || m_swrTicks >= 4 || (pwrLEDs == 0 && swrLEDs == 0))
                        {
                            tmrSwrPeak.Enabled = false;
                            tmrSwrPeak.Stop();
