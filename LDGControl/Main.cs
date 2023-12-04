@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -292,6 +293,13 @@ namespace LDGControl
                            tmrSwrPeak.Start();
                        }                      
                    }
+
+                   if (vswr <= 1.7) swrMeter.ForeColor = Color.LimeGreen;
+
+                   if (vswr > 1.7 && vswr <= 2.0) swrMeter.ForeColor = Color.Orange;
+
+                   if (vswr > 2.0) swrMeter.ForeColor = Color.Red;
+
                    WTF.Text = wtf.ToString();
 
                    if ((wtf >= 8230) && (wtf <= 9145))
@@ -469,12 +477,17 @@ namespace LDGControl
 
         }
 
+        private int Map(double val, double frLow,double frHigh, double toLow, double toHigh)
+        {
+            return (int)((val - frLow) * (toHigh - toLow) / (frHigh - frLow) + toLow);
+        }
+
         private int swrMeterLEDS(double swr)
         {
             int result = 0;
 
             //if (swr > 1.01f) ++result;
-
+#if EFPOPHIS_ORIG_SCALE
             if (swr >= 1.1f) ++result;
 
             if (swr > 1.3f) ++result;
@@ -490,14 +503,30 @@ namespace LDGControl
             if (swr > 3.0f) ++result;
 
             if (swr > 4.0f) ++result;
+#endif
+            if (swr <= 1.1f) return Map(swr, 1.0, 1.1, 0, 100);
 
-            return result;
+            if (swr <= 1.3f) return Map(swr, 1.1, 1.3, 100, 250);
+
+            if (swr <= 1.5f) return Map(swr, 1.3, 1.5, 250, 375);
+
+            if (swr <= 1.7f) return Map(swr, 1.5, 1.7, 375, 500);
+
+            if (swr <= 2.0f) return Map(swr, 1.7, 2.0, 500, 625);
+
+            if (swr <= 2.5f) return Map(swr, 2.0, 2.5, 625, 750);
+
+            if (swr <= 3.0f) return Map(swr, 2.5, 3.0, 750, 900);
+
+            if (swr <= 4.0f) return Map(swr, 3.0, 4.0, 900, 1000);
+
+            return 1000;
         }
 
         private int pwrMeterLEDS( double pwr )
         {
             int result = 0;
-
+#if EFPOPHIS_ORIG_SCALE
             //if (pwr > 0.0f) ++result;
 
             if (pwr > 5.0f) ++result; // 10w
@@ -515,7 +544,25 @@ namespace LDGControl
             if (pwr > 625.0f) ++result; // 750
 
             if (pwr > 875.0f) ++result; // 1000
+#endif
+#if EFPOPIS_LINEAR_SCALING
+            if ( pwr <= 100 )
+            {
+                result = pwrMap((int)pwr,0,100,0,500);
+            }
+            else
+            {
+                result = pwrMap((int)pwr,101,1000,500,1000);
+            }
 
+#endif
+            double scale = fwdMeter.Maximum;
+
+            if (pwr > 0)
+            {
+                result = (int)((Math.Sqrt(1 + pwr) / Math.Sqrt(1 + scale)) * scale);
+            }
+            
             return result;
         }
 
