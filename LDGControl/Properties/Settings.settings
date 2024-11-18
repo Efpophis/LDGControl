@@ -47,5 +47,14 @@
     <Setting Name="WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
+    <Setting Name="flex_host" Type="System.String" Scope="User">
+      <Value Profile="(Default)">flex.host.name</Value>
+    </Setting>
+    <Setting Name="flex_port" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4992</Value>
+    </Setting>
+    <Setting Name="flex_discovery" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
