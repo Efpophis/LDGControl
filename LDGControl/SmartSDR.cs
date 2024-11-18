@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using LDGControl.Properties;
 
 namespace LDGControl
 {
@@ -19,58 +20,75 @@ namespace LDGControl
 
         private bool Discover()
         {
-            UdpClient udpClient = new UdpClient();
-            IPEndPoint remoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            IPEndPoint localEndpt = new IPEndPoint(IPAddress.Any, 4992);
             bool result = false;
+            
 
-            udpClient.Client.SetSocketOption( SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true );
-            udpClient.Client.Bind(localEndpt);
-            udpClient.Client.ReceiveTimeout = 2000;
-
-            try
+            if (Settings.Default.flex_enabled == true)
             {
-                byte[] receiveBytes = udpClient.Receive(ref remoteIpEndPoint);
+                m_discovery = new Dictionary<string, string>();
 
-                if (receiveBytes.Length > 7)
+                if (Settings.Default.flex_discovery == true)
                 {
-                    int headerLen = 7 * sizeof(UInt32);
+                    UdpClient udpClient = new UdpClient();
+                    IPEndPoint remoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                    IPEndPoint localEndpt = new IPEndPoint(IPAddress.Any, 4992);
 
-                    string payload = Encoding.ASCII.GetString(receiveBytes, headerLen, receiveBytes.Length - headerLen);
 
-                    m_discovery = new Dictionary<string, string>();
+                    udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+                    udpClient.Client.Bind(localEndpt);
+                    udpClient.Client.ReceiveTimeout = 2000;
 
-                    string[] payloadStrings = payload.Split(' ');
-                    foreach (string str in payloadStrings)
+                    try
                     {
-                        //MessageBox.Show(str);
-                        string[] payloadItem = str.Split('=');
-                        if (payloadItem.Length == 2)
+                        byte[] receiveBytes = udpClient.Receive(ref remoteIpEndPoint);
+
+                        if (receiveBytes.Length > 7)
                         {
-                            m_discovery[payloadItem[0]] = payloadItem[1];
+                            int headerLen = 7 * sizeof(UInt32);
+
+                            string payload = Encoding.ASCII.GetString(receiveBytes, headerLen, receiveBytes.Length - headerLen);
+
+                            
+
+                            string[] payloadStrings = payload.Split(' ');
+                            foreach (string str in payloadStrings)
+                            {
+                                //MessageBox.Show(str);
+                                string[] payloadItem = str.Split('=');
+                                if (payloadItem.Length == 2)
+                                {
+                                    m_discovery[payloadItem[0]] = payloadItem[1];
+                                }
+                                else
+                                {
+                                    m_discovery[payloadItem[0]] = "";
+                                }
+
+                            }
+
+                            DialogResult answer = MessageBox.Show("Discovered a " + m_discovery["model"] + " at IP " + m_discovery["ip"] + ":" + m_discovery["port"] + "\r\nConnect?", "Flex Discovery Results", MessageBoxButtons.YesNo);
+                            if (answer == DialogResult.Yes)
+                            {
+                                result = true;
+                            }
                         }
                         else
                         {
-                            m_discovery[payloadItem[0]] = "";
+                            MessageBox.Show("Discovery got gobbledegook");
                         }
-
                     }
-
-                    DialogResult answer = MessageBox.Show("Discovered a " + m_discovery["model"] + " at IP " + m_discovery["ip"] + ":" + m_discovery["port"] + "\r\nConnect?", "Flex Discovery Results", MessageBoxButtons.YesNo);
-                    if (answer == DialogResult.Yes)
+                    catch (Exception)
                     {
-                        result = true;
+                        MessageBox.Show("No radios found");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Discovery got gobbledegook");
+                    m_discovery["ip"] = Settings.Default.flex_host;
+                    m_discovery["port"] = Settings.Default.flex_port.ToString();
+                    result = true;
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No radios found");
-            }
+            }            
             
             return result;
         }

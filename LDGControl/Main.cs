@@ -61,7 +61,7 @@ namespace LDGControl
             try
             {
                 chkPeak.Checked = Properties.Settings.Default.peak_hold;
-                tsFlexEnabled.Checked = Properties.Settings.Default.flex_enabled;
+                //tsFlexEnabled.Checked = Properties.Settings.Default.flex_enabled;
                 txtAmpHost.Text = Properties.Settings.Default["amp_host"].ToString();
                 numAmpPort.Value = Properties.Settings.Default.amp_tcp_port;
                 txtTunerHost.Text = Properties.Settings.Default.tuner_host;
@@ -599,7 +599,7 @@ namespace LDGControl
                 Properties.Settings.Default["tuner_port"] = tunerPort;
                 //Properties.Settings.Default.flex_host = txtFlexHost.Text;
                 //Properties.Settings.Default.flex_port = Int32.Parse(txtFlexPort.Text);
-                Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+                //Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
                 Properties.Settings.Default.tuner_tab = "local";
                 m_tuner = new Tuner(tunerPort, updateMeter);
             }
@@ -809,14 +809,14 @@ namespace LDGControl
         
         private void onFlexEnableChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+            //Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
             Properties.Settings.Default.Save();
         }
 
         private void onFlexEnableClick(object sender, EventArgs e)
         {
-            tsFlexEnabled.Checked = !tsFlexEnabled.Checked;
-            Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+            //tsFlexEnabled.Checked = !tsFlexEnabled.Checked;
+            //Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -849,6 +849,15 @@ namespace LDGControl
             Settings.Default.HasSetDefaults = true;
 
             Settings.Default.Save();
+        }
+
+      
+        private void flexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FlexConfig box = new FlexConfig())
+            {
+                box.ShowDialog(this);
+            }
         }
 
         private void TuneResult( byte[] result )
