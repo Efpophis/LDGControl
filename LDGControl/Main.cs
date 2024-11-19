@@ -484,8 +484,6 @@ namespace LDGControl
 
         private int swrMeterLEDS(double swr)
         {
-            int result = 0;
-
             //if (swr > 1.01f) ++result;
 #if EFPOPHIS_ORIG_SCALE
             if (swr >= 1.1f) ++result;

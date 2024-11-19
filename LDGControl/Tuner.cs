@@ -407,8 +407,8 @@ namespace LDGControl
         private iSIO m_sio;
         private SmartSDR m_flex = null;
 
-        private string m_flexHost;
-        private int m_flexPort;
+        //private string m_flexHost;
+        //private int m_flexPort;
         private byte m_response;
 
         private static Semaphore m_respSem;
