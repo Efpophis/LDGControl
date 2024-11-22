@@ -66,8 +66,15 @@ namespace LDGControl
 
                             }
 
-                            DialogResult answer = MessageBox.Show("Discovered a " + m_discovery["model"] + " at IP " + m_discovery["ip"] + ":" + m_discovery["port"] + "\r\nConnect?", "Flex Discovery Results", MessageBoxButtons.YesNo);
-                            if (answer == DialogResult.Yes)
+                            if (Properties.Settings.Default.flex_autoconn == false)
+                            {
+                                DialogResult answer = MessageBox.Show("Discovered a " + m_discovery["model"] + " at IP " + m_discovery["ip"] + ":" + m_discovery["port"] + "\r\nConnect?", "Flex Discovery Results", MessageBoxButtons.YesNo);
+                                if (answer == DialogResult.Yes)
+                                {
+                                    result = true;
+                                }
+                            }
+                            else // automatically connect
                             {
                                 result = true;
                             }

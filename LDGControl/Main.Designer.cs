@@ -72,6 +72,7 @@
             this.ampStbyBtn = new System.Windows.Forms.RadioButton();
             this.ampResetBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAmpAuto = new System.Windows.Forms.CheckBox();
             this.tabAmp = new System.Windows.Forms.TabControl();
             this.tabAmpLocal = new System.Windows.Forms.TabPage();
             this.label23 = new System.Windows.Forms.Label();
@@ -83,6 +84,7 @@
             this.label24 = new System.Windows.Forms.Label();
             this.btnAmpInit = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkTunerAutoInit = new System.Windows.Forms.CheckBox();
             this.tabTuner = new System.Windows.Forms.TabControl();
             this.tabTunerLocal = new System.Windows.Forms.TabPage();
             this.label19 = new System.Windows.Forms.Label();
@@ -550,6 +552,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkAmpAuto);
             this.groupBox1.Controls.Add(this.tabAmp);
             this.groupBox1.Controls.Add(this.btnAmpInit);
             this.groupBox1.Controls.Add(this.ampOperateBtn);
@@ -562,7 +565,17 @@
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Amplifier";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // chkAmpAuto
+            // 
+            this.chkAmpAuto.AutoSize = true;
+            this.chkAmpAuto.Location = new System.Drawing.Point(69, 0);
+            this.chkAmpAuto.Name = "chkAmpAuto";
+            this.chkAmpAuto.Size = new System.Drawing.Size(152, 17);
+            this.chkAmpAuto.TabIndex = 57;
+            this.chkAmpAuto.Text = "Connect Automatically";
+            this.chkAmpAuto.UseVisualStyleBackColor = true;
+            this.chkAmpAuto.CheckedChanged += new System.EventHandler(this.chkAmpAuto_CheckedChanged);
             // 
             // tabAmp
             // 
@@ -682,6 +695,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkTunerAutoInit);
             this.groupBox2.Controls.Add(this.tabTuner);
             this.groupBox2.Controls.Add(this.nameBand);
             this.groupBox2.Controls.Add(this.lblBand);
@@ -702,6 +716,17 @@
             this.groupBox2.TabIndex = 32;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tuner";
+            // 
+            // chkTunerAutoInit
+            // 
+            this.chkTunerAutoInit.AutoSize = true;
+            this.chkTunerAutoInit.Location = new System.Drawing.Point(69, -1);
+            this.chkTunerAutoInit.Name = "chkTunerAutoInit";
+            this.chkTunerAutoInit.Size = new System.Drawing.Size(152, 17);
+            this.chkTunerAutoInit.TabIndex = 56;
+            this.chkTunerAutoInit.Text = "Connect Automatically";
+            this.chkTunerAutoInit.UseVisualStyleBackColor = true;
+            this.chkTunerAutoInit.CheckStateChanged += new System.EventHandler(this.chkTunerAutoInit_CheckStateChanged);
             // 
             // tabTuner
             // 
@@ -1192,7 +1217,6 @@
             this.groupBox5.TabIndex = 54;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Meter";
-            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // lblSwr
             // 
@@ -1358,6 +1382,8 @@
         private System.Windows.Forms.ToolStripMenuItem flexToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem v143;
+        private System.Windows.Forms.CheckBox chkTunerAutoInit;
+        private System.Windows.Forms.CheckBox chkAmpAuto;
     }
 }
 

@@ -112,7 +112,6 @@ namespace LDGControl
                         toolStripMenuItem1_Click(null, null);
                         break;
                 }
-
             }
             catch (Exception)
             {
@@ -121,7 +120,7 @@ namespace LDGControl
         }
 
         private void btnExit_Click(object sender, EventArgs e)
-        {
+        {        
             Close();
         }
 
@@ -192,6 +191,7 @@ namespace LDGControl
                 Properties.Settings.Default["amp_host"] = host;
                 Properties.Settings.Default["amp_tcp_port"] = port;
                 Properties.Settings.Default.amp_tab = "remote";
+                Properties.Settings.Default.amp_autoconn = chkAmpAuto.Checked;                
                 Properties.Settings.Default.Save();
             }
             else
@@ -202,6 +202,7 @@ namespace LDGControl
 
                 Properties.Settings.Default["amp_port"] = ampPort;
                 Properties.Settings.Default.amp_tab = "local";
+                Properties.Settings.Default.amp_autoconn= chkAmpAuto.Checked;
                 Properties.Settings.Default.Save();
             }
 
@@ -601,18 +602,30 @@ namespace LDGControl
                 Properties.Settings.Default.tuner_tab = "local";
                 m_tuner = new Tuner(tunerPort, updateMeter);
             }
+            Properties.Settings.Default.tuner_autoconn = chkTunerAutoInit.Checked;
             Properties.Settings.Default.Save();
 
-            m_tuner.Init();
+            btnTunerInit.Invoke((MethodInvoker)delegate
+            {
+                btnTunerInit.Text = "Connecting";
+                btnTunerInit.BackColor = Color.Yellow;
+                btnTunerInit.Enabled = false;
 
-            btnTunerInit.Enabled = false;
-            btnTunerInit.Text = "Connected";
-            btnTunerInit.BackColor = Color.LimeGreen;
-            btnAntTog.Enabled = true;
-            btnBypass.Enabled = true;
-            btnMemTune.Enabled = true;
-            btnFullTune.Enabled = true;
-            
+            });
+
+
+            btnTunerInit.Invoke((MethodInvoker)delegate
+            {
+                m_tuner.Init();
+
+                btnTunerInit.Enabled = false;
+                btnTunerInit.Text = "Connected";
+                btnTunerInit.BackColor = Color.LimeGreen;
+                btnAntTog.Enabled = true;
+                btnBypass.Enabled = true;
+                btnMemTune.Enabled = true;
+                btnFullTune.Enabled = true;
+            });            
         }
 
         void FwdTick( Object o, EventArgs arg )
@@ -704,6 +717,17 @@ namespace LDGControl
         private void Main_Load(object sender, EventArgs e)
         {
             this.RestoreWindowPosition();
+            this.Refresh();
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += new DoWorkEventHandler(delegate
+            {
+                chkAmpAuto.Invoke((MethodInvoker)delegate
+                {
+                    chkAmpAuto.Checked = Properties.Settings.Default.amp_autoconn;
+                    chkTunerAutoInit.Checked = Properties.Settings.Default.tuner_autoconn;
+                });
+            });
+            worker.RunWorkerAsync();
         }
 
         private void RestoreWindowPosition()
@@ -715,17 +739,6 @@ namespace LDGControl
                 this.Size = Settings.Default.Size;
             }
         }
-
-        private void groupBox5_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-        
-        }
-   
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -804,20 +817,7 @@ namespace LDGControl
             Properties.Settings.Default.psu_dvolts = 143;
             Properties.Settings.Default.Save();
         }
-        
-        private void onFlexEnableChanged(object sender, EventArgs e)
-        {
-            //Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void onFlexEnableClick(object sender, EventArgs e)
-        {
-            //tsFlexEnabled.Checked = !tsFlexEnabled.Checked;
-            //Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
-            Properties.Settings.Default.Save();
-        }
-
+       
         private void chkPeak_CheckedChanged(object sender, EventArgs e)
         {            
             Properties.Settings.Default.peak_hold = chkPeak.Checked;
@@ -855,6 +855,28 @@ namespace LDGControl
             using (FlexConfig box = new FlexConfig())
             {
                 box.ShowDialog(this);
+            }
+        }
+
+        private void chkTunerAutoInit_CheckStateChanged(object sender, EventArgs e)
+        {
+            Settings.Default.tuner_autoconn = chkTunerAutoInit.Checked;
+            Settings.Default.Save();
+
+            if (chkTunerAutoInit.Checked)
+            {
+                btnTunerInit_Click(sender, e);
+            }
+        }
+
+        private void chkAmpAuto_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.amp_autoconn = chkAmpAuto.Checked;
+            Settings.Default.Save();
+
+            if (chkAmpAuto.Checked)
+            {
+                btnAmpInit_Click(sender, e);
             }
         }
 
