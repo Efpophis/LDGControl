@@ -726,7 +726,7 @@
             this.chkTunerAutoInit.TabIndex = 56;
             this.chkTunerAutoInit.Text = "Connect Automatically";
             this.chkTunerAutoInit.UseVisualStyleBackColor = true;
-            this.chkTunerAutoInit.CheckStateChanged += new System.EventHandler(this.chkTunerAutoInit_CheckStateChanged);
+            this.chkTunerAutoInit.CheckedChanged += new System.EventHandler(this.chkTunerAutoInit_CheckedChanged);
             // 
             // tabTuner
             // 
@@ -1260,6 +1260,7 @@
             this.Text = "LDG Tuner Control";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
+            this.Shown += new System.EventHandler(this.Main_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

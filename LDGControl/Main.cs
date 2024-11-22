@@ -120,7 +120,8 @@ namespace LDGControl
         }
 
         private void btnExit_Click(object sender, EventArgs e)
-        {        
+        {
+            Settings.Default.Save();            
             Close();
         }
 
@@ -180,7 +181,7 @@ namespace LDGControl
             
         }
 
-        private void btnAmpInit_Click(object sender, EventArgs e)
+        private void Initialize_Amp()
         {
             if (ampPortsBox.Visible == false)
             {
@@ -191,7 +192,7 @@ namespace LDGControl
                 Properties.Settings.Default["amp_host"] = host;
                 Properties.Settings.Default["amp_tcp_port"] = port;
                 Properties.Settings.Default.amp_tab = "remote";
-                Properties.Settings.Default.amp_autoconn = chkAmpAuto.Checked;                
+                Properties.Settings.Default.amp_autoconn = chkAmpAuto.Checked;
                 Properties.Settings.Default.Save();
             }
             else
@@ -202,7 +203,7 @@ namespace LDGControl
 
                 Properties.Settings.Default["amp_port"] = ampPort;
                 Properties.Settings.Default.amp_tab = "local";
-                Properties.Settings.Default.amp_autoconn= chkAmpAuto.Checked;
+                Properties.Settings.Default.amp_autoconn = chkAmpAuto.Checked;
                 Properties.Settings.Default.Save();
             }
 
@@ -212,7 +213,11 @@ namespace LDGControl
             btnAmpInit.Enabled = false;
             btnAmpInit.BackColor = Color.LimeGreen;
             btnAmpInit.Text = "Connected";
-            
+        }
+
+        private void btnAmpInit_Click(object sender, EventArgs e)
+        {
+            Initialize_Amp();   
         }
 
         protected void updateMeter(UInt16 fwd, UInt16 refl, UInt16 wtf)
@@ -581,7 +586,7 @@ namespace LDGControl
 
         }
 
-        private void btnTunerInit_Click(object sender, EventArgs e)
+        private void Initialize_Tuner()
         {
             if (cmbTunerPorts.Visible == false)
             {
@@ -605,27 +610,24 @@ namespace LDGControl
             Properties.Settings.Default.tuner_autoconn = chkTunerAutoInit.Checked;
             Properties.Settings.Default.Save();
 
-            btnTunerInit.Invoke((MethodInvoker)delegate
-            {
-                btnTunerInit.Text = "Connecting";
-                btnTunerInit.BackColor = Color.Yellow;
-                btnTunerInit.Enabled = false;
+            btnTunerInit.Text = "Connecting";
+            btnTunerInit.BackColor = Color.Yellow;
+            btnTunerInit.Enabled = false;
 
-            });
+            m_tuner.Init();
 
+            btnTunerInit.Enabled = false;
+            btnTunerInit.Text = "Connected";
+            btnTunerInit.BackColor = Color.LimeGreen;
+            btnAntTog.Enabled = true;
+            btnBypass.Enabled = true;
+            btnMemTune.Enabled = true;
+            btnFullTune.Enabled = true;
+        }
 
-            btnTunerInit.Invoke((MethodInvoker)delegate
-            {
-                m_tuner.Init();
-
-                btnTunerInit.Enabled = false;
-                btnTunerInit.Text = "Connected";
-                btnTunerInit.BackColor = Color.LimeGreen;
-                btnAntTog.Enabled = true;
-                btnBypass.Enabled = true;
-                btnMemTune.Enabled = true;
-                btnFullTune.Enabled = true;
-            });            
+        private void btnTunerInit_Click(object sender, EventArgs e)
+        {
+            Initialize_Tuner();
         }
 
         void FwdTick( Object o, EventArgs arg )
@@ -718,17 +720,11 @@ namespace LDGControl
         {
             this.RestoreWindowPosition();
             this.Refresh();
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += new DoWorkEventHandler(delegate
-            {
-                chkAmpAuto.Invoke((MethodInvoker)delegate
-                {
-                    chkAmpAuto.Checked = Properties.Settings.Default.amp_autoconn;
-                    chkTunerAutoInit.Checked = Properties.Settings.Default.tuner_autoconn;
-                });
-            });
-            worker.RunWorkerAsync();
+            //chkAmpAuto.Checked = Properties.Settings.Default.amp_autoconn;
+            //chkTunerAutoInit.Checked = Properties.Settings.Default.tuner_autoconn;
+            
         }
+        
 
         private void RestoreWindowPosition()
         {
@@ -858,26 +854,31 @@ namespace LDGControl
             }
         }
 
-        private void chkTunerAutoInit_CheckStateChanged(object sender, EventArgs e)
-        {
-            Settings.Default.tuner_autoconn = chkTunerAutoInit.Checked;
-            Settings.Default.Save();
-
-            if (chkTunerAutoInit.Checked)
-            {
-                btnTunerInit_Click(sender, e);
-            }
-        }
-
         private void chkAmpAuto_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.amp_autoconn = chkAmpAuto.Checked;
-            Settings.Default.Save();
-
+            this.Refresh();
             if (chkAmpAuto.Checked)
-            {
-                btnAmpInit_Click(sender, e);
+            {            
+                Initialize_Amp();
             }
+        }
+
+        private void chkTunerAutoInit_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.tuner_autoconn = chkTunerAutoInit.Checked;
+            this.Refresh();       
+            if (chkTunerAutoInit.Checked)
+            {             
+                Initialize_Tuner();
+            }
+        }
+
+        private void Main_Shown(object sender, EventArgs e)
+        {
+            this.Refresh();
+            chkAmpAuto.Checked = Settings.Default.amp_autoconn;
+            chkTunerAutoInit.Checked = Settings.Default.tuner_autoconn;                       
         }
 
         private void TuneResult( byte[] result )
