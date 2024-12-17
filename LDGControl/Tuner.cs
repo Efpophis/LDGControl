@@ -8,6 +8,7 @@ using System.Runtime.Remoting.Messaging;
 using LDGControl.Properties;
 using System.Diagnostics;
 
+
 namespace LDGControl
 {
     class Tuner
@@ -16,7 +17,6 @@ namespace LDGControl
         {
             m_sio = new SerialIO(port, 38400, SerialIO.StopBits.One, SerialIO.Parity.None);
             MeterCallback = callback;
-            
         }
 
         public Tuner(string host, int port, PostMeterDataCallback callback)
@@ -129,22 +129,25 @@ namespace LDGControl
         public byte[] MemoryTune()
         {
             byte[] result = null;
-
+            Debug.WriteLine("MemoryTune()");
             CtlMode();
-
+            Debug.WriteLine("   ctlMode()");
             if (SendCommand(memTuneCmd) == true)
             {
+                Debug.WriteLine("      sent command");
                 if (m_flex != null)
                     m_flex.startTune();
 
+                Debug.WriteLine("      waiting response");
                 result = GetResponse();
-
+                Debug.WriteLine("      got {0}", result);
                 if (m_flex != null)
                     m_flex.stopTune();
             }
-
+            Debug.WriteLine("   MeterMode()");
             MeterMode();
 
+            Debug.WriteLine(" Return {0}", result);
             return result;
         }
 
@@ -215,13 +218,31 @@ namespace LDGControl
             SendCommand(meterCmd);
         }
 
+        private bool WakeUp()
+        {
+            bool result = true;
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (m_sio.Write(wakeCmd) != wakeCmd.Length)
+                {
+                    result = false;
+                }
+                else
+                {
+                    Thread.Sleep(1);
+                }
+            }
+            return result;
+        }
+
         private bool SendCommand( byte[] cmd )
         {
             bool result = false;
 
-            if (m_sio.Write(wakeCmd) == wakeCmd.Length)
+            if (WakeUp() == true)
             {
-                Thread.Sleep(1);
+                Thread.Sleep(10);
                 if (m_sio.Write(cmd) == cmd.Length)
                 {
                     // doc says wait 200ms minimum before next command,
@@ -432,7 +453,7 @@ namespace LDGControl
         private static readonly byte[] syncCmd = { (byte)'Z' };
         private static readonly byte[] meterCmd = { (byte)'S' };
         private static readonly byte[] ctlCmd = { (byte)'X' };
-        private static readonly byte[] wakeCmd = { (byte)' '};
+        private static readonly byte[] wakeCmd = { (byte)' ' };
 
         private Thread meterThread;
     }
