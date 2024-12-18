@@ -147,7 +147,7 @@ namespace LDGControl
             Debug.WriteLine("   MeterMode()");
             MeterMode();
 
-            Debug.WriteLine(" Return {0}", result);
+            Debug.WriteLine("Return {0}", result);
             return result;
         }
 
@@ -240,7 +240,7 @@ namespace LDGControl
         {
             bool result = false;
 
-            if (m_sio.Write(wakeCmd) != wakeCmd.Length)
+            if (m_sio.Write(wakeCmd) == wakeCmd.Length)
             {
                 Thread.Sleep(1);
                 if (m_sio.Write(cmd) == cmd.Length)
@@ -388,8 +388,8 @@ namespace LDGControl
                 }
                 else
                 {
-                    //Debug.WriteLine("read failed??");
-                    Thread.Sleep(100);
+                    Debug.WriteLine("read failed??");
+                    Thread.Sleep(10);
                 }
             }
         }
