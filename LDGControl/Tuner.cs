@@ -39,7 +39,7 @@ namespace LDGControl
 
             if (m_sio.Open())
             {
-                m_sio.SetBlocking(true);
+                m_sio.SetBlocking( !m_sio.isSerial() );
 
                 if ( Settings.Default.flex_enabled == true ) 
                 {
@@ -367,7 +367,8 @@ namespace LDGControl
                 }
                 else
                 {
-                    Debug.WriteLine("read failed??");
+                    //Debug.WriteLine("read failed??");
+                    Thread.Sleep(100);
                 }
             }
         }

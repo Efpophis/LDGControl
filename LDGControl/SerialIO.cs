@@ -22,6 +22,8 @@ namespace LDGControl
         bool SetBlocking(bool blocking);
 
         int ReadFully(byte[] data, int startidx = 0);
+
+        bool isSerial();
     }
 
     public class NetIO : IDisposable, iSIO
@@ -32,6 +34,7 @@ namespace LDGControl
             m_port = port;
         }
 
+        public bool isSerial() { return false; }
         public bool Open()
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(m_host);
@@ -317,9 +320,10 @@ namespace LDGControl
         {
             // set the serial connection timeouts
             COMMTIMEOUTS timeouts = new COMMTIMEOUTS();
-            timeouts.ReadIntervalTimeout = block ? 100 : uint.MaxValue;
+            //timeouts.ReadIntervalTimeout = block ? 100 : uint.MaxValue;
+            timeouts.ReadIntervalTimeout = 100;
             timeouts.ReadTotalTimeoutMultiplier = 0;
-            timeouts.ReadTotalTimeoutConstant = 0;
+            timeouts.ReadTotalTimeoutConstant = (uint)(block ? 0 : 100);
             timeouts.WriteTotalTimeoutMultiplier = 0;
             timeouts.WriteTotalTimeoutConstant = 0;
             if (SetCommTimeouts(pHandle, ref timeouts))
@@ -331,6 +335,8 @@ namespace LDGControl
                 return false;
             }
         }
+
+        public bool isSerial() { return true; }
 
         /// <summary>
         /// Reads any data that has been received as a string.
