@@ -267,15 +267,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LDGControl"
-        "ProductCode" = "8:{6D7BF4E8-4E03-475E-AED2-3A83970760FB}"
-        "PackageCode" = "8:{6F61A7AC-0931-4E6E-ACAA-EBC7B240B1CB}"
+        "ProductCode" = "8:{B465E967-E7CA-4797-8E8A-81EAFB1175FF}"
+        "PackageCode" = "8:{5BF9919F-92C6-4E32-AB78-515F3676A020}"
         "UpgradeCode" = "8:{6EE9AD3D-2E20-4F79-AF74-D0393EC05723}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.7.0009"
+        "ProductVersion" = "8:1.8.0001"
         "Manufacturer" = "8:Efpophis Networks"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -887,7 +887,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CAEAE1F74D824EDDAFB4D4020E94EA21"
             {
-            "SourcePath" = "8:..\\LDGControl\\obj\\Debug\\LDGControl.exe"
+            "SourcePath" = "8:..\\LDGControl\\obj\\Release\\LDGControl.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D2222D61051644BBA11D1203DF732332"

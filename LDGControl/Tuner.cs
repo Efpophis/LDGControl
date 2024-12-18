@@ -240,9 +240,9 @@ namespace LDGControl
         {
             bool result = false;
 
-            if (WakeUp() == true)
+            if (m_sio.Write(wakeCmd) != wakeCmd.Length)
             {
-                Thread.Sleep(10);
+                Thread.Sleep(1);
                 if (m_sio.Write(cmd) == cmd.Length)
                 {
                     // doc says wait 200ms minimum before next command,
