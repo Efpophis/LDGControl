@@ -48,8 +48,6 @@ namespace LDGControl
 
                             string payload = Encoding.ASCII.GetString(receiveBytes, headerLen, receiveBytes.Length - headerLen);
 
-                            
-
                             string[] payloadStrings = payload.Split(' ');
                             foreach (string str in payloadStrings)
                             {
@@ -107,16 +105,25 @@ namespace LDGControl
                 m_host = m_discovery["ip"];
                 m_port = int.Parse(m_discovery["port"]);
 
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(m_host);
-                IPAddress iPAddress = ipHostInfo.AddressList[0];
-                IPEndPoint ipEndPoint = new IPEndPoint(iPAddress, m_port);
-                m_client = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                try
+                {
+                    IPHostEntry ipHostInfo = Dns.GetHostEntry(m_host);
+                    IPAddress iPAddress = ipHostInfo.AddressList[0];
+                    IPEndPoint ipEndPoint = new IPEndPoint(iPAddress, m_port);
+                    m_client = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-                m_client.Connect(ipEndPoint);
+                    m_client.Connect(ipEndPoint);
 
-                // read the initial stuff we don't care about right now
-                var buffer = new byte[1024];
-                int bytesRx = m_client.Receive(buffer);
+                    // read the initial stuff we don't care about right now
+                    var buffer = new byte[1024];
+                    int bytesRx = m_client.Receive(buffer);
+                }
+                catch (Exception)
+                {
+                    // this effectively disables flex commands
+                    m_host = "";
+                    m_port = 0;
+                }
             }
         }
 
