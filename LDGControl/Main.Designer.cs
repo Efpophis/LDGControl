@@ -126,6 +126,7 @@
             this.lblSwr = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.chkAmpProt = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabAmp.SuspendLayout();
@@ -552,6 +553,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkAmpProt);
             this.groupBox1.Controls.Add(this.chkAmpAuto);
             this.groupBox1.Controls.Add(this.tabAmp);
             this.groupBox1.Controls.Add(this.btnAmpInit);
@@ -1240,6 +1242,19 @@
             this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // chkAmpProt
+            // 
+            this.chkAmpProt.AutoSize = true;
+            this.chkAmpProt.Checked = true;
+            this.chkAmpProt.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAmpProt.Location = new System.Drawing.Point(254, 0);
+            this.chkAmpProt.Name = "chkAmpProt";
+            this.chkAmpProt.Size = new System.Drawing.Size(144, 17);
+            this.chkAmpProt.TabIndex = 58;
+            this.chkAmpProt.Text = "Standby while tuning";
+            this.chkAmpProt.UseVisualStyleBackColor = true;
+            this.chkAmpProt.CheckedChanged += new System.EventHandler(this.chkAmpProt_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1385,6 +1400,7 @@
         private System.Windows.Forms.ToolStripMenuItem v143;
         private System.Windows.Forms.CheckBox chkTunerAutoInit;
         private System.Windows.Forms.CheckBox chkAmpAuto;
+        private System.Windows.Forms.CheckBox chkAmpProt;
     }
 }
 

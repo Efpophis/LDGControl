@@ -66,6 +66,7 @@ namespace LDGControl
                 numAmpPort.Value = Properties.Settings.Default.amp_tcp_port;
                 txtTunerHost.Text = Properties.Settings.Default.tuner_host;
                 numTunerPort.Value = Properties.Settings.Default.tuner_tcp_port;
+                chkAmpProt.Checked = Properties.Settings.Default.amp_protect;
                 
                 string whichTab = Properties.Settings.Default.tuner_tab;
 
@@ -211,6 +212,7 @@ namespace LDGControl
             ampStbyBtn.Enabled = true;
             ampResetBtn.Enabled = true;
             btnAmpInit.Enabled = false;
+            chkAmpProt.Checked = Properties.Settings.Default.amp_protect;
             btnAmpInit.BackColor = Color.LimeGreen;
             btnAmpInit.Text = "Connected";
         }
@@ -861,6 +863,12 @@ namespace LDGControl
             }
         }
 
+        private void chkAmpProt_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.amp_protect = chkAmpProt.Checked;
+            this.Refresh();
+        }
+
         private void Main_Shown(object sender, EventArgs e)
         {
             this.Refresh();
@@ -896,6 +904,8 @@ namespace LDGControl
             }
         }
 
+       
+
         private void btnMemTune_Click(object sender, EventArgs e)
         {
 
@@ -903,13 +913,14 @@ namespace LDGControl
             lblTuneStatus.BackColor = SystemColors.Control;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += new DoWorkEventHandler(delegate {
-                m_amp.ampOff();
+                if (chkAmpProt.Checked)
+                    m_amp.ampOff();
 
                 byte[] result = m_tuner.MemoryTune();
 
                 lblTuneStatus.Invoke((MethodInvoker)delegate { TuneResult(result); });
-
-                m_amp.ampOn();
+                if (chkAmpProt.Checked)
+                    m_amp.ampOn();
             });
 
             worker.RunWorkerAsync();
@@ -921,11 +932,13 @@ namespace LDGControl
             lblTuneStatus.BackColor = SystemColors.Control;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += new DoWorkEventHandler(delegate {
-                m_amp.ampOff();
+                if (chkAmpProt.Checked)
+                    m_amp.ampOff();
                 byte[] result = m_tuner.ForceFullTune();
 
                 lblTuneStatus.Invoke((MethodInvoker)delegate { TuneResult(result); });
-                m_amp.ampOn();
+                if (chkAmpProt.Checked)
+                    m_amp.ampOn();
             });
 
             worker.RunWorkerAsync();
