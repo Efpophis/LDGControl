@@ -27,5 +27,10 @@ namespace LDGControl
                 "band by NJ9R Nov 2022";
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

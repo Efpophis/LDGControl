@@ -701,20 +701,7 @@ namespace LDGControl
             worker.RunWorkerAsync();          
         }
 
-        private void btnMemTune_Click(object sender, EventArgs e)
-        {
-            
-            lblTuneStatus.Text = "Tuning...";
-            lblTuneStatus.BackColor = SystemColors.Control;
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += new DoWorkEventHandler(delegate {
-                byte[] result = m_tuner.MemoryTune();
-
-                lblTuneStatus.Invoke((MethodInvoker)delegate { TuneResult(result); });                
-            });
-
-            worker.RunWorkerAsync();            
-        }
+        
 
         private void Main_Load(object sender, EventArgs e)
         {
@@ -909,15 +896,36 @@ namespace LDGControl
             }
         }
 
+        private void btnMemTune_Click(object sender, EventArgs e)
+        {
+
+            lblTuneStatus.Text = "Tuning...";
+            lblTuneStatus.BackColor = SystemColors.Control;
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += new DoWorkEventHandler(delegate {
+                m_amp.ampOff();
+
+                byte[] result = m_tuner.MemoryTune();
+
+                lblTuneStatus.Invoke((MethodInvoker)delegate { TuneResult(result); });
+
+                m_amp.ampOn();
+            });
+
+            worker.RunWorkerAsync();
+        }
+
         private void btnFullTune_Click(object sender, EventArgs e)
         {
             lblTuneStatus.Text = "Tuning...";
             lblTuneStatus.BackColor = SystemColors.Control;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += new DoWorkEventHandler(delegate {
+                m_amp.ampOff();
                 byte[] result = m_tuner.ForceFullTune();
 
                 lblTuneStatus.Invoke((MethodInvoker)delegate { TuneResult(result); });
+                m_amp.ampOn();
             });
 
             worker.RunWorkerAsync();
