@@ -68,10 +68,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ampOperateBtn = new System.Windows.Forms.RadioButton();
-            this.ampStbyBtn = new System.Windows.Forms.RadioButton();
             this.ampResetBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAmpProt = new System.Windows.Forms.CheckBox();
             this.chkAmpAuto = new System.Windows.Forms.CheckBox();
             this.tabAmp = new System.Windows.Forms.TabControl();
             this.tabAmpLocal = new System.Windows.Forms.TabPage();
@@ -126,7 +125,9 @@
             this.lblSwr = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.chkAmpProt = new System.Windows.Forms.CheckBox();
+            this.btnStbyOp = new System.Windows.Forms.Button();
+            this.lblAmpStatus = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabAmp.SuspendLayout();
@@ -510,34 +511,6 @@
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.mnuAbout_onClick);
             // 
-            // ampOperateBtn
-            // 
-            this.ampOperateBtn.AutoSize = true;
-            this.ampOperateBtn.Checked = true;
-            this.ampOperateBtn.Enabled = false;
-            this.ampOperateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ampOperateBtn.Location = new System.Drawing.Point(335, 50);
-            this.ampOperateBtn.Name = "ampOperateBtn";
-            this.ampOperateBtn.Size = new System.Drawing.Size(63, 17);
-            this.ampOperateBtn.TabIndex = 27;
-            this.ampOperateBtn.TabStop = true;
-            this.ampOperateBtn.Text = "Operate";
-            this.ampOperateBtn.UseVisualStyleBackColor = true;
-            this.ampOperateBtn.CheckedChanged += new System.EventHandler(this.on_ampOpCheckedChanged);
-            // 
-            // ampStbyBtn
-            // 
-            this.ampStbyBtn.AutoSize = true;
-            this.ampStbyBtn.Enabled = false;
-            this.ampStbyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ampStbyBtn.Location = new System.Drawing.Point(334, 19);
-            this.ampStbyBtn.Name = "ampStbyBtn";
-            this.ampStbyBtn.Size = new System.Drawing.Size(64, 17);
-            this.ampStbyBtn.TabIndex = 28;
-            this.ampStbyBtn.Text = "Standby";
-            this.ampStbyBtn.UseVisualStyleBackColor = true;
-            this.ampStbyBtn.CheckedChanged += new System.EventHandler(this.on_AmpStbyCheckChanged);
-            // 
             // ampResetBtn
             // 
             this.ampResetBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -553,13 +526,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label26);
+            this.groupBox1.Controls.Add(this.lblAmpStatus);
+            this.groupBox1.Controls.Add(this.btnStbyOp);
             this.groupBox1.Controls.Add(this.chkAmpProt);
             this.groupBox1.Controls.Add(this.chkAmpAuto);
             this.groupBox1.Controls.Add(this.tabAmp);
             this.groupBox1.Controls.Add(this.btnAmpInit);
-            this.groupBox1.Controls.Add(this.ampOperateBtn);
             this.groupBox1.Controls.Add(this.ampResetBtn);
-            this.groupBox1.Controls.Add(this.ampStbyBtn);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 314);
             this.groupBox1.Name = "groupBox1";
@@ -567,6 +541,19 @@
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Amplifier";
+            // 
+            // chkAmpProt
+            // 
+            this.chkAmpProt.AutoSize = true;
+            this.chkAmpProt.Checked = true;
+            this.chkAmpProt.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAmpProt.Location = new System.Drawing.Point(254, 0);
+            this.chkAmpProt.Name = "chkAmpProt";
+            this.chkAmpProt.Size = new System.Drawing.Size(144, 17);
+            this.chkAmpProt.TabIndex = 58;
+            this.chkAmpProt.Text = "Standby while tuning";
+            this.chkAmpProt.UseVisualStyleBackColor = true;
+            this.chkAmpProt.CheckedChanged += new System.EventHandler(this.chkAmpProt_CheckedChanged);
             // 
             // chkAmpAuto
             // 
@@ -1242,18 +1229,37 @@
             this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // chkAmpProt
+            // btnStbyOp
             // 
-            this.chkAmpProt.AutoSize = true;
-            this.chkAmpProt.Checked = true;
-            this.chkAmpProt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAmpProt.Location = new System.Drawing.Point(254, 0);
-            this.chkAmpProt.Name = "chkAmpProt";
-            this.chkAmpProt.Size = new System.Drawing.Size(144, 17);
-            this.chkAmpProt.TabIndex = 58;
-            this.chkAmpProt.Text = "Standby while tuning";
-            this.chkAmpProt.UseVisualStyleBackColor = true;
-            this.chkAmpProt.CheckedChanged += new System.EventHandler(this.chkAmpProt_CheckedChanged);
+            this.btnStbyOp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStbyOp.Location = new System.Drawing.Point(328, 44);
+            this.btnStbyOp.Name = "btnStbyOp";
+            this.btnStbyOp.Size = new System.Drawing.Size(75, 23);
+            this.btnStbyOp.TabIndex = 59;
+            this.btnStbyOp.Text = "STBY/OP";
+            this.btnStbyOp.UseVisualStyleBackColor = true;
+            this.btnStbyOp.Click += new System.EventHandler(this.btnStbyOp_Click);
+            // 
+            // lblAmpStatus
+            // 
+            this.lblAmpStatus.BackColor = System.Drawing.Color.Yellow;
+            this.lblAmpStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAmpStatus.Location = new System.Drawing.Point(229, 44);
+            this.lblAmpStatus.Name = "lblAmpStatus";
+            this.lblAmpStatus.Size = new System.Drawing.Size(93, 23);
+            this.lblAmpStatus.TabIndex = 60;
+            this.lblAmpStatus.Text = "UNKNOWN";
+            this.lblAmpStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(258, 26);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(37, 13);
+            this.label26.TabIndex = 61;
+            this.label26.Text = "Status";
             // 
             // Main
             // 
@@ -1333,8 +1339,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.RadioButton ampOperateBtn;
-        private System.Windows.Forms.RadioButton ampStbyBtn;
         private System.Windows.Forms.Button ampResetBtn;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnAmpInit;
@@ -1401,6 +1405,9 @@
         private System.Windows.Forms.CheckBox chkTunerAutoInit;
         private System.Windows.Forms.CheckBox chkAmpAuto;
         private System.Windows.Forms.CheckBox chkAmpProt;
+        private System.Windows.Forms.Button btnStbyOp;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lblAmpStatus;
     }
 }
 

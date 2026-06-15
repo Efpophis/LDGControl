@@ -61,7 +61,6 @@ namespace LDGControl
             try
             {
                 chkPeak.Checked = Properties.Settings.Default.peak_hold;
-                //tsFlexEnabled.Checked = Properties.Settings.Default.flex_enabled;
                 txtAmpHost.Text = Properties.Settings.Default["amp_host"].ToString();
                 numAmpPort.Value = Properties.Settings.Default.amp_tcp_port;
                 txtTunerHost.Text = Properties.Settings.Default.tuner_host;
@@ -140,46 +139,104 @@ namespace LDGControl
 
         //public Color Green { get; private set; }
 
-        private void on_ampOpCheckedChanged(object sender, EventArgs e)
-        {
-            if ( ampOperateBtn.Checked == true )
-            {
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += new DoWorkEventHandler(delegate {
-                    m_amp.ampOn();
-                });
-                worker.RunWorkerAsync();
-            }
-        }
+        //private void on_ampOpCheckedChanged(object sender, EventArgs e)
+        //{
+        //    if ( ampOperateBtn.Checked == true )
+        //    {
+        //        BackgroundWorker worker = new BackgroundWorker();
+        //        worker.DoWork += new DoWorkEventHandler(delegate {
+        //            m_amp.ampOn();                    
+        //        });
+        //        worker.RunWorkerAsync();
+        //    }
+        //}
 
-        private void on_AmpStbyCheckChanged(object sender, EventArgs e)
-        {
-            if ( ampStbyBtn.Checked == true )
-            {
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += new DoWorkEventHandler(delegate {
-                    m_amp.ampOff();
-                });
-                worker.RunWorkerAsync();
-            }
-        }
+        //private void on_AmpStbyCheckChanged(object sender, EventArgs e)
+        //{
+        //    if ( ampStbyBtn.Checked == true )
+        //    {
+        //        BackgroundWorker worker = new BackgroundWorker();
+        //        worker.DoWork += new DoWorkEventHandler(delegate {
+        //           m_amp.ampOff();
+        //        });
+        //        worker.RunWorkerAsync();
+        //    }
+        // }
 
         private void on_AmpResetClick(object sender, EventArgs e)
         {
             BackgroundWorker worker = new BackgroundWorker();
-            ampStbyBtn.Checked = true;
-
+            
             worker.DoWork += new DoWorkEventHandler(delegate
             {
-                System.Threading.Thread.Sleep(1000);
-                ampOperateBtn.Invoke((MethodInvoker)delegate
+                lblAmpStatus.Invoke((MethodInvoker)delegate
                 {
-                   ampOperateBtn.Checked = true;
+                    lblAmpStatus.Text = "RESET";
+                    lblAmpStatus.BackColor = Color.Goldenrod;
                 });
+
+                m_amp.ampOff();
+
+                System.Threading.Thread.Sleep(1000);
+
+                m_amp.ampOn();
+
+                UpdateAmpStatus(m_amp.ampStatus());
             });
 
             worker.RunWorkerAsync();
             
+        }
+
+        private void btnStbyOp_Click(object sender, EventArgs e)
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += new DoWorkEventHandler(delegate
+            {                
+                switch (m_amp.ampStatus())
+                {
+                    case AmpStatus.ON:
+                        m_amp.ampOff();
+                        break;
+                    case AmpStatus.OFF:
+                        m_amp.ampOn();
+                        break;
+                    default:
+                        break;
+                }
+
+                UpdateAmpStatus(m_amp.ampStatus());
+
+            });
+            worker.RunWorkerAsync();
+        }
+
+        private void UpdateAmpStatus(AmpStatus status)
+        {
+            lblAmpStatus.Invoke((MethodInvoker)delegate
+            {
+                switch (status)
+                {
+                    case AmpStatus.ON:
+                        lblAmpStatus.Text = "OPERATE";
+                        lblAmpStatus.BackColor = Color.LimeGreen;
+                        break;
+                    case AmpStatus.OFF:
+                        lblAmpStatus.Text = "STANDBY";
+                        lblAmpStatus.BackColor = Color.Goldenrod;
+                        break;
+                    case AmpStatus.FAIL:
+                        lblAmpStatus.Text = "FAIL";
+                        lblAmpStatus.BackColor = Color.Red;
+                        break;
+
+                    default:
+                        lblAmpStatus.Text = "UNKNOWN";
+                        lblAmpStatus.BackColor = Color.DimGray;
+                        break;
+                }
+            });
         }
 
         private void Initialize_Amp()
@@ -208,8 +265,11 @@ namespace LDGControl
                 Properties.Settings.Default.Save();
             }
 
-            ampOperateBtn.Enabled = true;
-            ampStbyBtn.Enabled = true;
+            //ampOperateBtn.Enabled = true;
+            //ampStbyBtn.Enabled = true;
+
+            UpdateAmpStatus(m_amp.ampStatus());
+
             ampResetBtn.Enabled = true;
             btnAmpInit.Enabled = false;
             chkAmpProt.Checked = Properties.Settings.Default.amp_protect;
