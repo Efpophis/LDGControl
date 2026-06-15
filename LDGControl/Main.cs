@@ -964,8 +964,6 @@ namespace LDGControl
             }
         }
 
-       
-
         private void btnMemTune_Click(object sender, EventArgs e)
         {
 
@@ -973,14 +971,31 @@ namespace LDGControl
             lblTuneStatus.BackColor = SystemColors.Control;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += new DoWorkEventHandler(delegate {
-                if (chkAmpProt.Checked)
+                AmpStatus origStatus = m_amp.ampStatus();
+                if (chkAmpProt.Checked && origStatus == AmpStatus.ON )
+                {
                     m_amp.ampOff();
-
+                    lblAmpStatus.Invoke((MethodInvoker)delegate
+                    {
+                        UpdateAmpStatus(m_amp.ampStatus());
+                    });
+                }
+                
                 byte[] result = m_tuner.MemoryTune();
 
                 lblTuneStatus.Invoke((MethodInvoker)delegate { TuneResult(result); });
-                if (chkAmpProt.Checked)
+                    
+                if (chkAmpProt.Checked && 
+                    origStatus == AmpStatus.ON && result != null &&
+                    (result[0] == 'T' || result[0] == 'M')
+                   )
+                {
                     m_amp.ampOn();
+                    lblAmpStatus.Invoke((MethodInvoker)delegate
+                    {
+                        UpdateAmpStatus(m_amp.ampStatus());
+                    });
+                }
             });
 
             worker.RunWorkerAsync();
@@ -992,13 +1007,32 @@ namespace LDGControl
             lblTuneStatus.BackColor = SystemColors.Control;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += new DoWorkEventHandler(delegate {
-                if (chkAmpProt.Checked)
+                AmpStatus origStatus = m_amp.ampStatus();
+
+                if (chkAmpProt.Checked && origStatus == AmpStatus.ON)
+                {
                     m_amp.ampOff();
+                    lblAmpStatus.Invoke((MethodInvoker)delegate
+                    {
+                        UpdateAmpStatus(m_amp.ampStatus());
+                    });
+                }
+
                 byte[] result = m_tuner.ForceFullTune();
 
                 lblTuneStatus.Invoke((MethodInvoker)delegate { TuneResult(result); });
-                if (chkAmpProt.Checked)
+
+                if (chkAmpProt.Checked && 
+                    origStatus == AmpStatus.ON && result != null &&
+                    (result[0] == 'T' || result[0] == 'M')
+                   )
+                {
                     m_amp.ampOn();
+                    lblAmpStatus.Invoke((MethodInvoker)delegate
+                    {
+                        UpdateAmpStatus(m_amp.ampStatus());
+                    });
+                }
             });
 
             worker.RunWorkerAsync();
