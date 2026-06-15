@@ -70,6 +70,9 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ampResetBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.lblAmpStatus = new System.Windows.Forms.Label();
+            this.btnStbyOp = new System.Windows.Forms.Button();
             this.chkAmpProt = new System.Windows.Forms.CheckBox();
             this.chkAmpAuto = new System.Windows.Forms.CheckBox();
             this.tabAmp = new System.Windows.Forms.TabControl();
@@ -125,9 +128,8 @@
             this.lblSwr = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.btnStbyOp = new System.Windows.Forms.Button();
-            this.lblAmpStatus = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
+            this.boxFlexStatus = new System.Windows.Forms.GroupBox();
+            this.lblFlexStatus = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabAmp.SuspendLayout();
@@ -141,6 +143,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numTunerPort)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.boxFlexStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExit
@@ -433,7 +436,7 @@
             this.v125,
             this.v120});
             this.voltageToolStripMenuItem.Name = "voltageToolStripMenuItem";
-            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.voltageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.voltageToolStripMenuItem.Text = "&Tuner PS Voltage";
             // 
             // v143
@@ -484,14 +487,14 @@
             // 
             this.flexToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flexToolStripMenuItem.Name = "flexToolStripMenuItem";
-            this.flexToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.flexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.flexToolStripMenuItem.Text = "F&lex";
             this.flexToolStripMenuItem.Click += new System.EventHandler(this.flexToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -541,6 +544,38 @@
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Amplifier";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(258, 26);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(37, 13);
+            this.label26.TabIndex = 61;
+            this.label26.Text = "Status";
+            // 
+            // lblAmpStatus
+            // 
+            this.lblAmpStatus.BackColor = System.Drawing.Color.Yellow;
+            this.lblAmpStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAmpStatus.Location = new System.Drawing.Point(229, 44);
+            this.lblAmpStatus.Name = "lblAmpStatus";
+            this.lblAmpStatus.Size = new System.Drawing.Size(93, 23);
+            this.lblAmpStatus.TabIndex = 60;
+            this.lblAmpStatus.Text = "UNKNOWN";
+            this.lblAmpStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnStbyOp
+            // 
+            this.btnStbyOp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStbyOp.Location = new System.Drawing.Point(328, 44);
+            this.btnStbyOp.Name = "btnStbyOp";
+            this.btnStbyOp.Size = new System.Drawing.Size(75, 23);
+            this.btnStbyOp.TabIndex = 59;
+            this.btnStbyOp.Text = "STBY/OP";
+            this.btnStbyOp.UseVisualStyleBackColor = true;
+            this.btnStbyOp.Click += new System.EventHandler(this.btnStbyOp_Click);
             // 
             // chkAmpProt
             // 
@@ -1229,37 +1264,29 @@
             this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // btnStbyOp
+            // boxFlexStatus
             // 
-            this.btnStbyOp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStbyOp.Location = new System.Drawing.Point(328, 44);
-            this.btnStbyOp.Name = "btnStbyOp";
-            this.btnStbyOp.Size = new System.Drawing.Size(75, 23);
-            this.btnStbyOp.TabIndex = 59;
-            this.btnStbyOp.Text = "STBY/OP";
-            this.btnStbyOp.UseVisualStyleBackColor = true;
-            this.btnStbyOp.Click += new System.EventHandler(this.btnStbyOp_Click);
+            this.boxFlexStatus.Controls.Add(this.lblFlexStatus);
+            this.boxFlexStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.boxFlexStatus.Location = new System.Drawing.Point(455, 314);
+            this.boxFlexStatus.Name = "boxFlexStatus";
+            this.boxFlexStatus.Size = new System.Drawing.Size(127, 70);
+            this.boxFlexStatus.TabIndex = 55;
+            this.boxFlexStatus.TabStop = false;
+            this.boxFlexStatus.Text = "Flex Status";
+            this.boxFlexStatus.Visible = false;
             // 
-            // lblAmpStatus
+            // lblFlexStatus
             // 
-            this.lblAmpStatus.BackColor = System.Drawing.Color.Yellow;
-            this.lblAmpStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAmpStatus.Location = new System.Drawing.Point(229, 44);
-            this.lblAmpStatus.Name = "lblAmpStatus";
-            this.lblAmpStatus.Size = new System.Drawing.Size(93, 23);
-            this.lblAmpStatus.TabIndex = 60;
-            this.lblAmpStatus.Text = "UNKNOWN";
-            this.lblAmpStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(258, 26);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(37, 13);
-            this.label26.TabIndex = 61;
-            this.label26.Text = "Status";
+            this.lblFlexStatus.BackColor = System.Drawing.Color.Yellow;
+            this.lblFlexStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlexStatus.Location = new System.Drawing.Point(18, 28);
+            this.lblFlexStatus.Name = "lblFlexStatus";
+            this.lblFlexStatus.Size = new System.Drawing.Size(93, 23);
+            this.lblFlexStatus.TabIndex = 61;
+            this.lblFlexStatus.Text = "UNKNOWN";
+            this.lblFlexStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFlexStatus.Visible = false;
             // 
             // Main
             // 
@@ -1267,6 +1294,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(590, 430);
+            this.Controls.Add(this.boxFlexStatus);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -1303,6 +1331,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.boxFlexStatus.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1408,6 +1437,8 @@
         private System.Windows.Forms.Button btnStbyOp;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label lblAmpStatus;
+        private System.Windows.Forms.GroupBox boxFlexStatus;
+        private System.Windows.Forms.Label lblFlexStatus;
     }
 }
 

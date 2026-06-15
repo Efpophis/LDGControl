@@ -117,6 +117,7 @@ namespace LDGControl
                     // read the initial stuff we don't care about right now
                     var buffer = new byte[1024];
                     int bytesRx = m_client.Receive(buffer);
+                    
                 }
                 catch (Exception)
                 {

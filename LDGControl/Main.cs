@@ -135,33 +135,7 @@ namespace LDGControl
 
         private AmpCtl m_amp;
         private Tuner m_tuner;
-        private double voltPS =13.8;
-
-        //public Color Green { get; private set; }
-
-        //private void on_ampOpCheckedChanged(object sender, EventArgs e)
-        //{
-        //    if ( ampOperateBtn.Checked == true )
-        //    {
-        //        BackgroundWorker worker = new BackgroundWorker();
-        //        worker.DoWork += new DoWorkEventHandler(delegate {
-        //            m_amp.ampOn();                    
-        //        });
-        //        worker.RunWorkerAsync();
-        //    }
-        //}
-
-        //private void on_AmpStbyCheckChanged(object sender, EventArgs e)
-        //{
-        //    if ( ampStbyBtn.Checked == true )
-        //    {
-        //        BackgroundWorker worker = new BackgroundWorker();
-        //        worker.DoWork += new DoWorkEventHandler(delegate {
-        //           m_amp.ampOff();
-        //        });
-        //        worker.RunWorkerAsync();
-        //    }
-        // }
+        private double voltPS = 13.8;
 
         private void on_AmpResetClick(object sender, EventArgs e)
         {
@@ -280,6 +254,26 @@ namespace LDGControl
         private void btnAmpInit_Click(object sender, EventArgs e)
         {
             Initialize_Amp();   
+        }
+
+        protected void updateFlexStatus(String status, Color color)
+        {
+            if (Settings.Default.flex_enabled == true)
+            {
+                lblFlexStatus.Invoke((MethodInvoker)delegate
+                {
+                    lblFlexStatus.Visible = true;
+                    boxFlexStatus.Visible = true;
+                    lblFlexStatus.Text = status;
+                    lblFlexStatus.BackColor = color;
+                });
+            }
+            else
+                lblFlexStatus.Invoke((MethodInvoker)delegate
+                { 
+                    lblFlexStatus.Visible = false;
+                    boxFlexStatus.Visible = false;
+                });
         }
 
         protected void updateMeter(UInt16 fwd, UInt16 refl, UInt16 wtf)
@@ -657,17 +651,15 @@ namespace LDGControl
                 Properties.Settings.Default.tuner_host = tunerHost;
                 Properties.Settings.Default.tuner_tcp_port = tunerTcpPort;
                 Properties.Settings.Default.tuner_tab = "remote";
-                m_tuner = new Tuner(tunerHost, tunerTcpPort, updateMeter);
+                m_tuner = new Tuner(tunerHost, tunerTcpPort, updateMeter, updateFlexStatus);
             }
             else
             {
                 string tunerPort = cmbTunerPorts.SelectedItem.ToString();
                 Properties.Settings.Default["tuner_port"] = tunerPort;
-                //Properties.Settings.Default.flex_host = txtFlexHost.Text;
-                //Properties.Settings.Default.flex_port = Int32.Parse(txtFlexPort.Text);
-                //Properties.Settings.Default.flex_enabled = tsFlexEnabled.Checked;
+         
                 Properties.Settings.Default.tuner_tab = "local";
-                m_tuner = new Tuner(tunerPort, updateMeter);
+                m_tuner = new Tuner(tunerPort, updateMeter, updateFlexStatus);
             }
             Properties.Settings.Default.tuner_autoconn = chkTunerAutoInit.Checked;
             Properties.Settings.Default.Save();
@@ -900,6 +892,10 @@ namespace LDGControl
             using (FlexConfig box = new FlexConfig())
             {
                 box.ShowDialog(this);
+                if ( Settings.Default.flex_autoconn )
+                {
+                    m_tuner.EnableFlex();
+                }
             }
         }
 

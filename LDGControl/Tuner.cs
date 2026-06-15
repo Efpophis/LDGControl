@@ -7,22 +7,25 @@ using System.Threading;
 using System.Runtime.Remoting.Messaging;
 using LDGControl.Properties;
 using System.Diagnostics;
+using System.Drawing;
 
 
 namespace LDGControl
 {
     class Tuner
     {
-        public Tuner(string port, PostMeterDataCallback callback )
+        public Tuner(string port, PostMeterDataCallback callback, FlexStatusCallback flexCallback = null )
         {
             m_sio = new SerialIO(port, 38400, SerialIO.StopBits.One, SerialIO.Parity.None);
             MeterCallback = callback;
+            FlexCallback = flexCallback;
         }
 
-        public Tuner(string host, int port, PostMeterDataCallback callback)
+        public Tuner(string host, int port, PostMeterDataCallback callback, FlexStatusCallback flexCallback = null)
         {
             m_sio = new NetIO(host, port);
             MeterCallback = callback;
+            FlexCallback = flexCallback;
         }
 
         ~Tuner()
@@ -30,6 +33,22 @@ namespace LDGControl
             if ( m_running )
             {
                 Shutdown();
+            }
+        }
+
+        public void EnableFlex()
+        {
+            FlexCallback?.Invoke("CONNECTING", Color.Goldenrod);
+            // attempt to initiate a flex connectin here
+            try
+            {
+                m_flex = new SmartSDR();
+                m_flex.Init();
+                FlexCallback?.Invoke("CONNECTED", Color.LimeGreen);
+            }
+            catch (Exception)
+            {
+                FlexCallback?.Invoke("FAILED", Color.Red);
             }
         }
 
@@ -43,9 +62,7 @@ namespace LDGControl
 
                 if ( Settings.Default.flex_enabled == true ) 
                 {
-                    // attempt to initiate a flex connectin here
-                    m_flex = new SmartSDR();
-                    m_flex.Init();
+                    EnableFlex();
                 }
 
                 m_respSem = new Semaphore(1,1);
@@ -70,7 +87,13 @@ namespace LDGControl
             m_running = false;
                         
             meterThread.Join();
-            if (m_flex != null) m_flex.Close();
+            
+            if (m_flex != null)
+            {
+                m_flex.Close();
+                FlexCallback?.Invoke("DISCONNECTED", Color.LightGray);
+            }
+
             m_sio.Dispose();
         }
 
@@ -113,12 +136,19 @@ namespace LDGControl
             if (SendCommand(fullTuneCmd) == true)
             {
                 if (m_flex != null)
+                {
                     m_flex.startTune();
+                    FlexCallback?.Invoke("TX", Color.Goldenrod);
+                }
 
                 result = GetResponse();
 
                 if (m_flex != null)
+                {
                     m_flex.stopTune();
+                    FlexCallback?.Invoke("CONNECTED", Color.LimeGreen);
+                }
+
             }
 
             MeterMode();
@@ -129,25 +159,28 @@ namespace LDGControl
         public byte[] MemoryTune()
         {
             byte[] result = null;
-            Debug.WriteLine("MemoryTune()");
+
             CtlMode();
-            Debug.WriteLine("   ctlMode()");
+
             if (SendCommand(memTuneCmd) == true)
             {
-                Debug.WriteLine("      sent command");
                 if (m_flex != null)
+                {
                     m_flex.startTune();
+                    FlexCallback?.Invoke("TX", Color.Goldenrod);
+                }
 
-                Debug.WriteLine("      waiting response");
                 result = GetResponse();
-                Debug.WriteLine("      got {0}", result);
+            
                 if (m_flex != null)
+                {
                     m_flex.stopTune();
+                    FlexCallback?.Invoke("CONNECTED", Color.LimeGreen);
+                }
             }
-            Debug.WriteLine("   MeterMode()");
+            
             MeterMode();
 
-            Debug.WriteLine("Return {0}", result);
             return result;
         }
 
@@ -277,16 +310,12 @@ namespace LDGControl
 
         private bool m_running = false;
 
-        //private ManualResetEvent m_thread_suspend = new ManualResetEvent(true);
-
         protected void ReadThread()
-        {
-            
+        {            
             byte[] readBuf = new byte[1];
             int idx = 0;
             int eomcnt = 0;
             byte[] meterBlob = new byte[8];
-            Debug.WriteLine("Read Thread started ..");
 
             while (m_running)
             {
@@ -295,8 +324,6 @@ namespace LDGControl
                 if ( ret == 1 )
                 {
                     byte b = readBuf[0];
-
-                    Debug.WriteLine("0x{0:x}", b);
 
                     switch(m_threadState)
                     {
@@ -307,7 +334,6 @@ namespace LDGControl
                                     // sem take
                                     m_respSem.WaitOne();
 
-                                    Debug.WriteLine("published response {0}", b);
                                     m_response = b;
                                     
                                     //sem give
@@ -315,7 +341,6 @@ namespace LDGControl
                                 }
                                 else
                                 {
-                                    Debug.WriteLine("WARN: bad response {0:x}", b);
                                     m_respSem.WaitOne();
                                     m_response = (byte)'E';
                                     m_respSem.Release();
@@ -339,7 +364,6 @@ namespace LDGControl
                                             // publish blob
                                             if (idx == 6)
                                             {
-                                                Debug.WriteLine("updated meter");
                                                 publishMeterBlob(meterBlob);                                            
                                             }
 
@@ -349,7 +373,6 @@ namespace LDGControl
                                     }
                                     else
                                     {
-                                        Debug.WriteLine("ERROR: byte read == {0:x}, Protocl error, no eom found!!", b);
                                         idx = 0;
                                         eomcnt = 0;
                                         m_threadState = ThreadState.ERROR;
@@ -357,11 +380,6 @@ namespace LDGControl
                                 }
                                 catch (Exception e)
                                 {
-                                    Debug.WriteLine("Exception caught: {0}", e.Message);
-                                    Debug.WriteLine("idx == {0}", idx);
-                                    Debug.WriteLine("eomcnt == {0}", eomcnt);
-                                    Debug.WriteLine("meterblob == {0}", meterBlob);
-                                    Debug.WriteLine("byte read == {0:x}", b);
                                     idx = 0;
                                     eomcnt = 0;
                                     m_threadState = ThreadState.ERROR;
@@ -380,7 +398,6 @@ namespace LDGControl
                                     m_threadState = ThreadState.METER;
                                     eomcnt = 0;
                                     idx = 0;
-                                    Debug.WriteLine("Recovered from error state");
                                 }
                             }
                             break;
@@ -388,7 +405,6 @@ namespace LDGControl
                 }
                 else
                 {
-                    Debug.WriteLine("read failed??");
                     Thread.Sleep(10);
                 }
             }
@@ -423,8 +439,10 @@ namespace LDGControl
         
 
         public delegate void PostMeterDataCallback(UInt16 fwd, UInt16 refl, UInt16 wtf);
+        public delegate void FlexStatusCallback(String status, Color color);
 
         private PostMeterDataCallback MeterCallback = null;
+        private FlexStatusCallback FlexCallback = null;
 
         private iSIO m_sio;
         private SmartSDR m_flex = null;
