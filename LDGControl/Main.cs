@@ -892,7 +892,7 @@ namespace LDGControl
             using (FlexConfig box = new FlexConfig())
             {
                 box.ShowDialog(this);
-                if ( Settings.Default.flex_autoconn )
+                if ( Settings.Default.flex_enabled )
                 {
                     m_tuner.EnableFlex();
                 }
