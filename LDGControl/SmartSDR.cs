@@ -107,11 +107,21 @@ namespace LDGControl
 
                 try
                 {
-                    IPHostEntry ipHostInfo = Dns.GetHostEntry(m_host);
-                    IPAddress iPAddress = ipHostInfo.AddressList[0];
-                    IPEndPoint ipEndPoint = new IPEndPoint(iPAddress, m_port);
+                    //IPHostEntry ipHostInfo = Dns.GetHostEntry(m_host);
+                    //IPAddress iPAddress = ipHostInfo.AddressList[0];
+                    //IPEndPoint ipEndPoint = new IPEndPoint(iPAddress, m_port);
+                    //m_client = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                    IPAddress ipAddress;
+                    if (!IPAddress.TryParse(m_host, out ipAddress))
+                    {
+                        IPAddress[] addresses = Dns.GetHostAddresses(m_host);
+                        ipAddress = addresses.FirstOrDefault(
+                            address => address.AddressFamily == AddressFamily.InterNetwork)
+                            ?? throw new SocketException((int)SocketError.HostNotFound);
+                    }
+                    
+                    IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, m_port);
                     m_client = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
                     m_client.Connect(ipEndPoint);
 
                     // read the initial stuff we don't care about right now
@@ -119,11 +129,13 @@ namespace LDGControl
                     int bytesRx = m_client.Receive(buffer);
                     
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     // this effectively disables flex commands
-                    m_host = "";
-                    m_port = 0;
+                    //m_host = "";
+                    //m_port = 0;
+                    MessageBox.Show("ERROR: " + e.Message + "host: " + m_host + " port: " + m_port);
+                    throw e;
                 }
             }
         }
